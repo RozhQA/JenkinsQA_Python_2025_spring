@@ -23,15 +23,17 @@ PASSWORD_REQUIRED_ERROR_MSG = "Epic sadface: Password is required"
 PASSWORD_FIELD_TYPE = 'password'
 REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR = "rgba(72, 76, 85, 1)"
 
+# config
+prod_timeout = 10
 
 def login_as_standard_user(driver):
-    WAIT(driver, 23).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
-    WAIT(driver, 23).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
-    WAIT(driver, 23).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
+    WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
+    WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
+    WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
 
 
 def assert_error_message(driver, error_message):
-    actual_error_message = (WAIT(driver, 23)
+    actual_error_message = (WAIT(driver, prod_timeout)
                             .until(EC.visibility_of_element_located((By.XPATH, "//h3"))).text)
     assert actual_error_message == error_message
 
@@ -44,7 +46,7 @@ def assert_required_field_error_message_background_color(actual_error_message_co
 
 
 def get_css_element_color(driver, locator):
-    actual_error_message_color = (WAIT(driver, 23).until(EC.visibility_of_element_located(locator))
+    actual_error_message_color = (WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(locator))
                                   .value_of_css_property("color"))
     return actual_error_message_color
 
@@ -72,16 +74,16 @@ class TestSauceDemo:
         driver.get(LOGIN_PAGE_URL)
 
         login_as_standard_user(driver)
-        WAIT(driver, 23).until(EC.visibility_of_element_located(BURGER_MENU)).click()
-        WAIT(driver, 23).until(EC.visibility_of_element_located(LOGOUT_BUTTON)).click()
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(BURGER_MENU)).click()
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(LOGOUT_BUTTON)).click()
 
         assert driver.current_url == LOGIN_PAGE_URL
 
     def test_username_required(self, driver):
         driver.get(LOGIN_PAGE_URL)
 
-        WAIT(driver, 23).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
-        WAIT(driver, 23).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
 
         actual_error_message_background_color = get_css_element_color(driver, USER_NAME_FIELD)
         assert_error_message(driver, USERNAME_REQUIRED_ERROR_MSG)
@@ -91,8 +93,8 @@ class TestSauceDemo:
     def test_password_required(self, driver):
         driver.get(LOGIN_PAGE_URL)
 
-        WAIT(driver, 23).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
-        WAIT(driver, 23).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
 
         actual_error_message_background_color = get_css_element_color(driver, USER_PWD_FIELD)
 
@@ -103,9 +105,9 @@ class TestSauceDemo:
     def test_password_masked_by_bullets(self, driver):
         driver.get(LOGIN_PAGE_URL)
 
-        WAIT(driver, 23).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
 
-        password_field_type = (WAIT(driver, 23).until(EC.visibility_of_element_located(USER_PWD_FIELD))
+        password_field_type = (WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_PWD_FIELD))
                                .get_attribute('type'))
 
         assert password_field_type == PASSWORD_FIELD_TYPE
