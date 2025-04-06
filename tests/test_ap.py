@@ -86,4 +86,5 @@ class TestSauceDemo:
 
         password_field_type = (WAIT(driver, 23).until(EC.visibility_of_element_located(USER_PWD_FIELD))
                                .get_attribute('type'))
+
         assert password_field_type == PASSWORD_FIELD_TYPE
