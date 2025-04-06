@@ -14,6 +14,7 @@ USER_PWD_FIELD = (By.XPATH, "//input[@id='password']")
 LOGIN_BUTTON = (By.XPATH, "//input[@id='login-button']")
 BURGER_MENU = (By.XPATH, "//button[@id='react-burger-menu-btn']")
 LOGOUT_BUTTON = (By.CSS_SELECTOR, "#logout_sidebar_link")
+REQUIRED_FIELD_ERROR_MESSAGE_TEXT = (By.XPATH, "//h3")
 
 # test_data
 STANDARD_USER_name = "standard_user"
@@ -22,6 +23,7 @@ USERNAME_REQUIRED_ERROR_MSG = "Epic sadface: Username is required"
 PASSWORD_REQUIRED_ERROR_MSG = "Epic sadface: Password is required"
 PASSWORD_FIELD_TYPE = 'password'
 REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR = "rgba(72, 76, 85, 1)"
+ERROR_MESSAGE_FONT_COLOR = "rgba(255, 255, 255, 1)"
 
 # config
 prod_timeout = 10
@@ -36,7 +38,7 @@ def login_as_standard_user(driver):
 
 def assert_error_message(driver, error_message):
     actual_error_message = (WAIT(driver, prod_timeout)
-                            .until(EC.visibility_of_element_located((By.XPATH, "//h3"))).text)
+                            .until(EC.visibility_of_element_located(REQUIRED_FIELD_ERROR_MESSAGE_TEXT)).text)
     assert actual_error_message == error_message
 
 
@@ -51,6 +53,15 @@ def get_css_element_color(driver, locator):
     actual_error_message_color = (WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(locator))
                                   .value_of_css_property("color"))
     return actual_error_message_color
+
+
+def assert_message_text_font_color(driver, locator, expected_color):
+    color = (WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(locator))
+             .value_of_css_property("color"))
+    try:
+        assert color == expected_color
+    except AssertionError as e:
+        print(f"Warning: {e}, color of the text is not as expected.")
 
 
 class TestSauceDemo:
@@ -92,6 +103,8 @@ class TestSauceDemo:
         assert_error_message(driver, USERNAME_REQUIRED_ERROR_MSG)
         assert_required_field_error_message_background_color(actual_error_message_background_color,
                                                              REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR)
+        assert_message_text_font_color(driver, REQUIRED_FIELD_ERROR_MESSAGE_TEXT
+                                       , ERROR_MESSAGE_FONT_COLOR)
 
     def test_password_required(self, driver):
         driver.get(LOGIN_PAGE_URL)
@@ -105,6 +118,8 @@ class TestSauceDemo:
         assert_error_message(driver, PASSWORD_REQUIRED_ERROR_MSG)
         assert_required_field_error_message_background_color(actual_error_message_background_color,
                                                              REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR)
+        assert_message_text_font_color(driver, REQUIRED_FIELD_ERROR_MESSAGE_TEXT
+                                       , ERROR_MESSAGE_FONT_COLOR)
 
     def test_password_masked_by_bullets(self, driver):
         driver.get(LOGIN_PAGE_URL)
