@@ -10,5 +10,6 @@ def test_burger_menu():
     driver.find_element(By.ID, 'password').send_keys("secret_sauce")
     driver.find_element(By.NAME, 'login-button').click()
     driver.find_element(By.ID, 'react-burger-menu-btn').click()
+    driver.find_element(By.ID, 'inventory_sidebar_link')
 
-    assert driver.find_element(By.ID, 'inventory_sidebar_link').text == "All Items"
+    assert driver.find_element(By.ID, 'inventory_sidebar_link').text == 'All Items'
