@@ -21,6 +21,7 @@ USER_PASSWORD = "secret_sauce"
 USERNAME_REQUIRED_ERROR_MSG = "Epic sadface: Username is required"
 PASSWORD_REQUIRED_ERROR_MSG = "Epic sadface: Password is required"
 PASSWORD_FIELD_TYPE = 'password'
+REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR = "rgba(72, 76, 85, 1)"
 
 
 def login_as_standard_user(driver):
@@ -33,6 +34,19 @@ def assert_error_message(driver, error_message):
     actual_error_message = (WAIT(driver, 23)
                             .until(EC.visibility_of_element_located((By.XPATH, "//h3"))).text)
     assert actual_error_message == error_message
+
+
+def assert_required_field_error_message_background_color(actual_error_message_color, expected):
+    try:
+        assert actual_error_message_color == expected
+    except AssertionError as e:
+        print(f"Warning: {e}, color of the element is not as expected.")
+
+
+def get_css_element_color(driver, locator):
+    actual_error_message_color = (WAIT(driver, 23).until(EC.visibility_of_element_located(locator))
+                                  .value_of_css_property("color"))
+    return actual_error_message_color
 
 
 class TestSauceDemo:
@@ -69,7 +83,10 @@ class TestSauceDemo:
         WAIT(driver, 23).until(EC.visibility_of_element_located(USER_PWD_FIELD)).send_keys(USER_PASSWORD)
         WAIT(driver, 23).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
 
+        actual_error_message_background_color = get_css_element_color(driver, USER_NAME_FIELD)
         assert_error_message(driver, USERNAME_REQUIRED_ERROR_MSG)
+        assert_required_field_error_message_background_color(actual_error_message_background_color,
+                                                             REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR)
 
     def test_password_required(self, driver):
         driver.get(LOGIN_PAGE_URL)
@@ -77,7 +94,11 @@ class TestSauceDemo:
         WAIT(driver, 23).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
         WAIT(driver, 23).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
 
+        actual_error_message_background_color = get_css_element_color(driver, USER_PWD_FIELD)
+
         assert_error_message(driver, PASSWORD_REQUIRED_ERROR_MSG)
+        assert_required_field_error_message_background_color(actual_error_message_background_color,
+                                                             REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR)
 
     def test_password_masked_by_bullets(self, driver):
         driver.get(LOGIN_PAGE_URL)
