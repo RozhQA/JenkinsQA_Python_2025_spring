@@ -25,6 +25,8 @@ REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR = "rgba(72, 76, 85, 1)"
 
 # config
 prod_timeout = 10
+headless = True
+
 
 def login_as_standard_user(driver):
     WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
@@ -56,7 +58,8 @@ class TestSauceDemo:
     @pytest.fixture
     def driver(self):
         chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        if headless == True:
+            chrome_options.add_argument("--headless")
         chrome_options.add_argument("--incognito")
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--disable-cache")
@@ -93,7 +96,8 @@ class TestSauceDemo:
     def test_password_required(self, driver):
         driver.get(LOGIN_PAGE_URL)
 
-        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(STANDARD_USER_name)
+        WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(USER_NAME_FIELD)).send_keys(
+            STANDARD_USER_name)
         WAIT(driver, prod_timeout).until(EC.visibility_of_element_located(LOGIN_BUTTON)).click()
 
         actual_error_message_background_color = get_css_element_color(driver, USER_PWD_FIELD)
