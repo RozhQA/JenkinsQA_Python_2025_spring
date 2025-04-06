@@ -7,6 +7,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 
 def test_register_user():
+
     driver = webdriver.Chrome()
     driver.get("https://www.automationexercise.com/")
     newUserSignup = driver.find_element(By.CSS_SELECTOR, "a[href='/'][style='color: orange;']")
