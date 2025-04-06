@@ -69,7 +69,7 @@ class TestSauceDemo:
     @pytest.fixture
     def driver(self):
         chrome_options = Options()
-        if headless == True:
+        if headless:
             chrome_options.add_argument("--headless")
         chrome_options.add_argument("--incognito")
         chrome_options.add_argument("--window-size=1920,1080")
@@ -103,8 +103,8 @@ class TestSauceDemo:
         assert_error_message(driver, USERNAME_REQUIRED_ERROR_MSG)
         assert_required_field_error_message_background_color(actual_error_message_background_color,
                                                              REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR)
-        assert_message_text_font_color(driver, REQUIRED_FIELD_ERROR_MESSAGE_TEXT
-                                       , ERROR_MESSAGE_FONT_COLOR)
+        assert_message_text_font_color(driver, REQUIRED_FIELD_ERROR_MESSAGE_TEXT,
+                                       ERROR_MESSAGE_FONT_COLOR)
 
     def test_password_required(self, driver):
         driver.get(LOGIN_PAGE_URL)
@@ -118,8 +118,8 @@ class TestSauceDemo:
         assert_error_message(driver, PASSWORD_REQUIRED_ERROR_MSG)
         assert_required_field_error_message_background_color(actual_error_message_background_color,
                                                              REQUIRED_FIELD_ERROR_MESSAGE_BACKGROUND_COLOR)
-        assert_message_text_font_color(driver, REQUIRED_FIELD_ERROR_MESSAGE_TEXT
-                                       , ERROR_MESSAGE_FONT_COLOR)
+        assert_message_text_font_color(driver, REQUIRED_FIELD_ERROR_MESSAGE_TEXT,
+                                       ERROR_MESSAGE_FONT_COLOR)
 
     def test_password_masked_by_bullets(self, driver):
         driver.get(LOGIN_PAGE_URL)
