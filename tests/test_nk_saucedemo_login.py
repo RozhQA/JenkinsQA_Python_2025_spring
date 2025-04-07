@@ -17,3 +17,4 @@ def test_login():
     assert driver.current_url == "https://www.saucedemo.com/inventory.html"
     driver.quit()
 
+
