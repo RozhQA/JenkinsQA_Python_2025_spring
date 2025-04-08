@@ -17,6 +17,7 @@ def test_login():
     driver.find_element(By.ID, 'password').send_keys("secret_sauce")
     driver.find_element(By.NAME, 'login-button').click()
 
+
     assert driver.current_url == 'https://www.saucedemo.com/inventory.html'
     driver.quit()
 
