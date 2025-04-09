@@ -24,16 +24,18 @@ def test_city_change():
     sleep(3)  # Page Update Time, required, NOT DEBUG
     driver.find_element(By.XPATH, "//*[@data-testid='important-city-0' and contains(text(), Expected_City)]").click()  # noqa: E501
 
-    # Check Current Selected City on Main Page
+    # Set Current City param from Main Page
     sleep(3)  # Page Update Time, required, NOT DEBUG
     Current_City = driver.find_element(By.XPATH, "//app-helix-header//span[@data-testid='current-city']").text  # noqa: E501
-    assert Current_City == Expected_City, ("Expected City Not Recieved")  # noqa: E501
+
+    driver.quit()
+
+    # Check Current City set as expected
+    assert Current_City == "Expected_City", ("Expected City Not Recieved")  # noqa: E501
 
 
 driver = webdriver.Chrome(options)  # Chrome usage
 test_city_change()
-driver.close()
 
 driver = webdriver.Firefox()  # FF usage
 test_city_change()
-driver.close()

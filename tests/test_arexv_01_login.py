@@ -36,14 +36,15 @@ def test_login_sequence_with_city_change():
     driver.find_element(By.XPATH, "/html/body/app-root/app-header/header/a/img").click()  # noqa: E501
     sleep(3)  # Page load delay, NOT DEBUG
     Uname = driver.find_element(By.XPATH, "//app-user-info-button/div/div[1]/div/div").text  # noqa: E501
+
+    driver.quit()
+
     # Check Username on Helix.ru main page
     assert Uname == "For Showing Cutout behavior at long S.", ("Expected Username Not Recieved")  # noqa: E501
 
 
 driver = webdriver.Chrome(options)  # Chrome usage
 test_login_sequence_with_city_change()
-driver.close()
 
 driver = webdriver.Firefox()  # FF usage
 test_login_sequence_with_city_change()
-driver.close()
