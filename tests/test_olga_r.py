@@ -16,6 +16,7 @@ def test_locked_out_user():
 
     login_btn = driver.find_element(By.CSS_SELECTOR, "#login-button")
     login_btn.click()
+
     expected_error_msg = "Epic sadface: Sorry, this user has been locked out."
     error_button = driver.find_element(By.CSS_SELECTOR, '[data-test="error"]')
     found_error_msg = error_button.text
