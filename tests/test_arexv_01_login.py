@@ -33,9 +33,9 @@ def test_login_sequence_with_city_change():
     driver.find_element(By.XPATH, "//button[contains(text(), 'Перейти в мой Личный кабинет')]").click()  # noqa: E501
     sleep(5)  # Page load delay, NOT DEBUG
     # Return to main page
-    driver.find_element(By.XPATH, "/html/body/app-root/app-header/header/a/img").click()  # noqa: E501
+    driver.find_element(By.XPATH, "//header/a").click()
     sleep(3)  # Page load delay, NOT DEBUG
-    Uname = driver.find_element(By.XPATH, "//app-user-info-button/div/div[1]/div/div").text  # noqa: E501
+    Uname = driver.find_element(By.XPATH, "//app-user-info-button").text
 
     driver.quit()
 
