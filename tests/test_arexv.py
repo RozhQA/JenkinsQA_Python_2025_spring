@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 options = webdriver.ChromeOptions()
 options.add_argument('ignore-certificate-errors')
 
+Expected_City = "Барнаул"
+
 
 # On-Site Actions
 def Login_Sequence_With_City_Change():
@@ -13,10 +15,10 @@ def Login_Sequence_With_City_Change():
     driver.get("https://helix.ru")
     sleep(2)  # Prevent 404 page site bug, NOT DEBUG
     # Press NO to SPB
-    driver.find_element(By.CSS_SELECTOR, "div.row-item:nth-child(2) > button:nth-child(1)").click()  # noqa: E501,PLC301
+    driver.find_element(By.XPATH, '//button[@data-testid="reject-city-button"]').click()  # noqa: E501,PLC301
 
     # Found City via search field
-    input_city_field = driver.find_element(By.CSS_SELECTOR, '#cdk-overlay-1 > nz-modal-container > div > div > div > app-city > div.grid.grid-gutter-16.grid-column.overflow-hidden > div:nth-child(1) > input')  # noqa: E501,PLC301
+    input_city_field = driver.find_element(By.XPATH, '//app-city//input[@type="search"]')  # noqa: E501,PLC301
     input_city_field.send_keys(Expected_City)
     sleep(3)  # Page Update Time, required, NOT DEBUG
     driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/nz-modal-container/div/div/div/app-city/div[2]/div[2]/app-city-search/div/div/span").click()  # noqa: E501,PLC301
@@ -39,8 +41,6 @@ def Login_Sequence_With_City_Change():
     Uname = driver.find_element(By.XPATH, "/html/body/app-helix/app-helix-header/div[1]/div[3]/div/div/div[6]/app-user-info-button/div/div[1]/div/div").text  # noqa: E501
     assert Uname == "For Showing Cutout behavior at long S.", ("Expected Username Not Recieved")  # noqa: E501
 
-
-Expected_City = "Барнаул"
 
 driver = webdriver.Chrome(options)  # Chrome usage
 Login_Sequence_With_City_Change()
