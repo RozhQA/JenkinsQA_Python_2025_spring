@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+
+
 def test_locked_out_user():
     driver = webdriver.Chrome()
     where = 'on the login page'
@@ -9,7 +10,7 @@ def test_locked_out_user():
 
     username = driver.find_element(By.CSS_SELECTOR, "#user-name")
     username.send_keys("locked_out_user")
-    time.sleep(1)
+
     password = driver.find_element(By.CSS_SELECTOR, "#password")
     password.send_keys("secret_sauce")
 
@@ -21,4 +22,3 @@ def test_locked_out_user():
 
     assert error_button.is_displayed(), f'Error button is not displayed {where}'
     assert found_error_msg == expected_error_msg, f'Incorrect error message found {where}. Found text was: {found_error_msg}'
-
