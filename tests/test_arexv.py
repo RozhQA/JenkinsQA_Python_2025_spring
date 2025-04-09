@@ -8,7 +8,7 @@ options.add_argument('ignore-certificate-errors')
 
 
 # On-Site Actions
-def Change_City():
+def Login_Sequence_With_City_Change():
     """Helix.ru change city test."""
     driver.get("https://helix.ru")
     sleep(2)  # Prevent 404 page site bug, NOT DEBUG
@@ -26,13 +26,26 @@ def Change_City():
     Current_City = driver.find_element(By.XPATH, "/html/body/app-helix/app-helix-header/div[1]/div[2]/div/div/div[1]/div/div[1]/div/span/span[1]").text  # noqa: E501,PLC301
     assert Current_City == Expected_City, ("Expected City Not Recieved")  # noqa: S101, PLC301, E501
 
+    # Go to login page
+    driver.find_element(By.XPATH, "/html/body/app-helix/app-helix-header/div[1]/div[3]/div/div/div[5]/a").click()  # noqa: E501
+    # Fill input fields
+    driver.find_element(By.ID, "email").send_keys("testmi-1@ya.ru")
+    driver.find_element(By.ID, "pass").send_keys("asdASD11!!")
+    # Press button
+    driver.find_element(By.ID, "loginLKK").click()
+    sleep(3)  # Page load delay, NOT DEBUG
+    driver.get("https://helix.ru")
+    sleep(3)  # Page load delay, NOT DEBUG
+    Uname = driver.find_element(By.XPATH, "/html/body/app-helix/app-helix-header/div[1]/div[3]/div/div/div[6]/app-user-info-button/div/div[1]/div/div").text  # noqa: E501
+    assert Uname == "For Showing Cutout behavior at long S.", ("Expected Username Not Recieved")  # noqa: E501
+
 
 Expected_City = "Барнаул"
 
 driver = webdriver.Chrome(options)  # Chrome usage
-Change_City()
+Login_Sequence_With_City_Change()
 driver.close()
 
 driver = webdriver.Firefox()  # FF usage
-Change_City()
+Login_Sequence_With_City_Change()
 driver.close()
