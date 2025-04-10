@@ -42,7 +42,7 @@ def test_log_in_with_unfilled_fields():
 
 
 def test_log_in_with_unfilled_username_field():
-     with setup_driver() as page_login:
+    with setup_driver() as page_login:
         #1. Open https://www.saucedemo.com/ site
         page_login.get(url)
         #2. Enter "problem_user" in "Password" field
