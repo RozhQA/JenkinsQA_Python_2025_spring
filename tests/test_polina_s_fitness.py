@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-def test_local():
+def test_cart_page_url():
     driver = webdriver.Chrome()
     driver.maximize_window()
 
