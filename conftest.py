@@ -27,6 +27,7 @@ def driver(config):
             driver = webdriver.Edge(options=options)
         case _:
             raise RuntimeError(f"Browser {config.browser.NAME} is not supported.")
+    driver.implicitly_wait(3)
 
     yield driver
 
