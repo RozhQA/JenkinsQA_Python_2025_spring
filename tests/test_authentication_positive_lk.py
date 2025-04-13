@@ -2,6 +2,28 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
+from faker import Faker
+
+
+@pytest.fixture(scope="function")
+def wait(driver):
+    return WebDriverWait(driver, 10)
+
+
+@pytest.fixture(scope="function")
+def faker_data():
+    fake = Faker()
+    return {
+        "first_name": fake.first_name(),
+        "last_name": fake.last_name(),
+        "email": fake.ascii_free_email(),
+        "password": fake.password(length=8)
+    }
+
+
+@pytest.fixture
+def custom_base_url():
+    return "https://magento.softwaretestingboard.com"
 
 
 @pytest.fixture
