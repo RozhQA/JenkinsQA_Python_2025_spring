@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
+from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture(scope="function")
@@ -28,12 +29,15 @@ def custom_base_url():
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")  # для запуска без GUI
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
-    # test runs and closes the browser
     yield driver
     driver.quit()
-    # and finally close the browser and DB close
 
 
 MY_BASE_URL = "https://magento.softwaretestingboard.com/"
