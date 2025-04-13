@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 
 @pytest.fixture(scope="function")
