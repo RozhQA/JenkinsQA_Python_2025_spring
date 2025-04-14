@@ -22,14 +22,10 @@ def test_login_back_login_page_opens(sauce):
 def test_error_not_displayed_after_refresh_page_login_page(sauce):
     sauce.find_element(By.ID, "login-button").click()
 
-    error_el = sauce.find_element(By.XPATH, "//*[contains(text(),'Username is required')]")
-    assert error_el.is_displayed(), "Error should be visible before refresh"
+    error_el = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
+    assert len(
+        error_el) == 1, "Error message is not showing or there are several error messages; though it should be only one."
     sauce.refresh()
 
-    try:
-        error_el_after_refresh = sauce.find_element(By.XPATH, "//*[contains(text(),'Username is required')]")
-        error_is_visible_after_refresh = error_el_after_refresh.is_displayed()
-    except NoSuchElementException:
-        error_is_visible_after_refresh = False
-
-    assert not error_is_visible_after_refresh, "Error message is still showing after page refresh"
+    error_el_after_refresh = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
+    assert len(error_el_after_refresh) == 0, "Error message is still showing after page refresh"
