@@ -18,7 +18,7 @@ def test_login_back_login_page_opens(sauce):
     assert title == "Swag Labs"
 
 
-def test_error_appears_and_disappears_after_refresh_page_login_page(sauce):
+def test_error_appears_and_disappears_after_refresh_login_page(sauce):
     sauce.find_element(By.ID, "login-button").click()
     error_el = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
 
