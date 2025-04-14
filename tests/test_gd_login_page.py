@@ -24,7 +24,7 @@ def test_error_not_displayed_after_refresh_page_login_page(sauce):
 
     error_el = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
     assert len(
-        error_el) == 1, "Error message is not showing or there are several error messages; though it should be only one."
+        error_el) == 1, "Error message is not showing or there are more than one error messages"
     sauce.refresh()
 
     error_el_after_refresh = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
