@@ -11,7 +11,7 @@ def test_successful_login():
     driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!")
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
-    time.sleep(2)
+    time.sleep(3)
 
     success_message = driver.find_element(By.ID, "flash").text
     assert "You logged into a secure area!" in success_message
