@@ -1,5 +1,3 @@
-import time
-
 import pytest
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -11,7 +9,7 @@ def sauce(driver):
     return driver
 
 
-def test_login_back_login(sauce):
+def test_login_back_login_page_opens(sauce):
     sauce.find_element(By.ID, "user-name").send_keys("standard_user")
     sauce.find_element(By.ID, "password").send_keys("secret_sauce")
     sauce.find_element(By.ID, "login-button").click()
