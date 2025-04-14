@@ -11,7 +11,7 @@ def sauce(driver):
     return driver
 
 
-def test_login(sauce):
+def test_login_back_login(sauce):
     sauce.find_element(By.ID, "user-name").send_keys("standard_user")
     sauce.find_element(By.ID, "password").send_keys("secret_sauce")
     sauce.find_element(By.ID, "login-button").click()
