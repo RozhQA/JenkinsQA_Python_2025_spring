@@ -1,5 +1,4 @@
 import pytest
-from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -14,18 +13,19 @@ def test_login_back_login_page_opens(sauce):
     sauce.find_element(By.ID, "password").send_keys("secret_sauce")
     sauce.find_element(By.ID, "login-button").click()
     sauce.back()
-
     title = sauce.find_element(By.XPATH, "//*[@class = 'login_logo']").text
+
     assert title == "Swag Labs"
 
 
 def test_error_not_displayed_after_refresh_page_login_page(sauce):
     sauce.find_element(By.ID, "login-button").click()
-
     error_el = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
+
     assert len(
         error_el) == 1, "Error message is not showing or there are more than one error messages"
-    sauce.refresh()
 
+    sauce.refresh()
     error_el_after_refresh = sauce.find_elements(By.XPATH, "//*[contains(text(),'Username is required')]")
+
     assert len(error_el_after_refresh) == 0, "Error message is still showing after page refresh"
