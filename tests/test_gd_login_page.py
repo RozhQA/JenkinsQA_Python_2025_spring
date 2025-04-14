@@ -16,9 +16,9 @@ def test_login_back_login(sauce):
     sauce.find_element(By.ID, "password").send_keys("secret_sauce")
     sauce.find_element(By.ID, "login-button").click()
     sauce.back()
+
     title = sauce.find_element(By.XPATH, "//*[@class = 'login_logo']").text
     assert title == "Swag Labs"
-
 
 
 def test_error_not_displayed_after_refresh_page_login_page(sauce):
