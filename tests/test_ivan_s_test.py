@@ -28,15 +28,9 @@ def test_locked_out_user_url_check(sauce):
     assert sauce.current_url == "https://www.saucedemo.com/", "wrong url"
 
 
-def test_1(sauce):
-    user_names_node = sauce.find_element(By.XPATH, "//div[@id='login_credentials']")
-    usernames = user_names_node.text.split('\n')[1:]
-
-
 def test_jenkins(login_page):
     assert login_page.title == 'Sign in [Jenkins]', "wrong title"
 
 
 def test_jenkins_main_page(main_page):
-    time.sleep(60)
     assert main_page.title == 'Dashboard [Jenkins]', "wrong title"
