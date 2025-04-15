@@ -19,6 +19,7 @@ def browser(chrome_options):
     driver = webdriver.Chrome(options=chrome_options)
     driver.get("https://demo.applitools.com/index.html")
     yield driver
+    driver.quit()
 
 
 @pytest.fixture(scope="class")
@@ -43,8 +44,7 @@ class TestLogin:
 
     def test_balance_value(self, authorized):
         actual_text = authorized.find_element(
-            By.XPATH,
-            "/html/body/div[1]/div[3]/div[2]/div/div/div[1]/div[2]/div/div/div/div[3]/div[2]",
+            By.XPATH, "//div[@class='balance-value danger']"
         ).text
         expected_text = "$180"
-        assert actual_text == expected_text, f"wrong text. '{expected_text}'"
+        assert actual_text == expected_text, f"wrong text. expected '{expected_text}'"
