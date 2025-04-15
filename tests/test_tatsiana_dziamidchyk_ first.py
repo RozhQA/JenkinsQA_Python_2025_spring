@@ -1,19 +1,21 @@
+import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-def test_successful_login():
+@pytest.fixture
+def heroku_driver():
     driver = webdriver.Chrome()
-
     driver.get("https://the-internet.herokuapp.com/login")
+    yield driver
+    driver.quit()
 
-    driver.find_element(By.ID, "username").send_keys("tomsmith")
-    driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!")
-    driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+def test_successful_login(heroku_driver):
+    heroku_driver.find_element(By.ID, "username").send_keys("tomsmith")
+    heroku_driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!")
+    heroku_driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
     time.sleep(3)
 
-    success_message = driver.find_element(By.ID, "flash").text
+    success_message = heroku_driver.find_element(By.ID, "flash").text
     assert "You logged into a secure area!" in success_message
-
-    driver.quit()
