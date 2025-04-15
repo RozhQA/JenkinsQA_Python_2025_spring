@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-
 @pytest.fixture
 def driver():
     driver = webdriver.Chrome()
@@ -15,7 +14,6 @@ def driver():
 
     yield driver
     driver.quit()
-
 
 def test_sort_products_by_price(driver):
     sort_dropdown = driver.find_element(By.CLASS_NAME, "product_sort_container")
@@ -31,7 +29,7 @@ def test_sort_products_by_price(driver):
     for price in prices:
         price_text = price.text
         if "$" in price_text:
-            price_text = price_text.replace("$", "")  # Удаляем знак "$"
+            price_text = price_text.replace("$", "")
         price_values.append(float(price_text))
 
     assert price_values == sorted(price_values), "Products are not sorted by price from low to high"
