@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import time
 
 import pytest
 from selenium import webdriver
@@ -63,5 +64,6 @@ def main_page(login_page: WebDriver, config):
     login_page.find_element(By.NAME, "j_username").send_keys(config.jenkins.USERNAME)
     login_page.find_element(By.NAME, "j_password").send_keys(config.jenkins.PASSWORD)
     login_page.find_element(By.NAME, "Submit").click()
+    time.sleep(1)
     return login_page
 
