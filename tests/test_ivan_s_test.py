@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -31,6 +33,10 @@ def test_1(sauce):
     usernames = user_names_node.text.split('\n')[1:]
 
 
-@pytest.mark.new
-def test_jenkins(jenkins_reset):
-    pass
+def test_jenkins(login_page):
+    assert login_page.title == 'Sign in [Jenkins]', "wrong title"
+
+
+def test_jenkins_main_page(main_page):
+    time.sleep(60)
+    assert main_page.title == 'Dashboard [Jenkins]', "wrong title"
