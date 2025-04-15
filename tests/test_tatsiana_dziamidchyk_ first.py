@@ -1,12 +1,16 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
-    driver.get("https://www.saucedemo.com/inventory.html")
+    chrome_options = Options()
+    chrome_options.add_argument("--incognito")  # Запуск в режиме инкогнито
+
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get("https://www.saucedemo.com/")
 
     driver.find_element(By.ID, "user-name").send_keys("standard_user")
     driver.find_element(By.ID, "password").send_keys("secret_sauce")
@@ -33,4 +37,3 @@ def test_sort_products_by_price(driver):
         price_values.append(float(price_text))
 
     assert price_values == sorted(price_values), "Products are not sorted by price from low to high"
-
