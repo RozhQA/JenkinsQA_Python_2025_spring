@@ -3,9 +3,10 @@ import random
 from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.common import NoSuchElementException
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def fake_user_data() -> dict:
     def generate_wrong_email(email: str) -> str:
         error_type = random.choice(['insert space', 'remove at', 'remove dots'])
@@ -51,14 +52,19 @@ class BasePage:
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def is_displayed(self, locator: tuple[str, str]) -> bool:
-        return self.driver.find_element(*locator).is_displayed()
+        try:
+            self.driver.find_element(*locator)
+            return True
+        except NoSuchElementException:
+            return False
 
 
 class ElementsTextBoxPage(BasePage):
     """Class with specific values and methods for Elements -> TextBox page"""
     URL = f'{BasePage.BASE_URL}/text-box'
     FULL_NAME_FIELD = (By.ID, 'userName')
-    EMAIL_FIELD = (By.ID, 'userEmail')
+    EMAIL_FIELD = (By.XPATH, "//input[@class='mr-sm-2 form-control']")
+    WRONG_EMAIL_FIELD = (By.XPATH, "//input[@class='mr-sm-2 field-error form-control']")
     CURRENT_ADDRESS_FIELD = (By.ID, 'currentAddress')
     PERMANENT_ADDRESS_FIELD = (By.ID, 'permanentAddress')
     SUBMIT_BUTTON = (By.ID, 'submit')
@@ -75,11 +81,16 @@ class ElementsTextBoxPage(BasePage):
 
 
 class TestElementsTextBoxPage:
+    """Tests for Elements -> TextBox page only - https://demoqa.com/text-box"""
+    def open_page(self, driver: webdriver.Chrome) -> ElementsTextBoxPage:
+        page = ElementsTextBoxPage(driver)
+        page.open()
+        return page
+
     def test_submit_all_correct_fields(self, driver: webdriver.Chrome, fake_user_data: dict):
         """Open https://demoqa.com/text-box and fill all fields with random correct data.
            Check that after click on "Submit" button correct data appears in output field."""
-        page = ElementsTextBoxPage(driver)
-        page.open()
+        page = self.open_page(driver)
         page.send_keys(page.FULL_NAME_FIELD, fake_user_data['full_name'])
         page.send_keys(page.EMAIL_FIELD, fake_user_data['valid_email'])
         page.send_keys(page.CURRENT_ADDRESS_FIELD, fake_user_data['current_address'])
@@ -90,3 +101,14 @@ class TestElementsTextBoxPage:
         assert page.submitted_element_text(page.SUBMITTED_EMAIL) == fake_user_data['valid_email']
         assert page.submitted_element_text(page.SUBMITTED_CURRENT_ADDRESS) == fake_user_data['current_address']
         assert page.submitted_element_text(page.SUBMITTED_PERMANENT_ADDRESS) == fake_user_data['permanent_address']
+
+    def test_send_wrong_email(self, driver: webdriver.Chrome, fake_user_data: dict):
+        """Open https://demoqa.com/text-box and fill email field with not valid email.
+           Check that before click on "Submit" button email field looks normally,
+           and after click this field change style as a warning about invalid email."""
+        page = self.open_page(driver)
+        page.send_keys(page.EMAIL_FIELD, fake_user_data.get('wrong_email'))
+        page.scroll_to_bottom()  # Otherwise submit button can be covered by advertising block
+        assert not page.is_displayed(page.WRONG_EMAIL_FIELD)
+        page.click(page.SUBMIT_BUTTON)
+        assert page.is_displayed(page.WRONG_EMAIL_FIELD)
