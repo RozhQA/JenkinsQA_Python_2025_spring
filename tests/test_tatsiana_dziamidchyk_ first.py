@@ -17,7 +17,7 @@ def test_sort_products_by_price(driver):
     sort_option = driver.find_element(By.XPATH, "//option[text()='Price (low to high)']")
     sort_option.click()
 
-    time.sleep(3)
+    time.sleep(5)
 
     prices = driver.find_elements(By.CLASS_NAME, "inventory_item_price")
     price_values = []
