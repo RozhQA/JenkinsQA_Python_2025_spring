@@ -17,7 +17,6 @@ def fake_user_data() -> dict:
             return email.replace('@', '')
         else:
             return email.replace('.', '')
-
     fake = Faker()
     fake_user_data = {
         "full_name": fake.name(),
@@ -26,7 +25,6 @@ def fake_user_data() -> dict:
         "permanent_address": fake.address().replace('\n', ' '),
         "wrong_email": generate_wrong_email(fake.email())
     }
-
     return fake_user_data
 
 
