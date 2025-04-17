@@ -1,12 +1,8 @@
 import pytest
-import os
-from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from core.settings import Config
 
-load_dotenv()
-base_url = os.getenv("APP_BASE_URL")
 
 @pytest.fixture(scope="module")
 def driver():
@@ -19,11 +15,9 @@ def driver():
 
 @pytest.fixture(scope="module")
 def login_success(driver):
-    login = os.getenv("LOGIN")
-    password = os.getenv("PASSWORD")
-    driver.get(base_url)
-    driver.find_element(By.ID, "user-name").send_keys(login)
-    driver.find_element(By.ID, "password").send_keys(password)
+    driver.get("https://www.saucedemo.com/")
+    driver.find_element(By.ID, "user-name").send_keys("standard_user")
+    driver.find_element(By.ID, "password").send_keys("secret_sauce")
     driver.find_element(By.ID, "login-button").click()
     return driver
 
