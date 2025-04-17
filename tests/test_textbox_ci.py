@@ -1,31 +1,29 @@
 import pytest
-import random
-from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.common import NoSuchElementException
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-@pytest.fixture(scope="session")
-def fake_user_data() -> dict:
-    def generate_wrong_email(email: str) -> str:
-        error_type = random.choice(['insert space', 'remove at', 'remove dots'])
-        if error_type == 'insert space':
-            random_index = random.randint(1, len(email) - 2)
-            return f'{email[:random_index]} {email[random_index:]}'
-        elif error_type == 'remove_at':
-            return email.replace('@', '')
-        else:
-            return email.replace('.', '')
-    fake = Faker()
-    fake_user_data = {
-        "full_name": fake.name(),
-        "valid_email": fake.email(),
-        "current_address": fake.address().replace('\n', ' '),
-        "permanent_address": fake.address().replace('\n', ' '),
-        "wrong_email": generate_wrong_email(fake.email())
-    }
-    return fake_user_data
+@pytest.fixture
+def textbox_page(driver):
+    page = ElementsTextBoxPage(driver)
+    page.open()
+    return page
+
+
+TEST_USER = {
+    'full_name': 'John Doe',
+    'valid_email': 'valid_email@mail.com',
+    'current_address': '123 Main St, New York, NY 10001, USA',
+    'permanent_address': '456 Fountain Ave, San Francisco, CA 94102, USA'
+}
+
+INVALID_EMAIL = [
+    'space @mail.com',
+    'missed_atmail.com',
+    'missed_dot@mailcom'
+]
 
 
 class BasePage:
@@ -36,25 +34,25 @@ class BasePage:
     def __init__(self, driver, url):
         self.driver = driver
         self.url = url
+        self.wait = WebDriverWait(driver, self.TIMEOUT)
 
     def open(self):
         self.driver.get(self.url)
 
     def send_keys(self, locator: tuple[str, str], text: str):
-        self.driver.find_element(*locator).send_keys(text)
+        self.wait.until(EC.visibility_of_element_located(locator)).send_keys(text)
 
     def click(self, locator: tuple[str, str]):
-        self.driver.find_element(*locator).click()
+        self.wait.until(EC.element_to_be_clickable(locator)).click()
+
+    def is_displayed(self, locator: tuple[str, str]):
+        return self.wait.until(EC.visibility_of_element_located(locator)).is_displayed()
+
+    def is_not_displayed(self, locator: tuple[str, str]):
+        return self.wait.until(EC.invisibility_of_element_located(locator))
 
     def scroll_to_bottom(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-    def is_displayed(self, locator: tuple[str, str]) -> bool:
-        try:
-            self.driver.find_element(*locator)
-            return True
-        except NoSuchElementException:
-            return False
 
 
 class ElementsTextBoxPage(BasePage):
@@ -80,33 +78,29 @@ class ElementsTextBoxPage(BasePage):
 
 class TestElementsTextBoxPage:
     """Tests for Elements -> TextBox page only - https://demoqa.com/text-box"""
-    def open_page(self, driver: webdriver.Chrome) -> ElementsTextBoxPage:
-        page = ElementsTextBoxPage(driver)
-        page.open()
-        return page
-
-    def test_submit_all_correct_fields(self, driver: webdriver.Chrome, fake_user_data: dict):
+    def test_submit_all_correct_fields(self, driver: webdriver.Chrome, textbox_page: ElementsTextBoxPage):
         """Open https://demoqa.com/text-box and fill all fields with random correct data.
            Check that after click on "Submit" button correct data appears in output field."""
-        page = self.open_page(driver)
-        page.send_keys(page.FULL_NAME_FIELD, fake_user_data['full_name'])
-        page.send_keys(page.EMAIL_FIELD, fake_user_data['valid_email'])
-        page.send_keys(page.CURRENT_ADDRESS_FIELD, fake_user_data['current_address'])
-        page.send_keys(page.PERMANENT_ADDRESS_FIELD, fake_user_data['permanent_address'])
+        page = textbox_page
+        page.send_keys(page.FULL_NAME_FIELD, TEST_USER.get('full_name'))
+        page.send_keys(page.EMAIL_FIELD, TEST_USER.get('valid_email'))
+        page.send_keys(page.CURRENT_ADDRESS_FIELD, TEST_USER.get('current_address'))
+        page.send_keys(page.PERMANENT_ADDRESS_FIELD, TEST_USER.get('permanent_address'))
         page.scroll_to_bottom()  # Otherwise submit button can be covered by advertising block
         page.click(page.SUBMIT_BUTTON)
-        assert page.submitted_element_text(page.SUBMITTED_FULL_NAME) == fake_user_data['full_name']
-        assert page.submitted_element_text(page.SUBMITTED_EMAIL) == fake_user_data['valid_email']
-        assert page.submitted_element_text(page.SUBMITTED_CURRENT_ADDRESS) == fake_user_data['current_address']
-        assert page.submitted_element_text(page.SUBMITTED_PERMANENT_ADDRESS) == fake_user_data['permanent_address']
+        assert page.submitted_element_text(page.SUBMITTED_FULL_NAME) == TEST_USER.get('full_name')
+        assert page.submitted_element_text(page.SUBMITTED_EMAIL) == TEST_USER.get('valid_email')
+        assert page.submitted_element_text(page.SUBMITTED_CURRENT_ADDRESS) == TEST_USER.get('current_address')
+        assert page.submitted_element_text(page.SUBMITTED_PERMANENT_ADDRESS) == TEST_USER.get('permanent_address')
 
-    def test_send_wrong_email(self, driver: webdriver.Chrome, fake_user_data: dict):
+    @pytest.mark.parametrize('invalid_email', INVALID_EMAIL)
+    def test_submit_invalid_email(self, driver: webdriver.Chrome, textbox_page: ElementsTextBoxPage, invalid_email: str):
         """Open https://demoqa.com/text-box and fill email field with not valid email.
            Check that before click on "Submit" button email field looks normally,
            and after click this field change style as a warning about invalid email."""
-        page = self.open_page(driver)
-        page.send_keys(page.EMAIL_FIELD, fake_user_data.get('wrong_email'))
+        page = textbox_page
+        page.send_keys(page.EMAIL_FIELD, invalid_email)
         page.scroll_to_bottom()  # Otherwise submit button can be covered by advertising block
-        assert not page.is_displayed(page.WRONG_EMAIL_FIELD)
+        assert page.is_not_displayed(page.WRONG_EMAIL_FIELD)
         page.click(page.SUBMIT_BUTTON)
         assert page.is_displayed(page.WRONG_EMAIL_FIELD)
