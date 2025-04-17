@@ -46,7 +46,7 @@ class BasePage:
         self.wait.until(EC.element_to_be_clickable(locator)).click()
 
     def is_displayed(self, locator: tuple[str, str]):
-        return self.wait.until(EC.visibility_of_element_located(locator)).is_displayed()
+        return self.wait.until(EC.visibility_of_element_located(locator))
 
     def is_not_displayed(self, locator: tuple[str, str]):
         return self.wait.until(EC.invisibility_of_element_located(locator))
