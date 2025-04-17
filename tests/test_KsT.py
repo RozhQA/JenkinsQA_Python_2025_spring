@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from core.settings import Config
 
-
 @pytest.fixture(scope="module")
 def driver():
     config = Config.load()
