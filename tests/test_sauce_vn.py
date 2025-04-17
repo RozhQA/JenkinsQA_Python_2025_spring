@@ -1,27 +1,25 @@
 import time
 
 import pytest
-from selenium.webdriver.support import expected_conditions as EC
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from conftest import driver
 
 
-LOGIN_PAGE = "https://www.saucedemo.com/"
-PRODUCT_PAGE = "https://www.saucedemo.com/inventory.html"
+LOGIN_PAGE_URL = "https://www.saucedemo.com/"
+PRODUCTS_PAGE_URL = "https://www.saucedemo.com/inventory.html"
 
 @pytest.fixture
 def login(driver):
-    driver.get(LOGIN_PAGE)
+    driver.get(LOGIN_PAGE_URL)
     driver.find_element(By.ID, 'user-name').send_keys("standard_user")
     driver.find_element(By.ID, 'password').send_keys("secret_sauce")
     driver.find_element(By.NAME, 'login-button').click()
 
 def test_login(login, driver):
 
-    assert driver.current_url == PRODUCT_PAGE
+    assert driver.current_url == PRODUCTS_PAGE_URL
 
 
 def test_open_sidebar_menu(driver, login):
@@ -48,7 +46,7 @@ def test_open_item(driver, login):
 
 
 def test_locked_out_user(driver):
-    driver.get(LOGIN_PAGE)
+    driver.get(LOGIN_PAGE_URL)
     driver.find_element(By.ID, 'user-name').send_keys("locked_out_user")
     driver.find_element(By.ID, 'password').send_keys("secret_sauce")
     driver.find_element(By.NAME, 'login-button').click()
@@ -58,7 +56,7 @@ def test_locked_out_user(driver):
 
 
 def test_invalid_password(driver):
-    driver.get(LOGIN_PAGE)
+    driver.get(LOGIN_PAGE_URL)
     driver.find_element(By.ID, 'user-name').send_keys("standard_user")
     driver.find_element(By.ID, 'password').send_keys("secret")
     driver.find_element(By.NAME, 'login-button').click()
@@ -68,7 +66,7 @@ def test_invalid_password(driver):
 
 
 def test_empty_username_field(driver):
-    driver.get(LOGIN_PAGE)
+    driver.get(LOGIN_PAGE_URL)
     driver.find_element(By.ID, 'password').send_keys("secret_sauce")
     driver.find_element(By.NAME, 'login-button').click()
 
@@ -77,7 +75,7 @@ def test_empty_username_field(driver):
 
 
 def test_empty_password_field(driver):
-    driver.get(LOGIN_PAGE)
+    driver.get(LOGIN_PAGE_URL)
     driver.find_element(By.ID, 'user-name').send_keys("standard_user")
     driver.find_element(By.NAME, 'login-button').click()
 
@@ -86,7 +84,7 @@ def test_empty_password_field(driver):
 
 
 def test_empty_username_password_fields(driver):
-    driver.get(LOGIN_PAGE)
+    driver.get(LOGIN_PAGE_URL)
     driver.find_element(By.NAME, 'login-button').click()
 
     error_message = driver.find_element(By.XPATH, '//h3[@data-test= "error"]')
