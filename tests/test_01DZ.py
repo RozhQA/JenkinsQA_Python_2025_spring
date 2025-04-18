@@ -17,7 +17,7 @@ def test_login(quotes_web: WebDriver):
     quotes_web.find_element(By.CSS_SELECTOR, ".btn-primary").click()
     time.sleep(1)
     logout_button = quotes_web.find_element(By.CSS_SELECTOR, "a[href='/logout']")
-    assert logout_button.text == "Logout" # после логина появилась кнопка logout
+    assert logout_button.text == "Logout" # после логина, появилась кнопка logout
 
 
 def test_find_authors_and_quotes(quotes_web: WebDriver):
