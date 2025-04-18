@@ -1,7 +1,6 @@
 import os
 import sys
 import logging
-import time
 
 import pytest
 from selenium import webdriver
