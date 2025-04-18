@@ -1,15 +1,33 @@
 import pytest
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
+
+@pytest.fixture(scope="session")
+def browser():
+    """Фикстура для управления браузером"""
+    chrome_options = Options()
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option("useAutomationExtension", False)
+    chrome_options.add_experimental_option("prefs", {"credentials_enable_service": False,
+                                                     "profile.password_manager_leak_detection": False})
+    chrome_options.add_argument("--incognito")
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.implicitly_wait(5)
+    yield driver
+    driver.quit()
 
 
 @pytest.fixture
-def sauce(driver):
+def sauce(browser):
     """Фикстура для открытия сайта"""
-    driver.get("https://www.saucedemo.com/")
-    return driver
+    browser.get("https://www.saucedemo.com/")
+    return browser
 
 
 @pytest.fixture
