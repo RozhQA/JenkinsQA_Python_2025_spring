@@ -1,13 +1,30 @@
+import os
+import sys
+import logging
+
 import pytest
 
-from core.settings import Config
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
+
+
+from core.jenkins_utils import clear_data
+from core.settings import Config
+
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, project_root)
+
+logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(scope="session")
 def config():
     return Config.load()
+
+
+@pytest.fixture(scope="function")
+def jenkins_reset(config):
+    clear_data(config)
 
 
 @pytest.fixture(scope="function")
@@ -33,10 +50,4 @@ def driver(config):
     yield driver
 
     driver.quit()
-
-
-
-
-
-
 
