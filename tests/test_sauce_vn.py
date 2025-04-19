@@ -4,11 +4,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from core.settings import Config
-from conftest import driver
 
 
 LOGIN_PAGE_URL = "https://www.saucedemo.com/"
 PRODUCTS_PAGE_URL = "https://www.saucedemo.com/inventory.html"
+
 
 @pytest.fixture(scope="session")
 def config():
