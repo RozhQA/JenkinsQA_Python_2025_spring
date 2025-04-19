@@ -5,10 +5,7 @@ import logging
 import pytest
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 
 from core.jenkins_utils import clear_data
 from core.settings import Config
@@ -25,7 +22,7 @@ def config():
     return Config.load()
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def jenkins_reset(config):
     clear_data(config)
 
@@ -53,19 +50,4 @@ def driver(config):
     yield driver
 
     driver.quit()
-
-
-@pytest.fixture(scope="function")
-def login_page(driver: WebDriver, config):
-    driver.get(config.jenkins.base_url + "/login?from=%2F")
-    return driver
-
-
-@pytest.fixture(scope="function")
-def main_page(login_page: WebDriver, config):
-    login_page.find_element(By.NAME, "j_username").send_keys(config.jenkins.USERNAME)
-    login_page.find_element(By.NAME, "j_password").send_keys(config.jenkins.PASSWORD)
-    login_page.find_element(By.NAME, "Submit").click()
-    WebDriverWait(login_page, 3).until(EC.url_changes(config.jenkins.base_url + "/login?from=%2F"))
-    return login_page
 

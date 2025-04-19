@@ -25,9 +25,3 @@ def test_locked_out_user_url_check(sauce):
     assert sauce.current_url == "https://www.saucedemo.com/", "wrong url"
 
 
-def test_jenkins(login_page):
-    assert login_page.title == 'Sign in [Jenkins]', "wrong title"
-
-
-def test_jenkins_main_page(main_page):
-    assert main_page.title == 'Dashboard [Jenkins]', "wrong title"

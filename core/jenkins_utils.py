@@ -49,13 +49,13 @@ def reset_theme_description(session, config):
                                           }}}
     theme_payload = f"Jenkins-Crumb={crumb}&json={json.dumps(theme_json)}&Submit=Submit&core:apply=true"
 
-    response = session.post(url=f"{config.jenkins.base_url}/submitDescription",
-                            headers=headers, data=desc_payload)
+    session.post(url=f"{config.jenkins.base_url}/submitDescription",
+                 headers=headers, data=desc_payload)
 
-    response = session.post(url=f"{config.jenkins.base_url}/me/my-views/view/all/submitDescription",
-                            headers=headers, data=desc_payload)
+    session.post(url=f"{config.jenkins.base_url}/me/my-views/view/all/submitDescription",
+                 headers=headers, data=desc_payload)
 
-    response = session.post(url=f"{config.jenkins.base_url}/user/{config.jenkins.USERNAME}/appearance/configSubmit",
+    session.post(url=f"{config.jenkins.base_url}/user/{config.jenkins.USERNAME}/appearance/configSubmit",
                             headers=headers, data=theme_payload)
 
 
