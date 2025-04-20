@@ -3,5 +3,5 @@ def test_login(login_page):
 
 
 def test_main_page(main_page):
-    assert main_page.title == "Dashboard1 [Jenkins]"
+    assert main_page.title == "Dashboard [Jenkins]"
 
