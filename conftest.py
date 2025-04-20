@@ -63,7 +63,7 @@ def driver(config):
 
 
 @pytest.fixture(scope="function", autouse=True)
-def test_failed_check(driver, request):
+def screenshot_on_failure(driver, request):
     yield
 
     if hasattr(request.node, "rep_call") and request.node.rep_call.failed:
