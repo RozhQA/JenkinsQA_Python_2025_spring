@@ -26,7 +26,6 @@ def config():
 
 @pytest.fixture(scope="function", autouse=True)
 def jenkins_reset(config):
-    yield
     clear_data(config)
 
 
