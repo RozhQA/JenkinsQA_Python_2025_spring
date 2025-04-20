@@ -16,7 +16,7 @@ def test_shopping_cart(sauce_site):
 
     item = sauce_site.find_element(By.XPATH, "//div[.='Sauce Labs Backpack']")
     item.click()
-    sauce_site.find_element(By.ID, "add-to-cart").click()
+    sauce_site.find_element(By.NAME, "add-to-cart").click()
     sauce_site.find_element(By.CLASS_NAME, "shopping_cart_link").click()
     item_in_cart = sauce_site.find_element(By.XPATH, "//div[@Data-test='inventory-item-name']")
 
