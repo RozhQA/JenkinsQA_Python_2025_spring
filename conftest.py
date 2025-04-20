@@ -38,7 +38,7 @@ def jenkins_reset(config):
 
 
 @pytest.fixture(scope="function")
-def driver(config):
+def driver(request, config):
 
     match config.browser.NAME:
         case "chrome":
@@ -56,15 +56,7 @@ def driver(config):
         case _:
             raise RuntimeError(f"Browser {config.browser.NAME} is not supported.")
 
-
     yield driver
-
-    driver.quit()
-
-
-@pytest.fixture(scope="function", autouse=True)
-def screenshot_on_failure(driver, request):
-    yield
 
     if hasattr(request.node, "rep_call") and request.node.rep_call.failed:
         logger.info(f"Test {request.node.name} failed, taking screenshot...")
@@ -81,6 +73,8 @@ def screenshot_on_failure(driver, request):
 
         except Exception as e:
             logger.error(f"Failed to take screenshot: {e}")
+
+    driver.quit()
 
 
 @pytest.fixture(scope="function")
