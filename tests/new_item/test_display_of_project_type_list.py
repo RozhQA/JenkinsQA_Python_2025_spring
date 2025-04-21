@@ -12,3 +12,17 @@ def test_display_project_type_list(main_page):
     actual_types_list = [element.text for element in main_page.find_elements(By.XPATH, "//label/span")]
 
     assert actual_types_list == expected_types_list
+
+
+def test_display_description_of_type_item(main_page):
+    wait5 = WebDriverWait(main_page, 5)
+    main_page.find_element(By.XPATH, "//a[@href ='/view/all/newJob']").click()
+    wait5.until(EC.visibility_of_element_located((By.XPATH, "//div[@id='items']")))
+    project_types = main_page.find_elements(By.XPATH, "//label/span")
+    descriptions = main_page.find_elements(By.XPATH, "//div[@class='desc']")
+
+    assert len(descriptions) == len(project_types), "Количество описаний и типов проекта не совпадает!"
+
+    for element in descriptions:
+        text = element.text.strip()
+        assert len(text) > 20, "Описание типа проекта слишком короткое!"
