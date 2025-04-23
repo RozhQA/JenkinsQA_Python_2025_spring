@@ -12,5 +12,4 @@ def pipeline_config_page(main_page, config):
     main_page.find_elements(By.XPATH, '//*[@role="radio"]')[1].click()
     main_page.find_element(By.XPATH, '//*[@type="submit"]').click()
     wait5.until(EC.url_contains("/job/Pipeline%20First/configure"))
-
     return main_page
