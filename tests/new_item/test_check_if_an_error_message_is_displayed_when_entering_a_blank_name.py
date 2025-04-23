@@ -8,7 +8,8 @@ def test_displayed_empty_field_error(main_page):
 
     wait.until(EC.visibility_of_element_located((By.XPATH, "//a[@href='newJob']"))).click()
     main_page.find_element(By.ID, "ok-button").click()
-    assert wait.until(EC.visibility_of_element_located((By.ID, "itemname-required"))),\
-    "message invalid field not found"
+    assert wait.until(EC.visibility_of_element_located(
+        (By.XPATH, "//div[@id='itemname-required' and contains(text(), 'This field cannot be empty')]"))), \
+        "message invalid field not found"
 
 
