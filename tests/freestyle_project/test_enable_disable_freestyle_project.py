@@ -1,9 +1,10 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from tests.freestyle_project.freestyle_data import Freestyle
 
 
-def test_enabled_disable_freestyle_project(freestyle):
+def test_enable_disable_switch(freestyle):
     wait = WebDriverWait(freestyle, 10)
     is_enable = freestyle.find_element(By.CLASS_NAME, 'jenkins-toggle-switch__label__checked-title')
 
@@ -15,16 +16,15 @@ def test_enabled_disable_freestyle_project(freestyle):
 
     assert is_disable.is_displayed()
 
-    freestyle.find_element(By.XPATH, '//button[@name="Submit"]').click()
-    wait.until(EC.presence_of_element_located((By.XPATH, '//button[@formnovalidate="formNoValidate"]')))
-    status_text = freestyle.find_element(By.XPATH, '//div[@class="warning"]').text.splitlines()
+def test_tooltip(tooltip):
 
-    assert status_text[0] == "This project is currently disabled"
+    assert tooltip == Freestyle.tooltip_disable
 
-    freestyle.find_element(By.XPATH, '//button[@name="Submit"]').click()
-    wait.until(EC.presence_of_element_located((By.LINK_TEXT, 'Build Now')))
-    freestyle.find_element(By.LINK_TEXT, 'Configure').click()
-    wait.until(EC.presence_of_element_located((By.XPATH, '//label[@class="jenkins-toggle-switch__label "]')))
-    is_enable_text = freestyle.find_element(By.XPATH, '//label[@class="jenkins-toggle-switch__label "]').text
+def test_disabled_message(disabled_message):
+    warning_message = disabled_message.find_element(By.XPATH, '//div[@class="warning"]').text.splitlines()[0]
 
-    assert is_enable_text == "Enabled"
+    assert warning_message == Freestyle.warning_message
+
+def test_enable_after_disabled(enable_automatically):
+
+    assert enable_automatically == [True, True]
