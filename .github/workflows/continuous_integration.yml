@@ -15,7 +15,7 @@ jobs:
       JENKINS_HOST: localhost
       JENKINS_PORT: 8080
       BROWSER_NAME: chrome
-      BROWSER_OPTIONS_CHROME: --remote-allow-origins=*;--disable-gpu;--no-sandbox;--disable-dev-shm-usage;--headless=new;--window-size=1920,1080
+      BROWSER_OPTIONS_CHROME: --remote-allow-origins=*;--disable-gpu;--no-sandbox;--disable-dev-shm-usage;--headless=new;--window-size=1920,1080;--log-level=3
 
     steps:
       - name: git clone
