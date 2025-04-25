@@ -16,7 +16,6 @@ def test_copy_from_dropdown_shows_existing_item(new_item_page, config):
     wait.until(EC.text_to_be_present_in_element_attribute(
         FreestyleItem.copy_from_field_selector, "aria-expanded", "true"
     ))
-    wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "jenkins-dropdown__item")))
     existing_item = wait.until(EC.visibility_of_element_located((
         By.XPATH, "//a[contains(@class, 'jenkins-dropdown__item')]"
     )))
