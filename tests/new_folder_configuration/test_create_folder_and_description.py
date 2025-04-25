@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 def test_create_folder_without_description(main_page, create_folder):
     # TC_05.001.02
@@ -17,20 +16,12 @@ def test_create_folder_without_description(main_page, create_folder):
     # Find folder name
     check_display_name_element = main_page.find_element(By.XPATH, "//*[@id='main-panel']/h1")
     check_display_name = check_display_name_element.text
-    print("Folder name: ", check_display_name)
     # Find description - it should be empty
     check_description_element = main_page.find_element(By.XPATH, "//*[@id='view-message']")
     check_description = check_description_element.text
-    print("Description: ", check_description)
 
     assert check_display_name == item_display_name, "Folder name is incorrect"
     assert check_description == "", "Description is present"
-
-# Аутпут, если создать папку без описания и отображаемого имени:
-# Captured folder name:  None
-# Displayed name:  Sanity tests
-# Description:
-
 
 def test_create_folder_with_description_only(main_page, create_folder):
     # TC_05.001.01
@@ -48,10 +39,8 @@ def test_create_folder_with_description_only(main_page, create_folder):
     # receive two fields
     check_display_name_element = main_page.find_element(By.XPATH, "//*[@id='main-panel']/h1")
     check_display_name = check_display_name_element.text
-    print("Folder name: " + check_display_name)
     check_description_element = main_page.find_element(By.XPATH, "//*[@id='view-message']")
     check_description = check_description_element.text
-    print("Description: " + check_description)
 
     assert check_display_name == item_name, "Folder name is incorrect"
     assert check_description == item_description, "Description is incorrect"
@@ -79,14 +68,14 @@ def test_create_folder_with_display_and_description(main_page, create_folder):
     for line in text.splitlines():
         if line.strip().startswith("Folder name:"):
             check_name = line.strip()
-    print("Captured folder name: " + check_name)
+    # print("Captured folder name: " + check_name)
     # receive "Display name" and "Description"
     check_display_name_element = main_page.find_element(By.XPATH, "//*[@id='main-panel']/h1")
     check_display_name = check_display_name_element.text
-    print("Displayed name: " + check_display_name)
+    # print("Displayed name: " + check_display_name)
     check_description_element = main_page.find_element(By.XPATH, "//*[@id='view-message']")
     check_description = check_description_element.text
-    print("Description: " + check_description)
+    # print("Description: " + check_description)
 
     assert check_name == "Folder name: " + item_name, "Folder name is incorrect"
     assert check_display_name == item_display_name, "Display name is incorrect"
