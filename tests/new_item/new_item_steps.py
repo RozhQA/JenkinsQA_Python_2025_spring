@@ -5,7 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from .data_structs import NewItem, FreestyleItem
 
 
-def create_item(new_item_page: WebDriver, config):
+def create_item(new_item_page, config):
     new_item_page.find_element(*NewItem.name_field_selector).send_keys(NewItem.positive_name)
     new_item_page.find_element(*FreestyleItem.freestyle_selector).click()
     wait = WebDriverWait(new_item_page, 15)
