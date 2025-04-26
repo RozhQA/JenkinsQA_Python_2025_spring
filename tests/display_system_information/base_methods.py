@@ -9,9 +9,6 @@ class BaseMethods:
     TIMEOUT = 5
     POLL_FREQUENCY = 0.5
 
-    endpoint_url = ""
-    tab_title = ""
-
     def __init__(self, main_page: WebDriver):
         self.driver = main_page
         self.base_url = main_page.current_url
@@ -24,14 +21,6 @@ class BaseMethods:
             return result if element_flag else True
         except TimeoutException:
             return None if element_flag else False
-
-    def open(self):
-        target_url = self.base_url + self.endpoint_url
-        self.driver.get(target_url)
-        if hasattr(self, "tab_title"):
-            self.safe_wait(EC.title_is(self.tab_title))
-        else:
-            self.safe_wait(lambda d: self.endpoint_url in d.current_url if self.endpoint_url else self.base_url in d.current_url)
 
     def click(self, locator: tuple[str, str]):
         self.wait.until(EC.element_to_be_clickable(locator)).click()
