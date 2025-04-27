@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class NewItem:
@@ -8,3 +9,5 @@ class NewItem:
     name_field_selector = (By.CSS_SELECTOR, "#name")
     page_name_selector = (By.XPATH, "//h1[text()='New Item']")
     common_validation_error_selector = (By.CSS_SELECTOR, ".input-message-disabled")
+    any_enabled_error = (By.CSS_SELECTOR, ".input-validation-message:not(.input-message-disabled)")
+    special_chars = ["@", "#", "$", "%", "^", "&", "*", "<", "/", "\\"]
