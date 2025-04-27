@@ -101,7 +101,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
+tests/new_item/test_error_test_color/.env
 .venv
 env/
 venv/
