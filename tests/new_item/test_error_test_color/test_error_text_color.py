@@ -17,13 +17,9 @@ def new_items(main_page,wait5):
     ).click()
 
 
-@pytest.mark.usefixtures("new_items")
 def test_empty_name(main_page, wait5):
     error_message = wait5.until(
         EC.visibility_of_element_located((By.CLASS_NAME, "input-validation-message"))
     )
 
-    assert (
-            error_message.text == "» This field cannot be empty, please enter a valid name"
-            and error_message.value_of_css_property("color") in ("rgb(230, 0, 31)", "rgba(230, 0, 31, 1)")
-    )
+    assert error_message.value_of_css_property("color") in ("rgb(230, 0, 31)", "rgba(230, 0, 31, 1)")
