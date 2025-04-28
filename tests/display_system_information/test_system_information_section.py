@@ -27,3 +27,16 @@ class TestSystemInformationSection:
             button_locator = page.define_show_single_value_button_locator(element_name)
             assert page.is_clickable(button_locator), f'Button for {element_name} is not clickable'
 
+    def test_system_properties_tab_show_hide_each_single_value(self, sys_info_page):
+        page = SIP(sys_info_page)
+        element_names = page.get_all_element_names(SI.SHOW_SYS_VALUES_BUTTON)
+        assert len(element_names) > 0, 'List of system properties is empty'
+
+        for element_name in element_names:
+            show_button = page.define_show_single_value_button_locator(element_name)
+            page.click(show_button)
+            assert page.is_value_displayed(element_name), f'Value for {element_name} is still hidden'
+
+            hide_button = page.define_hide_single_value_button_locator(element_name)
+            page.click(hide_button)
+            assert page.is_clickable(show_button), f'Button for {element_name} is not clickable'
