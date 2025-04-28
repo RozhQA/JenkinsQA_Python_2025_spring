@@ -3,7 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def test_create_folder_with_description_only(main_page, create_folder):
+def test_helping_icon(main_page, create_folder):
     wait = WebDriverWait(main_page, 10)
     item_name = "Folder one"
     create_folder(item_name)
