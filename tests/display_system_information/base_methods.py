@@ -50,7 +50,7 @@ class BaseMethods:
     def get_element(self, locator: tuple[str, str]) -> WebElement | None:
         return self.safe_wait(EC.presence_of_element_located(locator), element_flag=True)
 
-    def element_text(self, locator: tuple[str, str]) -> str:
+    def get_element_text(self, locator: tuple[str, str]) -> str:
         element = self.safe_wait(EC.visibility_of_element_located(locator), element_flag=True)
         return element.text.strip() if element else ''
 
