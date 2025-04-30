@@ -49,3 +49,14 @@ class SystemInformationPage(BaseMethods):
 
     def find_table_element(self, table_id: str) -> WebElement:
         return self.find_element((By.ID, table_id))
+
+    def number_of_plugins_in_table(self, table_body_locator: tuple[str, str]) -> int:
+        table = self.find_element(table_body_locator)
+        return len(table.find_elements(By.TAG_NAME, "tr"))
+
+    def get_plugin_info(self, number: int) -> tuple[tuple[str, str], tuple[str, str], tuple[str, str], str]:
+        name_locator = (By.XPATH, f"(//table[@class='jenkins-table sortable'])[3]/tbody/tr[{number}]/td[1]//a")
+        version_locator = (By.XPATH, f"(//table[@class='jenkins-table sortable'])[3]/tbody/tr[{number}]/td[2]")
+        enabled_locator = (By.XPATH, f"(//table[@class='jenkins-table sortable'])[3]/tbody/tr[{number}]/td[3]")
+        plugin_name = self.get_element_text(name_locator)
+        return name_locator, version_locator, enabled_locator, plugin_name
