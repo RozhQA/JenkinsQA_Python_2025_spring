@@ -4,7 +4,6 @@ from tests.display_system_information.locators import (
     JenkinsSidePanel as SP,
     ManageJenkinsTask as MJ,
     SystemInformationPage as SI)
-from selenium.webdriver.common.by import By
 
 
 class TestSystemInformationSection:
