@@ -52,5 +52,5 @@ class BaseMethods:
 
     def element_text(self, locator: tuple[str, str]) -> str:
         element = self.safe_wait(EC.visibility_of_element_located(locator), element_flag=True)
-        return element.text
+        return element.text.strip() if element else ''
 
