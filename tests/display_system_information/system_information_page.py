@@ -29,6 +29,7 @@ class SystemInformationPage(BaseMethods):
         return first_td_values
 
     def get_all_element_names(self, anchor_locator):
+        # for System Properties and Environment Variables tabs only
         data_table_id = self.get_data_table_id(anchor_locator)
         return self.get_table_td_values(data_table_id)
 
