@@ -77,11 +77,10 @@ class TestSystemInformationSection:
         number_of_plugins = page.number_of_plugins_in_table(SI.PLUGINS_TABLE_BODY)
         assert number_of_plugins > 0
 
-        for i in range(number_of_plugins):
-            name_locator, version_locator, status_locator, plugin_name = page.get_plugin_info(i + 1)
+        for i in range(1, number_of_plugins+1):
+            name_locator, version_locator, status_locator, plugin_name = page.get_plugin_info(i)
             assert page.is_visible(name_locator), f'Row {i}: Plugin name is not displayed'
             assert page.is_link_clickable(name_locator), f'Row {i}: {plugin_name} is not clickable'
             assert page.is_visible(version_locator), f'Row {i}: {plugin_name} version is not displayed'
             assert page.is_visible(status_locator), f'Row {i}: {plugin_name} status is not displayed'
             assert page.get_element_text(status_locator) in ['true', 'false'], f'Row {i}: {plugin_name} status is not correct'
-
