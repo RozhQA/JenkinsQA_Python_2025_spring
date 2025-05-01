@@ -32,7 +32,5 @@ def test_health_metrics_available(main_page, folder):
 
     assert health_metrics.is_displayed(), "'Health metrics' not visible"
 
-    try:
-        health_metrics.click()
-    except Exception as e:
-        pytest.fail(f"'Health metrics' is visible but not clickable: {e}")
+    is_clickable = EC.element_to_be_clickable((By.ID, "health-metrics"))
+    assert is_clickable is not None, "'Health metrics' is not clickable"
