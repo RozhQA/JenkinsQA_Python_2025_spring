@@ -31,9 +31,8 @@ def test_create_folder_with_display_and_description(main_page, create_folder):
     main_page.find_element(By.CSS_SELECTOR, "div.setting-main> textarea").send_keys(initial_values[2])
     wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "[name='Submit']"))).click()
     wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "h4")))
-    main_panel = main_page.find_element(By.ID, "main-panel")
-    text = main_panel.text
-    for line in text.splitlines():
+    main_panel_text = main_page.find_element(By.ID, "main-panel").text
+    for line in main_panel_text.splitlines():
         if line.strip().startswith("Folder name:"):
             tested_values.append(line.split(":")[1].strip())
     tested_values.append(main_page.find_element(By.XPATH, "//*[@id='main-panel']/h1").text)
