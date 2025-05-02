@@ -18,8 +18,8 @@ class NewItem:
 
 
 class CopyFrom:
-    copy_from_field_selector = (By.ID, "from")
+    copy_from_selector = (By.ID, "from")
 
     @classmethod
-    def get_first_letter_of_project_name(cls):
+    def first_letter_of_name(cls):
         return NewItem.positive_name[0]
