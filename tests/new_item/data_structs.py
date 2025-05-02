@@ -18,7 +18,6 @@ class NewItem:
 
 
 class CopyFrom:
-    negative_name = "negative_name"
     copy_from_field_selector = (By.ID, "from")
 
     @classmethod
