@@ -8,8 +8,8 @@ def test_display_existing_item(prepare_new_item, config, wait):
     prepare_new_item.find_element(*CopyFrom.copy_from_selector).send_keys(
         CopyFrom.first_letter_of_name()
     )
-    item_element = wait.until(EC.visibility_of_element_located((
-        By.CSS_SELECTOR, "a.jenkins-dropdown__item"))
+    item_element = wait.until(EC.visibility_of_element_located(
+        CopyFrom.dropdown_item_selector)
     )
     actual_text = item_element.text.strip()
 

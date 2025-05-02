@@ -19,6 +19,7 @@ class NewItem:
 
 class CopyFrom:
     copy_from_selector = (By.ID, "from")
+    dropdown_item_selector = (By.CSS_SELECTOR, "a.jenkins-dropdown__item")
 
     @classmethod
     def first_letter_of_name(cls):
