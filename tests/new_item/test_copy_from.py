@@ -9,7 +9,7 @@ def test_display_existing_item(prepare_new_item, config, wait):
         CopyFrom.get_first_letter_of_project_name()
     )
     existing_item = wait.until(EC.visibility_of_element_located((
-        By.XPATH, "//a[contains(@class, 'jenkins-dropdown__item')]"
+        By.CSS_SELECTOR, "a.jenkins-dropdown__item"
     )))
     actual_item_text = existing_item.text.strip()
 
