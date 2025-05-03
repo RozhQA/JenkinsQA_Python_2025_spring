@@ -35,7 +35,6 @@ def test_only_one_project_can_be_selected(main_page):
     highlighted_items = page.get_highlighted_items()
     highlighted_title = page.get_highlighted_item_title()
 
-
     assert len(selected_items) == 1
     assert selected_items == highlighted_items
     assert highlighted_title == "Freestyle project"
