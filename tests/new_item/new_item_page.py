@@ -11,7 +11,7 @@ class NewItemPage:
     PIPELINE_ITEM_ACTIVE = (By.CSS_SELECTOR, ".org_jenkinsci_plugins_workflow_job_WorkflowJob.active")
     FREESTYLE_ITEM = (By.CLASS_NAME, "hudson_model_FreeStyleProject")
     FREESTYLE_ITEM_ACTIVE = (By.CSS_SELECTOR, ".hudson_model_FreeStyleProject.active")
-    SELECTED_ITEM= (By.XPATH, "//li[@aria-checked='true']")
+    SELECTED_ITEM = (By.XPATH, "//li[@aria-checked='true']")
     ACTIVE_ITEM = (By.CLASS_NAME, "active")
     ACTIVE_ITEM_TITLE = (By.XPATH, "//li[contains(@class, 'active')]//label/span")
 
