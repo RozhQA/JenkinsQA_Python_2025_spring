@@ -34,8 +34,7 @@ class NewItemPage(BasePage):
         self.wait_to_be_clickable(element).click()
 
     def get_active_element(self):
-        self.wait_for_element(self.Locator.ACTIVE_ITEM)
-        return self.find_element(*self.Locator.ACTIVE_ITEM)
+        return self.wait_for_element(self.Locator.ACTIVE_ITEM)
 
     def get_selected_items(self):
         return self.find_elements(*self.Locator.SELECTED_ITEM)
