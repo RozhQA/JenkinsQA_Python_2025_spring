@@ -8,4 +8,4 @@ class SystemInformationPage(ManageJenkinsPage):
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
-        self.url += "systemInfo"
+        self.url = self.base_url + "/manage/systemInfo"
