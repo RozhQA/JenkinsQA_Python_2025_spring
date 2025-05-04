@@ -26,12 +26,15 @@ class JenkinsConfig(ConfigBase):
     base_url: str = ""
     login_url: str = ""
     login_data: dict = {}
+    crumb: str = ""
 
     def model_post_init(self, context: Any, /) -> None:
         self.base_url = f"http://{self.HOST}:{self.PORT}"
         self.login_url = f"{self.base_url}/j_spring_security_check"
         self.login_data = {"j_username": self.USERNAME, "j_password": self.PASSWORD}
 
+    def update_crumb(self, crumb):
+        self.crumb = crumb
 
 class Config(BaseSettings):
     browser: BrowserConfig = Field(default_factory=BrowserConfig)

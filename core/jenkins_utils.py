@@ -1,7 +1,7 @@
-import requests
 import re
 import json
 import logging
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -9,6 +9,17 @@ logger = logging.getLogger(__name__)
 def get_crumb(response):
     return re.findall(r'data-crumb-value="([a-z0-9]{64})"', response.text)[0]
 
+
+def update_crumb(driver, config):
+    session = requests.Session()
+    cookies = driver.get_cookies()
+    for cookie in cookies:
+        session.cookies.set(cookie['name'], cookie['value'])
+    response = session.get(config.jenkins.base_url + "/crumbIssuer/api/json")
+    crumb = response.json()["crumb"]
+    logger.info(f"update_crumb: {crumb}")
+    config.jenkins.update_crumb(crumb)
+    return crumb
 
 def get_substrings(response, from_string, to_string):
     # В Java коде длину ограничивали в 255 символов, я пока не делал. Если возникнут проблемы тогда будем смотреть.
