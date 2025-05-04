@@ -7,9 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_crumb(response):
-    crumb = re.findall(r'data-crumb-value="([a-z0-9]{64})"', response.text)[0]
-    logger.info(f"get_crumb: {crumb}")
-    return crumb
+    return re.findall(r'data-crumb-value="([a-z0-9]{64})"', response.text)[0]
 
 
 def update_crumb(driver, config):
