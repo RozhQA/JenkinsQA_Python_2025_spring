@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
+from selenium.common import TimeoutException
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from core.settings import Config
@@ -10,7 +11,6 @@ from core.settings import Config
 class BasePage:
     class Locators:
         HEADER_LOGO = (By.ID, "jenkins-home-link")
-
 
     def __init__(self, driver: WebDriver, timeout = 5):
         self.config = Config.load()
@@ -41,8 +41,20 @@ class BasePage:
     def wait_to_be_clickable(self, locator, timeout = 5) -> WebElement:
         return self._wait_for(locator, EC.element_to_be_clickable, timeout)
 
-    def click_on(self, locator):
-        self.wait_to_be_clickable(locator).click()
+    def click_on(self, locator, timeout = 5):
+        self._wait_for(locator, EC.element_to_be_clickable, timeout).click()
+
+    def safe_wait(self, condition, timeout=None, poll_frequency=None, element_flag=False) -> bool | WebElement | None:
+        # Possible to set custom timeout and poll_frequency. element_flag=True to return WebElement
+        if timeout is None and poll_frequency is None:
+            wait = self.wait
+        else:
+            wait = WebDriverWait(self.driver, timeout, poll_frequency=poll_frequency)
+        try:
+            result = wait.until(condition)
+            return result if element_flag else True
+        except TimeoutException:
+            return None if element_flag else False
 
     def go_to_the_main_page(self):
         from pages.main_page import MainPage
