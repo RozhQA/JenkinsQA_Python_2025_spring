@@ -4,6 +4,7 @@ from pages.base_page import BasePage
 class MainPage(BasePage):
     class Locator:
         NEW_ITEM_BUTTON = (By.LINK_TEXT, "New Item")
+        MANAGE_JENKINS_BUTTON = (By.LINK_TEXT, "Manage Jenkins")
         TABLE_ITEM = (By.CSS_SELECTOR, "a.inside")
 
     def __init__(self, driver, timeout=5):
@@ -17,3 +18,9 @@ class MainPage(BasePage):
         from pages.new_item_page import NewItemPage
         self.wait_to_be_clickable(self.Locator.NEW_ITEM_BUTTON).click()
         return NewItemPage(self.driver)
+
+    def go_to_manage_jenkins_page(self):
+        from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
+        self.click_on(self.Locator.MANAGE_JENKINS_BUTTON)
+        return ManageJenkinsPage(self.driver)
+
