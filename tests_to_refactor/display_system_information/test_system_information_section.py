@@ -7,12 +7,6 @@ from tests.display_system_information.locators import (
 
 
 class TestSystemInformationSection:
-    def test_open_system_information_page(self, main_page):
-        page = BaseMethods(main_page)
-        page.click(SP.MANAGE_JENKINS)
-        page.click(MJ.SYSTEM_INFORMATION)
-        assert page.is_visible(SI.TABS_BAR)
-
     def test_system_properties_tab_show_hide_all_values(self, sys_info_page):
         page = SIP(sys_info_page)
         element_names = page.get_all_element_names(SI.SHOW_SYS_VALUES_BUTTON)
