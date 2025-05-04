@@ -11,6 +11,7 @@ from core.jenkins_utils import clear_data
 from core.settings import Config
 
 from pages.login_page import LoginPage
+from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage as MJ
 from pages.new_item_page import NewItemPage
 
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -100,3 +101,8 @@ def main_page(login_page, config):
 @pytest.fixture(scope="function")
 def new_item_page(main_page) -> NewItemPage:
     return main_page.go_to_new_item_page()
+
+
+@pytest.fixture(scope="function")
+def manage_jenkins_page(main_page) -> MJ:
+    return MJ(main_page.click_on(main_page.Locator.MANAGE_JENKINS_BUTTON))
