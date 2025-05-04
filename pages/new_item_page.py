@@ -6,6 +6,14 @@ class NewItemPage(BasePage):
         ITEM_NAME = (By.CSS_SELECTOR, '#name')
         FOLDER_BUTTON = (By.CSS_SELECTOR, '[class*="cloudbees_hudson_plugins_folder"]')
         OK_BUTTON = (By.CSS_SELECTOR, '#ok-button')
+        ITEM_LIST = (By.ID, "items")
+        PROJECT_TYPE_PIPELINE = (By.CLASS_NAME, "org_jenkinsci_plugins_workflow_job_WorkflowJob")
+        PROJECT_TYPE_PIPELINE_ACTIVE = (By.CSS_SELECTOR, ".org_jenkinsci_plugins_workflow_job_WorkflowJob.active")
+        PROJECT_TYPE_FREESTYLE = (By.CLASS_NAME, "hudson_model_FreeStyleProject")
+        PROJECT_TYPE_FREESTYLE_ACTIVE = (By.CSS_SELECTOR, ".hudson_model_FreeStyleProject.active")
+        SELECTED_ITEM = (By.XPATH, "//li[@aria-checked='true']")
+        ACTIVE_ITEM = (By.CLASS_NAME, "active")
+        ACTIVE_ITEM_TITLE = (By.XPATH, "//li[contains(@class, 'active')]//label/span")
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -17,3 +25,20 @@ class NewItemPage(BasePage):
         self.wait_to_be_clickable(self.Locator.FOLDER_BUTTON).click()
         self.wait_to_be_clickable(self.Locator.OK_BUTTON).click()
         return FolderConfigPage(self.driver, name).wait_for_url()
+
+    def select_pipeline_project(self):
+        self.find_element(*self.Locator.PROJECT_TYPE_PIPELINE).click()
+        self.wait_to_be_visible(self.Locator.PROJECT_TYPE_PIPELINE_ACTIVE)
+
+    def select_freestyle_project(self):
+        self.find_element(*self.Locator.PROJECT_TYPE_FREESTYLE).click()
+        self.wait_to_be_visible(self.Locator.PROJECT_TYPE_FREESTYLE_ACTIVE)
+
+    def get_selected_items(self):
+        return self.find_elements(*self.Locator.SELECTED_ITEM)
+
+    def get_highlighted_items(self):
+        return self.find_elements(*self.Locator.ACTIVE_ITEM)
+
+    def get_title_highlighted_item(self):
+        return self.find_element(*self.Locator.ACTIVE_ITEM_TITLE).text.strip()
