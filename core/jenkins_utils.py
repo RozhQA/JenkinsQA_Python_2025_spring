@@ -21,13 +21,14 @@ def get_session(driver):
 def update_crumb(driver, config):
     session = get_session(driver)
     response = session.get(config.jenkins.base_url + "/crumbIssuer/api/json")
-    crumb = response.json()["crumb"]
+    crumb = response.json().get("crumb", "")
     logger.debug(f"update_crumb: {crumb}")
     config.jenkins.update_crumb(crumb)
     return crumb
 
 
 def remote_build_trigger(driver, job_name, token, config):
+    update_crumb(driver, config)
     session = get_session(driver)
     cred_url = config.jenkins.get_url_with_credentials()
     url = f"{cred_url}/job/{job_name}/build?token={token}&Jenkins-Crumb={config.jenkins.crumb}"
@@ -126,6 +127,18 @@ def delete_domains(session, config):
     delete_by_link(session, url, names, crumb)
 
 
+def delete_tokens(session, config):
+    security_page = get_page(session, config.jenkins.base_url + f"/user/{config.jenkins.USERNAME}/security/", config)
+    url = config.jenkins.base_url + f"/user/{config.jenkins.USERNAME}/descriptorByName/jenkins.security.ApiTokenProperty/revoke"
+    uuids = get_substrings(security_page, 'class="token-uuid-input" value="', '">')
+    headers = {"Content-Type": "application/x-www-form-urlencoded", "Jenkins-Crumb": get_crumb(security_page)}
+    for uuid in uuids:
+        logger.info(f"deleting token with uuid {uuid}")
+        response = session.post(url=url, headers=headers, data=f"tokenUuid={uuid}")
+        if not response.ok:
+            logger.error(f"failed to delete token with uuid={uuid}, response code: {response.status_code}")
+
+
 def clear_data(config):
     session = requests.Session()
     delete_jobs_views(session, config)
@@ -133,5 +146,6 @@ def clear_data(config):
     delete_nodes(session, config)
     delete_domains(session, config)
     reset_theme_description(session, config)
+    delete_tokens(session, config)
 
 
