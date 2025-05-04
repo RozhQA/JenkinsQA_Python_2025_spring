@@ -48,7 +48,7 @@ class BasePage:
     def go_to_the_main_page(self):
         from pages.main_page import MainPage
         self.wait_to_be_clickable(self.Locators.HEADER_LOGO).click()
-        return MainPage(self.driver)
+        return MainPage(self.driver).wait_for_url()
 
     def click_on(self, locator, timeout=5):
         self._wait_for(locator, EC.element_to_be_clickable, timeout).click()

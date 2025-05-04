@@ -14,4 +14,4 @@ class ManageJenkinsPage(BasePage):
     def go_to_sys_info_page(self):
         from pages.manage_jenkins.status_information.system_information_page import SystemInformationPage
         self.click_on(self.Locator.StatusInformation.SYSTEM_INFORMATION)
-        return SystemInformationPage(self.driver)
+        return SystemInformationPage(self.driver).wait_for_url()
