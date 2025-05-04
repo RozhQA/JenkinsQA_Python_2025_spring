@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
-from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage as MJ
+from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
 
 
-class SystemInformationPage(MJ):
+class SystemInformationPage(ManageJenkinsPage):
     class Locator:
         TABS_BAR = (By.CSS_SELECTOR, ".tabBar")
 
