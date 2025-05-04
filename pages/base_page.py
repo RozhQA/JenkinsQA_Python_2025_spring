@@ -44,8 +44,8 @@ class BasePage:
     def click_on(self, locator, timeout = 5):
         self._wait_for(locator, EC.element_to_be_clickable, timeout).click()
 
-    def safe_wait(self, condition, timeout=None, poll_frequency=None, element_flag=False) -> bool | WebElement | None:
-        # Possible to set custom timeout and poll_frequency. element_flag=True to return WebElement
+    def _safe_wait(self, condition, timeout=None, poll_frequency=None, element_flag=False):
+        # Possible to set custom timeout and poll_frequency. element_flag=True to return WebElement.
         if timeout is None and poll_frequency is None:
             wait = self.wait
         else:
@@ -55,6 +55,12 @@ class BasePage:
             return result if element_flag else True
         except TimeoutException:
             return None if element_flag else False
+
+    def is_visible(self, locator) -> bool:
+        return self._safe_wait(EC.visibility_of_element_located(locator))
+
+    def is_clickable(self, locator) -> bool:
+        return self._safe_wait(EC.element_to_be_clickable(locator))
 
     def go_to_the_main_page(self):
         from pages.main_page import MainPage
