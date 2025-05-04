@@ -9,10 +9,10 @@ class NewItemPage(BasePage):
         FOLDER_BUTTON = (By.CSS_SELECTOR, '[class*="cloudbees_hudson_plugins_folder"]')
         OK_BUTTON = (By.CSS_SELECTOR, '#ok-button')
         ITEM_LIST = (By.ID, "items")
-        PROJECT_TYPE_PIPELINE = (By.CLASS_NAME, "org_jenkinsci_plugins_workflow_job_WorkflowJob")
-        PROJECT_TYPE_PIPELINE_ACTIVE = (By.CSS_SELECTOR, ".org_jenkinsci_plugins_workflow_job_WorkflowJob.active")
-        PROJECT_TYPE_FREESTYLE = (By.CLASS_NAME, "hudson_model_FreeStyleProject")
-        PROJECT_TYPE_FREESTYLE_ACTIVE = (By.CSS_SELECTOR, ".hudson_model_FreeStyleProject.active")
+        ITEM_PIPELINE_PROJECT = (By.CLASS_NAME, "org_jenkinsci_plugins_workflow_job_WorkflowJob")
+        ITEM_PIPELINE_PROJECT_ACTIVE = (By.CSS_SELECTOR, ".org_jenkinsci_plugins_workflow_job_WorkflowJob.active")
+        ITEM_FREESTYLE_PROJECT = (By.CLASS_NAME, "hudson_model_FreeStyleProject")
+        ITEM_FREESTYLE_PROJECT_ACTIVE = (By.CSS_SELECTOR, ".hudson_model_FreeStyleProject.active")
         SELECTED_ITEM = (By.XPATH, "//li[@aria-checked='true']")
         ACTIVE_ITEM = (By.CLASS_NAME, "active")
         ACTIVE_ITEM_TITLE = (By.XPATH, "//li[contains(@class, 'active')]//label/span")
@@ -29,12 +29,12 @@ class NewItemPage(BasePage):
         return FolderConfigPage(self.driver, name).wait_for_url()
 
     def select_pipeline_project(self):
-        self.find_element(*self.Locator.PROJECT_TYPE_PIPELINE).click()
-        self.wait_to_be_visible(self.Locator.PROJECT_TYPE_PIPELINE_ACTIVE)
+        self.find_element(*self.Locator.ITEM_PIPELINE_PROJECT).click()
+        self.wait_to_be_visible(self.Locator.ITEM_PIPELINE_PROJECT_ACTIVE)
 
     def select_freestyle_project(self):
-        self.find_element(*self.Locator.PROJECT_TYPE_FREESTYLE).click()
-        self.wait_to_be_visible(self.Locator.PROJECT_TYPE_FREESTYLE_ACTIVE)
+        self.find_element(*self.Locator.ITEM_FREESTYLE_PROJECT).click()
+        self.wait_to_be_visible(self.Locator.ITEM_FREESTYLE_PROJECT_ACTIVE)
 
     def get_selected_items(self):
         return self.find_elements(*self.Locator.SELECTED_ITEM)
