@@ -16,4 +16,4 @@ class NewItemPage(BasePage):
         self.wait_for_element(self.Locator.ITEM_NAME).send_keys(name)
         self.wait_to_be_clickable(self.Locator.FOLDER_BUTTON).click()
         self.wait_to_be_clickable(self.Locator.OK_BUTTON).click()
-        return FolderConfigPage(self.driver, name)
+        return FolderConfigPage(self.driver, name).wait_for_url()
