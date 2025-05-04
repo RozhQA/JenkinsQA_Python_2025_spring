@@ -105,4 +105,5 @@ def new_item_page(main_page) -> NewItemPage:
 
 @pytest.fixture(scope="function")
 def manage_jenkins_page(main_page) -> MJ:
-    return MJ(main_page.click_on(main_page.Locator.MANAGE_JENKINS_BUTTON))
+    main_page.click_on(main_page.Locator.MANAGE_JENKINS_BUTTON)
+    return MJ(main_page.driver)
