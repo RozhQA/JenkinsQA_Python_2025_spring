@@ -36,6 +36,10 @@ class JenkinsConfig(ConfigBase):
     def update_crumb(self, crumb):
         self.crumb = crumb
 
+    def get_url_with_credentials(self):
+        return f"http://{self.USERNAME}:{self.PASSWORD}@{self.HOST}:{self.PORT}"
+
+
 class Config(BaseSettings):
     browser: BrowserConfig = Field(default_factory=BrowserConfig)
     jenkins: JenkinsConfig = Field(default_factory=JenkinsConfig)
