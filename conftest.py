@@ -11,7 +11,6 @@ from core.jenkins_utils import clear_data
 from core.settings import Config
 
 from pages.login_page import LoginPage
-from pages.main_page import MainPage
 from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
 from pages.new_item_page import NewItemPage
 
