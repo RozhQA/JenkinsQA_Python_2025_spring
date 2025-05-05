@@ -6,15 +6,6 @@ class SystemInformationPage(ManageJenkinsPage):
     class Locator:
         TABS_BAR = (By.CSS_SELECTOR, ".tabBar .tab a")
 
-    class Data:
-        TABS_BAR_HEADERS = [
-            "System Properties",
-            "Environment Variables",
-            "Plugins",
-            "Memory Usage",
-            "Thread Dumps"
-        ]
-
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + "/manage/systemInfo"
