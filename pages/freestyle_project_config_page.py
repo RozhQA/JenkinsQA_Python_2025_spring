@@ -16,7 +16,8 @@ class FreestyleProjectConfigPage(BasePage):
         PREVIEW = (By.LINK_TEXT, 'Preview')
         HIDE_PREVIEW = (By.LINK_TEXT, 'Hide preview')
         NOTIFICATION = (By.ID, 'notification-bar')
-
+        BUILDS_REMOTELY_CHECKBOX = (By.CSS_SELECTOR, "input[name='pseudoRemoteTrigger']~label")
+        AUTH_TOKEN = (By.NAME, "authToken")
 
     def __init__(self, driver, project_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -49,7 +50,7 @@ class FreestyleProjectConfigPage(BasePage):
     def click_save_button(self):
         from pages.freestyle_project_page import FreestyleProjectPage
         self.wait_to_be_clickable(self.Locator.SAVE_BUTTON).click()
-        return FreestyleProjectPage(self.driver, project_name=self.name)
+        return FreestyleProjectPage(self.driver, project_name=self.name).wait_for_url()
 
     def is_apply_button_available(self):
         return self.wait_to_be_clickable(self.Locator.APPLY_BUTTON)
@@ -95,3 +96,10 @@ class FreestyleProjectConfigPage(BasePage):
 
     def is_notification_was_visible(self):
         return self.wait_to_be_visible(self.Locator.NOTIFICATION)
+
+    def set_trigger_builds_remotely(self, token):
+        checkbox = self.wait_for_element(self.Locator.BUILDS_REMOTELY_CHECKBOX)
+        self.scroll_into_view(checkbox)
+        self.wait_to_be_clickable(checkbox).click()
+        self.wait_to_be_visible(self.Locator.AUTH_TOKEN).send_keys(token)
+        return self.click_save_button()
