@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 from pages.base_page import BasePage
 
