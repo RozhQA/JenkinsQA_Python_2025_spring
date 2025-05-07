@@ -84,8 +84,7 @@ class NewItemPage(BasePage):
             return []
 
     def create_folder_and_open_page(self, name):
-        self.create_new_folder(name)
-        return self.go_to_the_main_page().go_to_new_item_page()
+        return self.create_new_folder(name).go_to_the_main_page().go_to_new_item_page()
 
     def enter_first_letter_in_copy_from(self, name):
         self.enter_text_in_field(self.Locator.COPY_FROM, name[0])
