@@ -2,12 +2,19 @@ from selenium.webdriver.common.by import By
 
 
 class Freestyle:
-    project_name = "NewFreestyleProject"
+    project_name = "New Freestyle Project"
     tooltip_disable = "Enable or disable the current project"
     warning_message = "This project is currently disabled"
     description_text = "Jenkins freestyle project is the general purpose job that will clone the projects from the Source Code Management (SCM) like Github, Gitlab, and Bit Bucket."
     tooltip_enable = (By.XPATH, '//span[@tooltip="Enable or disable the current project"]')
-    tooltip_enable_wait = (By.XPATH, '//span[@aria-describedby="tippy-15"]')
+    environmet_options = ([
+        ("Delete workspace before build starts", "cb18"),
+        ("Use secret text(s) or file(s)", "cb19"),
+        ("Add timestamps to the Console Output", "cb20"),
+        ("Inspect build log for published build scans", "cb21"),
+        ("Terminate a build if it's stuck", "cb22"),
+        ("With Ant", "cb23")
+    ])
     tooltip_scm_link = (
         '//a[@tooltip="Help for feature: Git"]',
         '//a[@tooltip="Help for feature: Repositories"]',
@@ -41,15 +48,7 @@ class Freestyle:
         'Help for feature: Branch Specifier (blank for \'any\')',
         'Help for feature: Repository browser'
     )
-    tooltip_environment_link = (
-        '//a[@tooltip="Help for feature: Use secret text(s) or file(s)"]',
-        '//a[@tooltip="Help for feature: With Ant"]'
-    )
-    tooltip_environment_link_wait = (
-        '//a[@aria-describedby="tippy-62"]',
-        '//a[@aria-describedby="tippy-65"]'
-    )
-    tooltip_environment_expected_text = (
-        'Help for feature: Use secret text(s) or file(s)',
-        'Help for feature: With Ant'
-    )
+    tooltip_environment = [
+        ((By.XPATH, '//a[@tooltip="Help for feature: Use secret text(s) or file(s)"]'), 'Help for feature: Use secret text(s) or file(s)'),
+        ((By.XPATH, '//a[@tooltip="Help for feature: With Ant"]'), 'Help for feature: With Ant')
+    ]
