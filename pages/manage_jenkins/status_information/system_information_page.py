@@ -9,15 +9,15 @@ class SystemInformationPage(ManageJenkinsPage):
         ACTIVE_TAB = (By.XPATH, "//div[@class='jenkins-tab-pane'][@style='display: block;']/h2")
 
         @staticmethod
-        def tab_table(tab_number: int):
+        def tab_table(tab_number: int) -> tuple[str, str]:
             return By.XPATH, f"//div[@class='jenkins-tab-pane'][{tab_number}]/table/tbody"
 
         @staticmethod
-        def show_all_button(tab_number: int):
+        def show_all_button(tab_number: int) -> tuple[str, str]:
             return By.XPATH, f"(//button[contains(normalize-space(text()), 'Show values')])[{tab_number}]"
 
         @staticmethod
-        def hide_all_button(tab_number: int):
+        def hide_all_button(tab_number: int) -> tuple[str, str]:
             return By.XPATH, f"(//button[contains(normalize-space(text()), 'Hide values')])[{tab_number}]"
 
         @staticmethod
@@ -52,11 +52,11 @@ class SystemInformationPage(ManageJenkinsPage):
             processed_rows.append(row_text)
         return processed_rows
 
-    def click_show_all_values_button(self):
+    def click_show_all_values_button(self) -> None:
         tab_number = self.get_active_tab_number()
         self.click_on(self.Locator.show_all_button(tab_number))
 
-    def click_hide_all_values_button(self):
+    def click_hide_all_values_button(self) -> None:
         tab_number = self.get_active_tab_number()
         self.click_on(self.Locator.hide_all_button(tab_number))
 
