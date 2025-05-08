@@ -28,6 +28,10 @@ class SystemInformationPage(ManageJenkinsPage):
         def hide_single_value_button(element_name: str) -> tuple[str, str]:
             return By.XPATH, f"//tr[td[normalize-space(text())='{element_name}']]//div[contains(@class, 'app-hidden-info-hide')]//button"
 
+        @staticmethod
+        def tab_by_name(tab_name: str) -> tuple[str, str]:
+            return By.XPATH, f"//a[@href='#'][text()='{tab_name}']/.."
+
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + "/manage/systemInfo"
@@ -71,3 +75,9 @@ class SystemInformationPage(ManageJenkinsPage):
         self.click_on(locator)
         locator = self.Locator.show_single_value_button(system_property)
         return self.find_element(*locator).get_attribute("textContent").strip().replace('\n', '').replace('\r', '')
+
+    def click_on_tab(self, tab_name: str) -> None:
+        self.click_on(self.Locator.tab_by_name(tab_name))
+
+    def click_on_environment_variables_tab(self) -> None:
+        self.click_on_tab(SI.TABS_BAR_HEADERS[1])
