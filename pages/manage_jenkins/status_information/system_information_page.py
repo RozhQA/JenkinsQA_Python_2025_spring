@@ -20,6 +20,14 @@ class SystemInformationPage(ManageJenkinsPage):
         def hide_all_button(tab_number: int):
             return By.XPATH, f"(//button[contains(normalize-space(text()), 'Hide values')])[{tab_number}]"
 
+        @staticmethod
+        def show_single_value_button(element_name: str) -> tuple[str, str]:
+            return By.XPATH, f"//tr[td[normalize-space(text())='{element_name}']]//button[contains(normalize-space(.), '{SI.SHOW_SINGLE_VALUE_BUTTON_TEXT}')]"
+
+        @staticmethod
+        def hide_single_value_button(element_name: str) -> tuple[str, str]:
+            return By.XPATH, f"//tr[td[normalize-space(text())='{element_name}']]//div[contains(@class, 'app-hidden-info-hide')]//button"
+
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + "/manage/systemInfo"
@@ -51,3 +59,15 @@ class SystemInformationPage(ManageJenkinsPage):
     def click_hide_all_values_button(self):
         tab_number = self.get_active_tab_number()
         self.click_on(self.Locator.hide_all_button(tab_number))
+
+    def click_show_single_value_button(self, system_property: str) -> str:
+        locator = self.Locator.show_single_value_button(system_property)
+        self.click_on(locator)
+        locator = self.Locator.hide_single_value_button(system_property)
+        return self.find_element(*locator).get_attribute("textContent").strip().replace('\n', '').replace('\r', '')
+
+    def click_hide_single_value_button(self, system_property: str) -> str:
+        locator = self.Locator.hide_single_value_button(system_property)
+        self.click_on(locator)
+        locator = self.Locator.show_single_value_button(system_property)
+        return self.find_element(*locator).get_attribute("textContent").strip().replace('\n', '').replace('\r', '')
