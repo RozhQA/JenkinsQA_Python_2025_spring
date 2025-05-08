@@ -4,6 +4,9 @@ from pages.base_page import BasePage
 class FolderConfigPage(BasePage):
     class Locator:
         GENERAL_BUTTON = (By.ID, "general")
+        SUBMIT_BTN = (By.CSS_SELECTOR, "[name='Submit']")
+        DISPLAY_NAME = (By.XPATH, "//*[@id='main-panel']/h1")
+        DESCRIPTION = (By.XPATH, "//*[@id='view-message']")
         DESCRIPTION_FIELD = (By.CSS_SELECTOR, "div.setting-main> textarea")
         PREVIEW = (By.CLASS_NAME, "textarea-show-preview")
         TEXT_PREVIEW = (By.CLASS_NAME, "textarea-preview")

@@ -1,4 +1,4 @@
-from tests.new_folder_configuration.variables import FolderNames
+from tests.new_folder_configuration.folder_data import FolderNames
 
 
 def test_check_description_preview(folder_config_page):
