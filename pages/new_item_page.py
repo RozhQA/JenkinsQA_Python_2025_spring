@@ -76,6 +76,13 @@ class NewItemPage(BasePage):
     def get_item_type_descriptions(self):
         return [desc.text.strip() for desc in self.find_elements(*self.Locator.ITEM_DESCRIPTIONS)]
 
+    def create_new_pipeline(self, name):
+        from pages.pipeline_config_page import PipelineConfigPage
+        self.wait_for_element(self.Locator.ITEM_NAME).send_keys(name)
+        self.wait_to_be_clickable(self.Locator.ITEM_PIPELINE_PROJECT).click()
+        self.wait_to_be_clickable(self.Locator.OK_BUTTON).click()
+        return PipelineConfigPage(self.driver, name).wait_for_url()
+
     def get_dropdown_text(self):
         try:
             return self.wait_to_be_visible(self.Locator.DROPDOWN_COPY).text.splitlines()
