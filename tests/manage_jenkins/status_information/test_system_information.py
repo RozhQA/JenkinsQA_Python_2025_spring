@@ -80,3 +80,9 @@ def test_plugins_tab_display_plugins_info(plugins_tab):
         assert name, f"Plugin name is empty - {row}"
         assert version, f"Plugin version is empty - {row}"
         assert enabled_status in ["true", "false"], f"Plugin status is incorrect or empty - {row}"
+
+
+def test_memory_usage_tab_select_timespan(memory_usage_tab):
+    for option in SI.TIMESPAN_OPTIONS:
+        assert memory_usage_tab.get_graph_for_selected_timespan_option(option), \
+            f"Graph for timespan option '{option}' is not displayed, or displayed incorrectly"
