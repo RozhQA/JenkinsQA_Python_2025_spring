@@ -103,7 +103,6 @@ class SystemInformationPage(ManageJenkinsPage):
         Select(element).select_by_visible_text(option)
 
     def get_graph_for_selected_timespan_option(self, option: str) -> WebElement | bool:
-        self.click_on(self.Locator.TIMESPAN_DROPDOWN)
         self.select_timespan(option)
         graph_locator = self.Locator.memory_usage_graph(SI.TIMESPAN_OPTIONS.get(option))
         try:
