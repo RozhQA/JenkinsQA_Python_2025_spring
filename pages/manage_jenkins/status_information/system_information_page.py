@@ -99,7 +99,7 @@ class SystemInformationPage(ManageJenkinsPage):
         self.click_on_tab(SI.TABS_BAR_HEADERS[3])
 
     def select_timespan(self, option: str) -> None:
-        element = self.wait_to_be_visible(self.Locator.TIMESPAN_DROPDOWN, timeout=10)
+        element = self.wait_to_be_visible(self.Locator.TIMESPAN_DROPDOWN, timeout=5)
         Select(element).select_by_visible_text(option)
 
     def get_graph_for_selected_timespan_option(self, option: str) -> WebElement | bool:
