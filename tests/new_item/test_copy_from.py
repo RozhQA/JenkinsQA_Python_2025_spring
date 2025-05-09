@@ -21,7 +21,7 @@ def test_display_dropdown_text(new_item_page_for_copy, folder_name, expected_res
 
 def test_error_message(new_item_page: NewItemPage):
     error_page = new_item_page.get_error_page_copy(new_folder_name, new_folder_copy, invalid_folder_name)
-    header = error_page.get_header()
-    message = error_page.get_error_message_copy()
+    header = error_page.get_header_error()
+    message = error_page.get_message_error()
     assert header == header_error, f"Expected header '{header_error}' NOT FOUND"
     assert message == message_error, f"Expected error message '{message_error}' NOT FOUND"

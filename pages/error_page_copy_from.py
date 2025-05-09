@@ -12,8 +12,8 @@ class ErrorPageCopyFrom(BasePage):
         super().__init__(driver, timeout)
         self.url = self.base_url + "/view/all/createItem"
 
-    def get_header(self):
+    def get_header_error(self):
         return self.wait_for_element(self.Locators.ERROR_HEADER).text.strip()
 
-    def get_error_message_copy(self):
+    def get_message_error(self):
         return self.wait_for_element(self.Locators.ERROR_TEXT).text.strip()
