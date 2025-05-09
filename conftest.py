@@ -125,3 +125,9 @@ def environment_variables_tab(system_information_page) -> SystemInformationPage:
 def plugins_tab(system_information_page) -> SystemInformationPage:
     system_information_page.click_on_plugins_tab()
     return system_information_page
+
+
+@pytest.fixture(scope="function")
+def memory_usage_tab(system_information_page) -> SystemInformationPage:
+    system_information_page.click_on_memory_usage_tab()
+    return system_information_page
