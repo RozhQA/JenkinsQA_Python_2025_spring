@@ -81,3 +81,6 @@ class BasePage:
 
     def enter_text(self, locator, text):
         return self.wait_for_element(locator).send_keys(text)
+
+    def get_title(self) -> str:
+        return self.driver.title
