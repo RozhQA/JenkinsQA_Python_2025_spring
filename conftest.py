@@ -131,3 +131,9 @@ def plugins_tab(system_information_page) -> SystemInformationPage:
 def memory_usage_tab(system_information_page) -> SystemInformationPage:
     system_information_page.click_on_memory_usage_tab()
     return system_information_page
+
+
+@pytest.fixture(scope="function")
+def thread_dumps_tab(system_information_page) -> SystemInformationPage:
+    system_information_page.click_on_thread_dumps_tab()
+    return system_information_page
