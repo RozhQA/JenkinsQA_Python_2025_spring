@@ -70,7 +70,7 @@ class BasePage:
             'arguments[0].scrollIntoView({block: "center", inline: "center"})',
             element)
 
-    def click_on(self, locator, timeout=5):
+    def click_on(self, locator, timeout=5) -> None:
         self._wait_for(locator, EC.element_to_be_clickable, timeout).click()
 
     def scroll_to_element(self, By, Selector):
@@ -78,3 +78,9 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.move_to_element(self.find_element(By, Selector)).perform()
         return self
+
+    def enter_text(self, locator, text):
+        return self.wait_for_element(locator).send_keys(text)
+
+    def get_title(self) -> str:
+        return self.driver.title
