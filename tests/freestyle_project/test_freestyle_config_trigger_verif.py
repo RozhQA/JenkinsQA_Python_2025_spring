@@ -15,4 +15,4 @@ def test_each_trigger_opt_enable(freestyle, t_name):
 def test_each_trigger_opt_disable(freestyle, t_name):
     freestyle_pj_conf_page = FreestylePJConfOptPage(freestyle)
     el = freestyle_pj_conf_page.check_box_disable(t_name)
-    assert el == False, f"{t_name} should be disable"
+    assert not el, f"{t_name} should be disable"
