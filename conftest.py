@@ -1,18 +1,18 @@
-import os
-import sys
-import logging
 import datetime
+import logging
+import os
 import subprocess
-import pytest
+import sys
 
+import pytest
 from selenium import webdriver
 
 from core.jenkins_utils import clear_data
 from core.settings import Config
-
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
+from pages.manage_jenkins.status_information.system_information_page import SystemInformationPage
 from pages.new_item_page import NewItemPage
 
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -47,7 +47,6 @@ def jenkins_reset(config):
 
 @pytest.fixture(scope="function")
 def driver(request, config):
-
     match config.browser.NAME:
         case "chrome":
             from selenium.webdriver.chrome.options import Options
@@ -75,7 +74,7 @@ def driver(request, config):
             screenshots_dir = os.path.join(project_root, "screenshots")
             os.makedirs(screenshots_dir, exist_ok=True)
 
-            test_name =  "".join(ch for ch in request.node.name if ch not in r'\/:*?<>|"')
+            test_name = "".join(ch for ch in request.node.name if ch not in r'\/:*?<>|"')
             now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             screenshot_file = os.path.join(screenshots_dir, f"{test_name}_failure_{now}.png")
 
@@ -107,3 +106,32 @@ def new_item_page(main_page) -> NewItemPage:
 @pytest.fixture(scope="function")
 def manage_jenkins_page(main_page) -> ManageJenkinsPage:
     return main_page.go_to_manage_jenkins_page()
+
+
+@pytest.fixture(scope="function")
+def system_information_page(manage_jenkins_page) -> SystemInformationPage:
+    return manage_jenkins_page.go_to_system_information_page()
+
+
+@pytest.fixture(scope="function")
+def environment_variables_tab(system_information_page) -> SystemInformationPage:
+    system_information_page.click_on_environment_variables_tab()
+    return system_information_page
+
+
+@pytest.fixture(scope="function")
+def plugins_tab(system_information_page) -> SystemInformationPage:
+    system_information_page.click_on_plugins_tab()
+    return system_information_page
+
+
+@pytest.fixture(scope="function")
+def memory_usage_tab(system_information_page) -> SystemInformationPage:
+    system_information_page.click_on_memory_usage_tab()
+    return system_information_page
+
+
+@pytest.fixture(scope="function")
+def thread_dumps_tab(system_information_page) -> SystemInformationPage:
+    system_information_page.click_on_thread_dumps_tab()
+    return system_information_page

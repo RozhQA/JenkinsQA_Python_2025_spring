@@ -16,6 +16,7 @@ class MainPage(BasePage):
         BUILD_QUEUE_STATUS_MESSAGE = (By.CLASS_NAME, "pane")
         BUILD_QUEUE_TOGGLE = (By.CSS_SELECTOR, "a[href = '/toggleCollapse?paneId=buildQueue']")
 
+
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + "/"
@@ -38,6 +39,11 @@ class MainPage(BasePage):
         self.click_on(self.Locator.MANAGE_JENKINS_BUTTON)
         return ManageJenkinsPage(self.driver).wait_for_url()
 
+    def go_to_folder_page(self, name):
+        from pages.folder_page import FolderPage
+        self.wait_to_be_clickable(self.Locator.TABLE_ITEM).click()
+        return FolderPage(self.driver, name).wait_for_url()
+
     def wait_for_build_queue_executed(self):
         if self.wait_to_be_visible(self.Locator.BUILD_QUEUE_BLOCK).get_attribute("class").__contains__("collapsed"):
             self.wait_for_element(self.Locator.BUILD_QUEUE_TOGGLE).click()
@@ -48,4 +54,7 @@ class MainPage(BasePage):
         self.wait_text_to_be_present(self.Locator.BUILD_QUEUE_STATUS_MESSAGE, "No builds in the queue.", 10)
         logger.info("No builds in the queue.")
         return self
+
+    def click_on_folder_item(self):
+        self.click_on(self.Locator.TABLE_ITEM)
 
