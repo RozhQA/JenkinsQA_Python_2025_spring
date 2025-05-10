@@ -9,9 +9,9 @@ class PipelinePage(BasePage):
 
     def __init__(self, driver, pipeline_project_name, timeout=10):
         super().__init__(driver, timeout=timeout)
-        self.url = self.base_url + f"/job/{pipeline_project_name}"
+        self.url = self.base_url + f"/job/{pipeline_project_name}/"
 
-    def desc_element_is_displayed(self):
+    def is_description_element_displayed(self):
         return self.wait_for_element(self.Locator.DESCRIPTION_ELEMENT).is_displayed()
 
     def get_description_text(self):
