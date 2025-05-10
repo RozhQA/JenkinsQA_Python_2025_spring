@@ -13,6 +13,4 @@ class Header(UIElementMixin):
 
     def go_to_the_user_page(self):
         from pages.user_page import UserPage
-        #self.wait_to_be_clickable(self.Locators.USER_PAGE_LINK).click()
-        #return UserPage(self.driver, self.config.jenkins.USERNAME).wait_for_url()
-        return self.navigate_to(UserPage, self.Locators.HEADER_LOGO, self.config.jenkins.USERNAME)
+        return self.navigate_to(UserPage, self.Locators.USER_PAGE_LINK, self.config.jenkins.USERNAME)

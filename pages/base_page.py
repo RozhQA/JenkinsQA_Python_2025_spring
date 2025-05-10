@@ -2,7 +2,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-from core.settings import Config
+
 from pages.ui_element import UIElementMixin
 from pages.components.components import Header
 
@@ -10,7 +10,6 @@ from pages.components.components import Header
 class BasePage(UIElementMixin):
     def __init__(self, driver: WebDriver, timeout = 5):
         super().__init__(driver)
-        self.config = Config.load()
         self.base_url = self.config.jenkins.base_url
         self.header = Header(driver)
 

@@ -5,11 +5,13 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
+from core.settings import Config
 
 
 class UIElementMixin:
     def __init__(self, driver: WebDriver, timeout=5):
         self.driver = driver
+        self.config = Config.load()
         self.wait = WebDriverWait(driver, timeout=timeout)
         self.logger = logging.getLogger(self.__class__.__name__)
 
@@ -61,11 +63,16 @@ class UIElementMixin:
 
     def navigate_to(self, page_class, *args):
         self.logger.info(f"Navigating to {page_class.__name__} with click on {args}")
+        self.logger.info(f" page class {page_class}, args: {args}")
         if len(args) == 1:
             locator = args[0]
         elif len(args) > 1:
             locator, args = args
         else:
             raise ValueError("Not enough arguments")
+        self.logger.info(f" locator  {locator}, args: {args}")
         self.wait_to_be_clickable(locator).click()
-        return page_class(self.driver, *args).wait_for_url()
+        if not isinstance(args, str):
+            return page_class(self.driver, *args).wait_for_url()
+        else:
+            return page_class(self.driver, args).wait_for_url()
