@@ -8,7 +8,7 @@ from tests.new_item.data import (
     copy_name,
     header_error,
     message_error,
-    page_title_copy_error
+    error_page_title
 )
 
 
@@ -24,4 +24,4 @@ def test_redirect_to_error_page(new_item_page: NewItemPage):
     error_page = new_item_page.get_error_page_copy(folder_name_to_copy, copy_name, non_existent_folder_name)
     assert error_page.get_header_error() == header_error, f"Expected header '{header_error}' NOT FOUND"
     assert error_page.get_message_error() == message_error, f"Expected message '{message_error}' NOT FOUND"
-    assert error_page.get_title() == page_title_copy_error, f"Expected title '{page_title_copy_error}' NOT FOUND"
+    assert error_page.get_title() == error_page_title, f"Expected title '{error_page_title}' NOT FOUND"
