@@ -12,12 +12,12 @@ def new_item_page_for_copy(new_item_page: NewItemPage):
 
 @pytest.fixture(scope="function")
 def prepare_folder_env(new_item_page: NewItemPage):
-    return new_item_page.create_new_folder(new_folder_name).go_to_the_main_page()
+    return new_item_page.create_new_folder(new_folder_name).header.go_to_the_main_page()
 
 
 @pytest.fixture(scope="function")
 def prepare_pipeline_project_env(job_page: JobPage):
-    return job_page.create_pipeline(new_pipeline_name).go_to_the_main_page()
+    return job_page.create_pipeline(new_pipeline_name).header.go_to_the_main_page()
 
 
 @pytest.fixture(scope="function")
