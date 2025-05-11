@@ -43,3 +43,12 @@ class Freestyle:
         "Set build status on GitHub commit [deprecated]",
         "Delete workspace when build is done"
     ]
+class FreestyleConfigOptTriggers:
+        
+        TRIGGER_OPT_NAMES = [
+        'pseudoRemoteTrigger',
+        'jenkins-triggers-ReverseBuildTrigger',
+        'hudson-triggers-TimerTrigger',
+        'com-cloudbees-jenkins-GitHubPushTrigger',
+        'hudson-triggers-SCMTrigger'
+    ]
