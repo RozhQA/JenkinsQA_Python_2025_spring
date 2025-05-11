@@ -3,7 +3,7 @@ from pages.base_page import BasePage
 
 
 class PipelineConfigPage(BasePage):
-    class Locator:
+    class Locators:
         GENERAL_BUTTON = (By.ID, "general")
         DESCRIPTION_FIELD = (By.NAME, 'description')
         SAVE_BUTTON = (By.NAME, "Submit")
