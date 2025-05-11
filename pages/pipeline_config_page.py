@@ -14,10 +14,10 @@ class PipelineConfigPage(BasePage):
         self.url = self.base_url + f"/job/{pipeline_name}/configure"
 
     def add_description(self, text_for_description):
-        self.wait_for_element(self.Locator.DESCRIPTION_FIELD).send_keys(text_for_description)
+        self.wait_for_element(self.Locators.DESCRIPTION_FIELD).send_keys(text_for_description)
         return self
 
     def click_save_button(self):
         from pages.pipeline_page import PipelinePage
-        self.wait_to_be_clickable(self.Locator.SAVE_BUTTON).click()
+        self.wait_to_be_clickable(self.Locators.SAVE_BUTTON).click()
         return PipelinePage(self.driver, pipeline_project_name=self.pipeline_name).wait_for_url()
