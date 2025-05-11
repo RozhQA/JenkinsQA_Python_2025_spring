@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
+from urllib.parse import quote
 
 
 class PipelineConfigPage(BasePage):
@@ -11,7 +12,7 @@ class PipelineConfigPage(BasePage):
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
         self.pipeline_name = pipeline_name
-        self.url = self.base_url + f"/job/{pipeline_name}/configure"
+        self.url = self.base_url + f"/job/{quote(pipeline_name)}/configure"
 
     def add_description(self, text_for_description):
         self.wait_for_element(self.Locators.DESCRIPTION_FIELD).send_keys(text_for_description)
