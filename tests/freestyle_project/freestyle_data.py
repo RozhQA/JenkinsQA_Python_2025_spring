@@ -40,3 +40,16 @@ class FreestyleConfigOptTriggers:
         'com-cloudbees-jenkins-GitHubPushTrigger',
         'hudson-triggers-SCMTrigger'
     ]
+        ITEMS_POST_BUILD_ACTION = [
+        "Aggregate downstream test results",
+        "Archive the artifacts",
+        "Build other projects",
+        "Publish JUnit test result report",
+        "Record fingerprints of files to track usage",
+        "Git Publisher",
+        "E-mail Notification",
+        "Editable Email Notification",
+        "Set GitHub commit status (universal)",
+        "Set build status on GitHub commit [deprecated]",
+        "Delete workspace when build is done"
+    ]
