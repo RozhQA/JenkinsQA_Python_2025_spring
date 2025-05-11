@@ -32,13 +32,14 @@ class FolderConfigPage(BasePage):
     def get_preview_style(self):
         return self.find_element(*self.Locators.TEXT_PREVIEW).get_attribute("style")
 
-
     def has_health_metrics_text_and_is_clickable(self) -> bool:
-        try:
-            element = self.find_element(*self.Locators.HEALTH_METRICS)
-            return ("Health metrics" in element.text and
-                    element.is_displayed() and
-                    element.is_enabled())
-        except:
+        element = self.find_element(*self.Locators.HEALTH_METRICS)
+        if not element:
             return False
+
+        return (
+                "Health metrics" in element.text and
+                element.is_displayed() and
+                element.is_enabled()
+        )
 
