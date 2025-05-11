@@ -30,3 +30,13 @@ class Freestyle:
         ((By.XPATH, '//a[@tooltip="Help for feature: Use secret text(s) or file(s)"]'), 'Help for feature: Use secret text(s) or file(s)'),
         ((By.XPATH, '//a[@tooltip="Help for feature: With Ant"]'), 'Help for feature: With Ant')
     ]
+
+class FreestyleConfigOptTriggers:
+        
+        TRIGGER_OPT_NAMES = [
+        'pseudoRemoteTrigger',
+        'jenkins-triggers-ReverseBuildTrigger',
+        'hudson-triggers-TimerTrigger',
+        'com-cloudbees-jenkins-GitHubPushTrigger',
+        'hudson-triggers-SCMTrigger'
+    ]

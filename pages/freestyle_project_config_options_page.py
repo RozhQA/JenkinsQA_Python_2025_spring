@@ -7,14 +7,6 @@ class FreestylePJConfOptPage(BasePage):
     def __init__(self, freestyle):
         super().__init__(freestyle)
 
-    TRIGGER_OPT_NAMES = [
-        'pseudoRemoteTrigger',
-        'jenkins-triggers-ReverseBuildTrigger',
-        'hudson-triggers-TimerTrigger',
-        'com-cloudbees-jenkins-GitHubPushTrigger',
-        'hudson-triggers-SCMTrigger'
-    ]
-
     def check_trigger_title(self):
         title_triggers = self.find_element(By.ID, 'triggers')
         return title_triggers.is_displayed
