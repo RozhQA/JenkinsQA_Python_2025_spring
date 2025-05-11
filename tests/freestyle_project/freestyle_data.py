@@ -30,7 +30,17 @@ class Freestyle:
         ((By.XPATH, '//a[@tooltip="Help for feature: Use secret text(s) or file(s)"]'), 'Help for feature: Use secret text(s) or file(s)'),
         ((By.XPATH, '//a[@tooltip="Help for feature: With Ant"]'), 'Help for feature: With Ant')
     ]
-    ITEMS_POST_BUILD_ACTION = [
+
+class FreestyleConfigOptTriggers:
+        
+        TRIGGER_OPT_NAMES = [
+        'pseudoRemoteTrigger',
+        'jenkins-triggers-ReverseBuildTrigger',
+        'hudson-triggers-TimerTrigger',
+        'com-cloudbees-jenkins-GitHubPushTrigger',
+        'hudson-triggers-SCMTrigger'
+    ]
+        ITEMS_POST_BUILD_ACTION = [
         "Aggregate downstream test results",
         "Archive the artifacts",
         "Build other projects",
@@ -42,13 +52,4 @@ class Freestyle:
         "Set GitHub commit status (universal)",
         "Set build status on GitHub commit [deprecated]",
         "Delete workspace when build is done"
-    ]
-class FreestyleConfigOptTriggers:
-        
-        TRIGGER_OPT_NAMES = [
-        'pseudoRemoteTrigger',
-        'jenkins-triggers-ReverseBuildTrigger',
-        'hudson-triggers-TimerTrigger',
-        'com-cloudbees-jenkins-GitHubPushTrigger',
-        'hudson-triggers-SCMTrigger'
     ]
