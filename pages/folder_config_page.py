@@ -11,6 +11,7 @@ class FolderConfigPage(BasePage):
         PREVIEW = (By.CLASS_NAME, "textarea-show-preview")
         TEXT_PREVIEW = (By.CLASS_NAME, "textarea-preview")
         HIDE_PREVIEW = (By.CLASS_NAME, "textarea-hide-preview")
+        HEALTH_METRICS = (By.ID, "health-metrics")
 
     def __init__(self, driver, folder_name,  timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -30,4 +31,14 @@ class FolderConfigPage(BasePage):
 
     def get_preview_style(self):
         return self.find_element(*self.Locators.TEXT_PREVIEW).get_attribute("style")
+
+
+    def has_health_metrics_text_and_is_clickable(self) -> bool:
+        try:
+            element = self.find_element(*self.Locators.HEALTH_METRICS)
+            return ("Health metrics" in element.text and
+                    element.is_displayed() and
+                    element.is_enabled())
+        except:
+            return False
 
