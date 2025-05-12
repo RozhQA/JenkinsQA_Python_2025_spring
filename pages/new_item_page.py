@@ -62,7 +62,7 @@ class NewItemPage(BasePage):
         self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)
         self.wait_to_be_clickable(self.Locators.ITEM_MULTIBRANCH_PIPELINE_PROJECT).click()
         self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
-        return MultibranchPipelineConfigPage(self.driver, name).wait_for_url()
+        return MultibranchPipelineConfigPage(self.driver, name)
 
     def get_pipeline_element(self):
         return self.find_element(*self.Locators.ITEM_PIPELINE_PROJECT)
