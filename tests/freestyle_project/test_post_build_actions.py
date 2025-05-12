@@ -1,5 +1,3 @@
-import pytest
-
 from tests.freestyle_project.freestyle_data import Freestyle
 
 
