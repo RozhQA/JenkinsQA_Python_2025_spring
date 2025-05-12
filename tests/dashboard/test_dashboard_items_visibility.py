@@ -1,4 +1,3 @@
-from conftest import main_page
 from tests.new_item.data import new_folder_name, new_pipeline_name, new_multi_config_project_name
 
 
