@@ -58,9 +58,11 @@ def get_page(session, url, config):
 
 def delete_by_link(session, url, names, crumb):
     for name in names:
-        response = session.post(url=url.format(name),
-            headers={"Jenkins-Crumb": crumb, "Content-Type": "application/x-www-form-urlencoded"})
-        logger.debug(f"delete_by_link {name=}, {response.status_code=}")
+        response = session.post(
+            url=url.format(name),
+            headers={"Jenkins-Crumb": crumb, "Content-Type": "application/x-www-form-urlencoded"}
+        )
+        logger.info(f"delete_by_link, {url=} {response.status_code=} {name=}")
 
 
 def reset_theme_description(session, config):
@@ -101,7 +103,7 @@ def delete_jobs_views(session, config):
     delete_by_link(session, url, names, crumb)
 
     url = config.jenkins.base_url + "/job/{}/doDelete"
-    names = get_substrings(main_page, 'href="job/', '/"')
+    names = get_substrings(main_page, 'href="job/', '(?:/"|/build)')
     delete_by_link(session, url, names, crumb)
 
 
@@ -143,6 +145,7 @@ def delete_tokens(session, config):
 
 def clear_data(config):
     session = requests.Session()
+    logger.info("running cleanup")
     delete_jobs_views(session, config)
     delete_users(session, config)
     delete_nodes(session, config)
