@@ -8,7 +8,6 @@ def test_post_build_actions_is_available(freestyle):
     assert freestyle.get_port_build_actions_element().is_displayed()
 
 
-@pytest.mark.skip(reason="Test skipped due to CI failure - needs investigation")
 def test_add_post_build_actions(freestyle):
     freestyle.scroll_to_bottom_screen()
     freestyle.click_add_post_build_actions()
