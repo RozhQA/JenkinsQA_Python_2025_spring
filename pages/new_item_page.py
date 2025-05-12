@@ -1,9 +1,10 @@
 import time
-
 from typing import List
-from selenium.webdriver.common.by import By
+
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+
 from pages.base_page import BasePage
 
 

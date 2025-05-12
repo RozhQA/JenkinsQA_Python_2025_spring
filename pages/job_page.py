@@ -1,5 +1,6 @@
-from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+
+from pages.base_page import BasePage
 
 
 class JobPage(BasePage):
@@ -15,7 +16,7 @@ class JobPage(BasePage):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + f"/job/{item_name}/"
 
-    def create_new_job(self):
+    def click_on_create_new_job(self):
         self.click_on(self.Locators.CREATE_A_JOB)
         return self
 
