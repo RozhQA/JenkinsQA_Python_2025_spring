@@ -1,9 +1,11 @@
 import logging
+
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
 
 logger = logging.getLogger(__name__)
+
 
 class MainPage(BasePage):
     class Locators:
@@ -16,6 +18,9 @@ class MainPage(BasePage):
         BUILD_QUEUE_STATUS_MESSAGE = (By.CLASS_NAME, "pane")
         BUILD_QUEUE_TOGGLE = (By.CSS_SELECTOR, "a[href = '/toggleCollapse?paneId=buildQueue']")
 
+        @staticmethod
+        def get_table_item_locator(name: str) -> tuple[By, str]:
+            return (By.CSS_SELECTOR, f'a[href="job/{name}/"]')
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -41,7 +46,7 @@ class MainPage(BasePage):
 
     def go_to_folder_page(self, name):
         from pages.folder_page import FolderPage
-        self.wait_to_be_clickable(self.Locators.TABLE_ITEM).click()
+        self.wait_to_be_clickable(self.Locators.get_table_item_locator(name)).click()
         return FolderPage(self.driver, name).wait_for_url()
 
     def wait_for_build_queue_executed(self):
@@ -55,6 +60,7 @@ class MainPage(BasePage):
         logger.info("No builds in the queue.")
         return self
 
-    def click_on_folder_item(self):
-        self.click_on(self.Locators.TABLE_ITEM)
-
+    def click_on_folder_item(self, name):
+        from pages.job_page import JobPage
+        self.click_on(self.Locators.get_table_item_locator(name))
+        return JobPage(self.driver, name).wait_for_url()
