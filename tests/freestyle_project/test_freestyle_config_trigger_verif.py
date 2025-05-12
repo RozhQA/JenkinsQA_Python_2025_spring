@@ -1,5 +1,4 @@
 import pytest
-from pages.freestyle_project_config_options_page import FreestylePJConfOptPage
 from tests.freestyle_project.freestyle_data import FreestyleConfigOptTriggers
 
 def test_trigger_section(freestyle_pj_conf_page):
