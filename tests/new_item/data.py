@@ -1,11 +1,13 @@
 new_folder_name = 'Test_Folder'
 new_pipeline_name = 'Pipeline_one'
 new_freestyle_project_name = "Freestyle_Project"
+new_multi_config_project_name = "My_Multi_Project"
 positive_name = "TC_01.001.04-PositiveName"
 
 special_chars = ["@", "#", "$", "%", "^", "&", "*", "<", "/", "\\"]
 
 expected_error = '» This field cannot be empty, please enter a valid name'
+
 expected_item_types = [
     "Freestyle project",
     "Pipeline",
@@ -14,6 +16,7 @@ expected_item_types = [
     "Multibranch Pipeline",
     "Organization Folder"
 ]
+
 expected_item_descriptions = [
     "Classic, general-purpose job type that checks out from up to one SCM, executes build steps serially, followed by post-build steps like archiving artifacts and sending email notifications.",
     "Orchestrates long-running activities that can span multiple build agents. Suitable for building pipelines (formerly known as workflows) and/or organizing complex activities that do not easily fit in free-style job type.",
@@ -22,6 +25,7 @@ expected_item_descriptions = [
     "Creates a set of Pipeline projects according to detected branches in one SCM repository.",
     "Creates a set of multibranch project subfolders by scanning for repositories."
 ]
+
 invalid_folder_name = 'Folder_does_not_exist'
 copy_from_placeholder = 'No items'
 new_folder_copy = 'Test_Folder_copy'
