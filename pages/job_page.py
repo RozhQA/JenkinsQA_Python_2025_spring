@@ -10,6 +10,7 @@ class JobPage(BasePage):
         ITEM_NAME = (By.CSS_SELECTOR, '#name')
         ITEM_PIPELINE_PROJECT = (By.CLASS_NAME, "org_jenkinsci_plugins_workflow_job_WorkflowJob")
         OK_BUTTON = (By.CSS_SELECTOR, '#ok-button')
+        SAVE_BUTTON = (By.XPATH, '//button[@name="Submit"]')
 
     def __init__(self, driver, item_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -25,4 +26,5 @@ class JobPage(BasePage):
         self.wait_for_element(self.Locators.ITEM_NAME).send_keys(item_name)
         self.wait_to_be_clickable(self.Locators.ITEM_PIPELINE_PROJECT).click()
         self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
-        return JobPage(self.driver, item_name)
+        self.wait_to_be_clickable(self.Locators.SAVE_BUTTON)
+        return self
