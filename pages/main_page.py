@@ -1,13 +1,15 @@
 import logging
+from urllib.parse import quote
 
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
+from pages.ui_element import UIElementMixin
 
 logger = logging.getLogger(__name__)
 
 
-class MainPage(BasePage):
+class MainPage(BasePage, UIElementMixin):
     class Locators:
         NEW_ITEM_BUTTON = (By.LINK_TEXT, "New Item")
         BUILD_HISTORY_BUTTON = (By.LINK_TEXT, "Build History")
@@ -20,7 +22,10 @@ class MainPage(BasePage):
 
         @staticmethod
         def get_table_item_locator(name: str) -> tuple[By, str]:
-            return (By.CSS_SELECTOR, f'a[href="job/{name}/"]')
+            return (By.CSS_SELECTOR, f'a[href="job/{quote(name)}/"]')
+
+        """ The get_table_item_locator method is in the Locators class because it is responsible only for generating 
+        a locator for a job/folder in the Dashboard, not for navigation or business logic. """
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -44,10 +49,9 @@ class MainPage(BasePage):
         self.click_on(self.Locators.MANAGE_JENKINS_BUTTON)
         return ManageJenkinsPage(self.driver).wait_for_url()
 
-    def go_to_folder_page(self, name):
+    def go_to_the_folder_page(self, name):
         from pages.folder_page import FolderPage
-        self.wait_to_be_clickable(self.Locators.get_table_item_locator(name)).click()
-        return FolderPage(self.driver, name).wait_for_url()
+        return self.navigate_to(FolderPage, self.Locators.get_table_item_locator(name), name)
 
     def wait_for_build_queue_executed(self):
         if self.wait_to_be_visible(self.Locators.BUILD_QUEUE_BLOCK).get_attribute("class").__contains__("collapsed"):

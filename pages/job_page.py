@@ -7,7 +7,6 @@ class JobPage(BasePage):
     class Locators:
         CREATE_A_JOB = (By.CSS_SELECTOR, 'a[href="newJob"]')
         NAME_PROJECT = (By.CSS_SELECTOR, 'td>a[href^="job/"]')
-        TABLE_ITEM = (By.CSS_SELECTOR, "a.inside")
         ITEM_NAME = (By.CSS_SELECTOR, '#name')
         ITEM_PIPELINE_PROJECT = (By.CLASS_NAME, "org_jenkinsci_plugins_workflow_job_WorkflowJob")
         OK_BUTTON = (By.CSS_SELECTOR, '#ok-button')
@@ -16,9 +15,8 @@ class JobPage(BasePage):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + f"/job/{item_name}/"
 
-    def click_on_create_new_job(self):
-        self.click_on(self.Locators.CREATE_A_JOB)
-        return self
+    def create_new_job(self):
+        return self.click_on(self.Locators.CREATE_A_JOB)
 
     def item_is_present(self, item_text):
         return self.wait_text_to_be_present(self.Locators.NAME_PROJECT, item_text)
@@ -28,6 +26,3 @@ class JobPage(BasePage):
         self.wait_to_be_clickable(self.Locators.ITEM_PIPELINE_PROJECT).click()
         self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
         return JobPage(self.driver, item_name)
-
-    def get_item_list(self):
-        return [item.text for item in self.find_elements(*self.Locators.TABLE_ITEM)]
