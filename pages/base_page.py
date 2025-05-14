@@ -1,14 +1,16 @@
+from urllib.parse import quote
+
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-
 
 from pages.ui_element import UIElementMixin
 from pages.components.components import Header
 
 
 class BasePage(UIElementMixin):
-    def __init__(self, driver: WebDriver, timeout = 5):
+    def __init__(self, driver: WebDriver, timeout=5):
         super().__init__(driver)
         self.base_url = self.config.jenkins.base_url
         self.header = Header(driver)
@@ -26,3 +28,16 @@ class BasePage(UIElementMixin):
 
     def get_title(self) -> str:
         return self.driver.title
+
+    def normalize_path_parts(self, *path):
+        parts = []
+        for part in path:
+            if isinstance(part, str):
+                parts.extend(part.strip("/").split("/"))
+            elif isinstance(part, list):
+                parts.extend(part)
+        return [p for p in parts if p]
+
+    def build_path(self, *names):
+        normalized = self.normalize_path_parts(*names)
+        return "/".join(f"job/{quote(n)}" for n in normalized)
