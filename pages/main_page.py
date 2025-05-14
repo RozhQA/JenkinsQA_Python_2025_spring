@@ -69,8 +69,3 @@ class MainPage(BasePage, UIElementMixin):
         self.wait_for_new_window()
         self.driver.switch_to.window(self.driver.window_handles[-1])
         return MainPage(self.driver)
-
-    def click_on_folder_item(self, name):
-        from pages.job_page import JobPage
-        self.click_on(self.Locators.get_table_item_locator(name))
-        return JobPage(self.driver, name).wait_for_url()
