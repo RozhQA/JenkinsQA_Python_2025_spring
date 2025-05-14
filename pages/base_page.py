@@ -10,7 +10,7 @@ from pages.components.components import Header
 
 
 class BasePage(UIElementMixin):
-    def __init__(self, driver: WebDriver, timeout=5):
+    def __init__(self, driver: WebDriver, timeout = 5):
         super().__init__(driver)
         self.base_url = self.config.jenkins.base_url
         self.header = Header(driver)
@@ -28,6 +28,16 @@ class BasePage(UIElementMixin):
 
     def get_title(self) -> str:
         return self.driver.title
+
+    def get_current_window_handle(self):
+        return self.driver.current_window_handle
+
+    def get_all_windows_handles(self):
+        return self.driver.window_handles
+
+    def switch_to_window(self, handle):
+        self.driver.switch_to.window(handle)
+        return self.driver
 
     def normalize_path_parts(self, *path):
         parts = []
