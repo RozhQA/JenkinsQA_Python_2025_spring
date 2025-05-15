@@ -128,22 +128,19 @@ class NewItemPage(BasePage):
             self.logger.error("Dropdown did not open and is not present in the DOM.")
             return []
 
-    def create_folder_and_open_page(self, name):
-        return self.create_new_folder(name).header.go_to_the_main_page().go_to_new_item_page()
-
     def enter_item_name(self, name):
         self.enter_text(self.Locators.ITEM_NAME, name)
         return self
 
-    def enter_in_copy_from(self, name):
+    def enter_copy_from(self, name):
         self.enter_text(self.Locators.COPY_FROM, name)
         return self
 
     def enter_first_character_in_copy_from(self, name):
-        self.enter_in_copy_from(name[0])
+        self.enter_copy_from(name[0])
         return self
 
     def go_to_error_page_copy(self, name, copy_name):
         from pages.error_page_copy_from import ErrorPageCopyFrom
-        self.enter_item_name(name).enter_in_copy_from(copy_name).click_ok_button()
+        self.enter_item_name(name).enter_copy_from(copy_name).click_ok_button()
         return ErrorPageCopyFrom(self.driver).wait_for_url()
