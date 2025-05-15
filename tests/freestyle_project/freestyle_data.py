@@ -44,7 +44,8 @@ class Freestyle:
         "Delete workspace when build is done"
     ]
 
-class FreestyleConfigOptTriggers:      
+class FreestyleConfigOptTriggers:
+    
     TRIGGER_OPT_NAMES = [
         'pseudoRemoteTrigger',
         'jenkins-triggers-ReverseBuildTrigger',
