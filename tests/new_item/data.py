@@ -26,7 +26,7 @@ expected_item_descriptions = [
 
 class Copy:
     FOLDER_NAME_TO_COPY = 'Folder_for_copy'
-    FOLDER_NAME_LOWERCASE = 'folder_for_copy'
+    FOLDER_NAME_TO_COPY_LOWERCASE = 'folder_for_copy'
     NON_EXISTENT_FOLDER_NAME = 'Invalid_folder_name'
     ITEM_NOT_FOUND_MESSAGE = 'No items'
     COPY_NAME = 'Copy_existing_item'
@@ -35,8 +35,8 @@ class Copy:
 
     PARAMS = [
         (FOLDER_NAME_TO_COPY, [FOLDER_NAME_TO_COPY]),
-        (NON_EXISTENT_FOLDER_NAME, [ITEM_NOT_FOUND_MESSAGE]),
-        (FOLDER_NAME_LOWERCASE, [FOLDER_NAME_TO_COPY])
+        (FOLDER_NAME_TO_COPY_LOWERCASE, [FOLDER_NAME_TO_COPY]),
+        (NON_EXISTENT_FOLDER_NAME, [ITEM_NOT_FOUND_MESSAGE])
     ]
 
 
