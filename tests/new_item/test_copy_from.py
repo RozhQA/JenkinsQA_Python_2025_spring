@@ -11,7 +11,7 @@ def test_display_dropdown_text(prepare_page_for_copy, item_name, expected_result
     assert text == expected_result, f"Expected text '{expected_result}' NOT FOUND"
 
 
-def test_display_error_page_content(new_item_page: NewItemPage, prepare_page_for_copy):
+def test_error_page_displays_header_and_message(new_item_page: NewItemPage, prepare_page_for_copy):
     error_page = prepare_page_for_copy.go_to_error_page_copy(Copy.COPY_NAME, Copy.NON_EXISTENT_FOLDER_NAME)
 
     assert error_page.get_header_error() == Copy.HEADER_ERROR, \
