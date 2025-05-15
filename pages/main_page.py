@@ -24,9 +24,6 @@ class MainPage(BasePage, UIElementMixin):
         def get_table_item_locator(name: str) -> tuple[By, str]:
             return (By.CSS_SELECTOR, f'a[href="job/{quote(name)}/"]')
 
-        """ The get_table_item_locator method is in the Locators class because it is responsible only for generating 
-        a locator for a job/folder in the Dashboard, not for navigation or business logic. """
-
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + "/"
