@@ -2,12 +2,12 @@ import pytest
 
 from pages.job_page import JobPage
 from pages.new_item_page import NewItemPage
-from tests.new_item.data import folder_name_to_copy, new_folder_name, new_pipeline_name
+from tests.new_item.data import Copy, new_folder_name, new_pipeline_name
 
 
 @pytest.fixture(scope="function")
 def new_item_page_for_copy(new_item_page: NewItemPage):
-    return new_item_page.create_folder_and_open_page(folder_name_to_copy)
+    return new_item_page.create_folder_and_open_page(Copy.FOLDER_NAME_TO_COPY)
 
 
 @pytest.fixture(scope="function")
