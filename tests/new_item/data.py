@@ -7,7 +7,6 @@ positive_name = "TC_01.001.04-PositiveName"
 special_chars = ["@", "#", "$", "%", "^", "&", "*", "<", "/", "\\"]
 
 expected_error = '» This field cannot be empty, please enter a valid name'
-
 expected_item_types = [
     "Freestyle project",
     "Pipeline",
@@ -16,7 +15,6 @@ expected_item_types = [
     "Multibranch Pipeline",
     "Organization Folder"
 ]
-
 expected_item_descriptions = [
     "Classic, general-purpose job type that checks out from up to one SCM, executes build steps serially, followed by post-build steps like archiving artifacts and sending email notifications.",
     "Orchestrates long-running activities that can span multiple build agents. Suitable for building pipelines (formerly known as workflows) and/or organizing complex activities that do not easily fit in free-style job type.",
@@ -26,10 +24,19 @@ expected_item_descriptions = [
     "Creates a set of multibranch project subfolders by scanning for repositories."
 ]
 
-invalid_folder_name = 'Folder_does_not_exist'
-copy_from_placeholder = 'No items'
-new_folder_copy = 'Test_Folder_copy'
-header_error = 'Error'
-message_error = f'No such job: {invalid_folder_name}'
+
+class Copy:
+    FOLDER_NAME_TO_COPY = 'Folder_for_copy'
+    NON_EXISTENT_FOLDER_NAME = 'Invalid_folder_name'
+    ITEM_NOT_FOUND_MESSAGE = 'No items'
+    COPY_NAME = 'Copy_existing_item'
+    HEADER_ERROR = 'Error'
+    MESSAGE_ERROR = f'No such job: {NON_EXISTENT_FOLDER_NAME}'
+
+    PARAMS = [
+        (FOLDER_NAME_TO_COPY, [FOLDER_NAME_TO_COPY]),
+        (NON_EXISTENT_FOLDER_NAME, [ITEM_NOT_FOUND_MESSAGE])
+    ]
+
 
 title_fragment = "new item"
