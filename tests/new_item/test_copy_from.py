@@ -17,6 +17,7 @@ def test_display_dropdown_text(prepare_page_for_copy, item_name, expected_result
 
     text = prepare_page_for_copy.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
+    assert text, "Dropdown list is empty"
     assert text == expected_result, f"Expected text '{expected_result}' NOT FOUND"
 
 
