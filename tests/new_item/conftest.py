@@ -1,7 +1,7 @@
 import pytest
 
 from pages.new_item_page import NewItemPage
-from tests.new_item.data import Copy, new_folder_name, new_pipeline_name
+from tests.new_item.data import Copy
 from tests.new_item.data import new_folder_name
 
 
