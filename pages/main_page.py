@@ -63,3 +63,24 @@ class MainPage(BasePage):
         self.wait_for_new_window()
         self.driver.switch_to.window(self.driver.window_handles[-1])
         return MainPage(self.driver)
+
+    def wait_for_url(self, timeout=10):
+        WebDriverWait(self.driver, timeout).until(
+            lambda driver: driver.current_url.startswith(self.url)
+        )
+        return self
+
+    def is_job_with_name_displayed(self, job_name, timeout=10):
+        locator = (By.XPATH, self.JOB_NAME_LOCATOR.format(job_name))
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+            return True
+        except TimeoutException:
+            self.logger.warning(f"Job with name '{job_name}' not found on dashboard after {timeout} seconds.")
+            return False
+
+    def click_on_folder_by_name(self, folder_name):
+        locator = (By.XPATH, f"//a[@href and text()='{folder_name}']")
+        self.click_on(locator)
