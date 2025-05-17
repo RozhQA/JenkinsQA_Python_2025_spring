@@ -19,7 +19,8 @@ class MainPage(BasePage):
         BUILD_QUEUE_STATUS_MESSAGE = (By.CLASS_NAME, "pane")
         BUILD_QUEUE_TOGGLE = (By.CSS_SELECTOR, "a[href = '/toggleCollapse?paneId=buildQueue']")
 
-    JOB_NAME_LOCATOR = "//a[contains(@href, '/job/') and contains(text(), '{}')]"
+    JOB_NAME_LOCATOR = "//*[@id='job_{}']/td[3]/a"
+    FOLDER_LINK_LOCATOR = "//*[@id='job_{}']/td[3]/a"
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -74,8 +75,9 @@ class MainPage(BasePage):
         )
         return self
 
-    def is_job_with_name_displayed(self, job_name, timeout=10):
+    def is_job_with_name_displayed(self, job_name, timeout=20):
         locator = (By.XPATH, self.JOB_NAME_LOCATOR.format(job_name))
+        self.logger.info(f"Looking for job with locator: {locator}")
         try:
             WebDriverWait(self.driver, timeout).until(
                 EC.visibility_of_element_located(locator)
@@ -85,6 +87,7 @@ class MainPage(BasePage):
             self.logger.warning(f"Job with name '{job_name}' not found on dashboard after {timeout} seconds.")
             return False
 
-    def click_on_folder_by_name(self, folder_name):
-        locator = (By.XPATH, f"//a[@href and text()='{folder_name}']")
-        self.click_on(locator)
+    def click_on_folder_by_name(self, folder_name, timeout=10):
+        locator = (By.XPATH, self.FOLDER_LINK_LOCATOR.format(folder_name))
+        self.logger.info(f"Clicking on folder with locator: {locator}")
+        self.click_on(locator, timeout)
