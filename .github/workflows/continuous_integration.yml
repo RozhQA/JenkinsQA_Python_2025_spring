@@ -73,6 +73,34 @@ jobs:
         run: pytest --picked --mode=branch --parent-branch=origin/${{ github.base_ref }}
         #run: pytest
 
+      - name: Get Allure history
+        uses: actions/checkout@v4.2.2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate allure report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          allure_report: allure-report
+          gh_pages: gh-pages
+          ref: gh-pages
+          path: gh-pages
+          keep_reports: 30
+
+      - name: Commit allure_report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          publish_dir: allure-history
+
       - name: Attach screenshots
         if: failure()
         uses: actions/upload-artifact@v4
