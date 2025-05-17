@@ -39,5 +39,3 @@ def test_create_folder_from_dashboard(driver):
 
     assert main_page.is_header_contains(folder_name), \
         f"Имя папки '{folder_name}' не отображается в заголовке страницы"
-
-
