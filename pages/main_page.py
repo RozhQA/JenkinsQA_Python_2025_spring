@@ -1,5 +1,8 @@
 import logging
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from pages.base_page import BasePage
 
@@ -16,6 +19,7 @@ class MainPage(BasePage):
         BUILD_QUEUE_STATUS_MESSAGE = (By.CLASS_NAME, "pane")
         BUILD_QUEUE_TOGGLE = (By.CSS_SELECTOR, "a[href = '/toggleCollapse?paneId=buildQueue']")
 
+    JOB_NAME_LOCATOR = "//a[contains(@href, '/job/') and contains(text(), '{}')]"
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
