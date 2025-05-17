@@ -1,4 +1,3 @@
-import pytest
 import allure
 from pages.new_item_page import NewItemPage
 from tests.new_item.data import Copy
