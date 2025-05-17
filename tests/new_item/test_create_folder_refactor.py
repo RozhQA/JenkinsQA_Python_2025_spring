@@ -15,7 +15,7 @@ assert jenkins_password, "JENKINS_PASSWORD не задан в .env"
 def test_create_folder_from_dashboard(driver):
     from pages.login_page import LoginPage
 
-    folder_name = f"TestFolder_{int(time.time())}"
+    folder_name = f"TestFolder{int(time.time() * 1000)}"
 
     driver.get("http://localhost:8080")
 

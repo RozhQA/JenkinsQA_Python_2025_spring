@@ -12,6 +12,7 @@ from pages.components.components import Header
 class BasePage(UIElementMixin):
     def __init__(self, driver: WebDriver, timeout = 5):
         super().__init__(driver)
+        self.timeout = timeout
         self.base_url = self.config.jenkins.base_url
         self.header = Header(driver)
 
