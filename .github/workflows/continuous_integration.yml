@@ -9,6 +9,8 @@ jobs:
   run-pytest:
     name: 'run pytest tests'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       JENKINS_USERNAME: ${{ secrets.ADMIN_USERNAME }}
       JENKINS_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
