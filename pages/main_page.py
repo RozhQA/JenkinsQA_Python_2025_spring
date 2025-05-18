@@ -13,7 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 class MainPage(BasePage, UIElementMixin):
+    WAIT_FOR_PAGE = True
+
     class Locators:
+        PAGE_NAME = (By.XPATH, "//a[text()='Dashboard']")
         NEW_ITEM_BUTTON = (By.LINK_TEXT, "New Item")
         BUILD_HISTORY_BUTTON = (By.LINK_TEXT, "Build History")
         MANAGE_JENKINS_BUTTON = (By.LINK_TEXT, "Manage Jenkins")
@@ -26,8 +29,11 @@ class MainPage(BasePage, UIElementMixin):
         @staticmethod
         def get_table_item_locator(name: str) -> tuple[By, str]:
             return (By.CSS_SELECTOR, f'a[href="job/{quote(name)}/"]')
+
     JOB_NAME_LOCATOR = "//*[@id='job_{}']/td[3]/a"
     FOLDER_LINK_LOCATOR = "//*[@id='job_{}']/td[3]/a"
+
+    PAGE_READY_LOCATOR = Locators.MANAGE_JENKINS_BUTTON
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)

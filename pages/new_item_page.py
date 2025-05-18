@@ -9,6 +9,8 @@ from pages.base_page import BasePage
 
 
 class NewItemPage(BasePage):
+    WAIT_FOR_PAGE = True
+
     class Locators:
         PAGE_NAME = (By.XPATH, "//h1[text()='New Item']")
         ITEM_NAME = (By.CSS_SELECTOR, '#name')
@@ -33,13 +35,11 @@ class NewItemPage(BasePage):
         COPY_FROM = (By.ID, "from")
         DROPDOWN_COPY = (By.CSS_SELECTOR, "div.jenkins-dropdown")
 
-    def __init__(self, driver, *folder_path, timeout=5):
+    PAGE_READY_LOCATOR = Locators.PAGE_NAME
+
+    def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
-        self.folder_parts = self.normalize_path_parts(*folder_path)
-        if self.folder_parts:
-            self.url = f"{self.base_url}/{self.build_path(*self.folder_parts)}/newJob"
-        else:
-            self.url = f"{self.base_url}/view/all/newJob"
+        self.url = self.base_url + "/view/all/newJob"
 
     def create_new_folder(self, name):
         from pages.folder_config_page import FolderConfigPage
@@ -124,7 +124,7 @@ class NewItemPage(BasePage):
         self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)
         self.wait_to_be_clickable(self.Locators.ITEM_PIPELINE_PROJECT).click()
         self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
-        return PipelineConfigPage(self.driver, *self.folder_parts, name).wait_for_url()
+        return PipelineConfigPage(self.driver, name).wait_for_url()
 
     def get_dropdown_text(self):
         try:

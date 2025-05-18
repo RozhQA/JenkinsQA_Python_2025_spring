@@ -1,6 +1,3 @@
-from urllib.parse import quote
-
-
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
@@ -13,17 +10,32 @@ from pages.components.components import Header
 
 
 class BasePage(UIElementMixin):
+    WAIT_FOR_PAGE = False
+    PAGE_READY_LOCATOR = None
+
     def __init__(self, driver: WebDriver, timeout = 5):
         super().__init__(driver)
         self.timeout = timeout
         self.base_url = self.config.jenkins.base_url
         self.header = Header(driver)
+        if self.WAIT_FOR_PAGE:
+            self.wait_for_page_ready()
+
+    def wait_for_page_ready(self):
+        self.wait_to_be_visible(self.PAGE_READY_LOCATOR)
 
     def open(self):
         self.driver.get(self.url)
         return self.wait_for_url()
 
     def wait_for_url(self):
+        if self.WAIT_FOR_PAGE:
+            try:
+                self.wait_for_page_ready()
+                # self.logger.error(f"wait_for_page_ready locator {self.PAGE_READY_LOCATOR} is not visible")
+                return self
+            except Exception as e:
+                self.logger.warning(f"wait_for_page_ready failed: {e}")
         try:
             self.wait.until(EC.url_to_be(self.url.replace(" ", "%20")))
         except TimeoutException:
@@ -42,19 +54,6 @@ class BasePage(UIElementMixin):
     def switch_to_window(self, handle):
         self.driver.switch_to.window(handle)
         return self.driver
-
-    def normalize_path_parts(self, *path):
-        parts = []
-        for part in path:
-            if isinstance(part, str):
-                parts.extend(part.strip("/").split("/"))
-            elif isinstance(part, list):
-                parts.extend(part)
-        return [p for p in parts if p]
-
-    def build_path(self, *names):
-        normalized = self.normalize_path_parts(*names)
-        return "/".join(f"job/{quote(n)}" for n in normalized)
 
     def is_element_present(self, by, value):
         try:
