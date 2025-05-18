@@ -32,7 +32,6 @@ class BasePage(UIElementMixin):
         if self.WAIT_FOR_PAGE:
             try:
                 self.wait_for_page_ready()
-                # self.logger.error(f"wait_for_page_ready locator {self.PAGE_READY_LOCATOR} is not visible")
                 return self
             except Exception as e:
                 self.logger.warning(f"wait_for_page_ready failed: {e}")
