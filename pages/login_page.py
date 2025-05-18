@@ -26,7 +26,7 @@ class LoginPage(BasePage):
         self.find_element(*self.Locators.PASSWORD_FIELD).send_keys(password)
         self.find_element(*self.Locators.SUBMIT_BUTTON).click()
         main_page = MainPage(self.driver).wait_for_url()
-        time.sleep(0.5)
+        time.sleep(0.1)
         self.config.jenkins.current_username = login
         crumb = update_crumb(self.driver, self.config)
         self.logger.debug(f"login crumb: {crumb}")
