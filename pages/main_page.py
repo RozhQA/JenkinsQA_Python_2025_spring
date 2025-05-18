@@ -78,12 +78,6 @@ class MainPage(BasePage, UIElementMixin):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         return MainPage(self.driver)
 
-    def wait_for_url(self, timeout=10):
-        WebDriverWait(self.driver, timeout).until(
-            lambda driver: driver.current_url.startswith(self.url)
-        )
-        return self
-
     def is_job_with_name_displayed(self, job_name, timeout=20):
         locator = (By.XPATH, self.JOB_NAME_LOCATOR.format(job_name))
         self.logger.info(f"Looking for job with locator: {locator}")
