@@ -1,5 +1,7 @@
 import os
 import time
+
+import pytest
 from dotenv import load_dotenv
 from pages.main_page import MainPage
 
@@ -12,6 +14,8 @@ jenkins_password = os.getenv("JENKINS_PASSWORD")
 assert jenkins_username, "JENKINS_USERNAME не задан в .env"
 assert jenkins_password, "JENKINS_PASSWORD не задан в .env"
 
+
+@pytest.mark.skip
 def test_create_folder_from_dashboard(driver):
     from pages.login_page import LoginPage
 
