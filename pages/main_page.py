@@ -2,6 +2,9 @@ import logging
 from urllib.parse import quote
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from pages.base_page import BasePage
 from pages.ui_element import UIElementMixin
@@ -23,6 +26,8 @@ class MainPage(BasePage, UIElementMixin):
         @staticmethod
         def get_table_item_locator(name: str) -> tuple[By, str]:
             return (By.CSS_SELECTOR, f'a[href="job/{quote(name)}/"]')
+    JOB_NAME_LOCATOR = "//*[@id='job_{}']/td[3]/a"
+    FOLDER_LINK_LOCATOR = "//*[@id='job_{}']/td[3]/a"
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -66,3 +71,26 @@ class MainPage(BasePage, UIElementMixin):
         self.wait_for_new_window()
         self.driver.switch_to.window(self.driver.window_handles[-1])
         return MainPage(self.driver)
+
+    def wait_for_url(self, timeout=10):
+        WebDriverWait(self.driver, timeout).until(
+            lambda driver: driver.current_url.startswith(self.url)
+        )
+        return self
+
+    def is_job_with_name_displayed(self, job_name, timeout=20):
+        locator = (By.XPATH, self.JOB_NAME_LOCATOR.format(job_name))
+        self.logger.info(f"Looking for job with locator: {locator}")
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+            return True
+        except TimeoutException:
+            self.logger.warning(f"Job with name '{job_name}' not found on dashboard after {timeout} seconds.")
+            return False
+
+    def click_on_folder_by_name(self, folder_name, timeout=10):
+        locator = (By.XPATH, self.FOLDER_LINK_LOCATOR.format(folder_name))
+        self.logger.info(f"Clicking on folder with locator: {locator}")
+        self.click_on(locator, timeout)
