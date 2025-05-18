@@ -5,7 +5,7 @@ from tests.new_item.data import Copy
 @allure.epic("New Item")
 @allure.story("Copy from")
 @allure.title("Display dynamic dropdown in the \"Copy from\"")
-@allure.issue("TC_01.003.02")
+@allure.testcase("TC_01.003.02")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/396", name="Github issue")
 def test_display_dropdown_text(prepare_page_for_copy):
     item_name, expected_result = Copy.FOLDER_NAME_TO_COPY, [Copy.FOLDER_NAME_TO_COPY]
@@ -19,10 +19,11 @@ def test_display_dropdown_text(prepare_page_for_copy):
 @allure.epic("New Item")
 @allure.story("Copy from")
 @allure.title("Display dynamic dropdown in the \"Copy from\" lowercase character")
-@allure.issue("TC_01.003.11")
+@allure.testcase("TC_01.003.11")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/670", name="Github issue")
 def test_display_dropdown_text_lowercase(prepare_page_for_copy):
-    item_name, expected_result = Copy.FOLDER_NAME_TO_COPY.lower(), [Copy.FOLDER_NAME_TO_COPY]
+    with allure.step("Getting data"):
+        item_name, expected_result = Copy.FOLDER_NAME_TO_COPY.lower(), [Copy.FOLDER_NAME_TO_COPY]
 
     dropdown_text = prepare_page_for_copy.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
@@ -33,7 +34,7 @@ def test_display_dropdown_text_lowercase(prepare_page_for_copy):
 @allure.epic("New Item")
 @allure.story("Copy from")
 @allure.title("Display the dynamic drop-down with the text \"No items\"")
-@allure.issue("TC: 01.003.03")
+@allure.testcase("TC: 01.003.03")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/441", name="Github issue")
 def test_display_dropdown_text_negative(prepare_page_for_copy):
     item_name, expected_result = Copy.NON_EXISTENT_FOLDER_NAME, [Copy.ITEM_NOT_FOUND_MESSAGE]
@@ -48,7 +49,7 @@ def test_display_dropdown_text_negative(prepare_page_for_copy):
 @allure.story("Copy from")
 @allure.title("Display an error message \"No such job: item name\"")
 @allure.description("Display an error message \"No such job: item name\" when copying an item that does not exist.")
-@allure.issue("TC_01.003.04")
+@allure.testcase("TC_01.003.04")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/444", name="Github issue")
 def test_error_page_displays_header_and_message(new_item_page: NewItemPage, prepare_page_for_copy):
     error_page = prepare_page_for_copy.go_to_error_page_copy(Copy.COPY_NAME, Copy.NON_EXISTENT_FOLDER_NAME)

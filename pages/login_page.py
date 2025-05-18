@@ -1,4 +1,5 @@
 import time
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -18,7 +19,7 @@ class LoginPage(BasePage):
         super().__init__(driver)
         self.url = self.base_url + "/login?from=%2F"
 
-
+    @allure.step("Login with credentials")
     def login(self, login, password):
         from pages.main_page import MainPage
         self.find_element(*self.Locators.LOGIN_FIELD).send_keys(login)
