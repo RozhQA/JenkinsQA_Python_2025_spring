@@ -62,29 +62,8 @@ jobs:
       - name: Wait for the Jenkins
         run: ./.github/wait-for-jenkins.sh
 
-      - name: check scope of changes
-        id: scope_check
-        run: ./.github/diff-checker.sh
-
       - name: pytest run all tests
-        if: steps.scope_check.outputs.run_all_tests == 'true'
         run: pytest --alluredir=build/allure-results
-        #continue-on-error: true
-
-      - name: pytest run picked tests
-        if: steps.scope_check.outputs.run_all_tests == 'false'
-        #run: pytest --picked --mode=branch --parent-branch=origin/${{ github.base_ref }}
-        run: pytest --alluredir=build/allure-results
-        #continue-on-error: true
-
-      - name: Check for Allure results
-        if: always()
-        run: |
-          echo "Listing contents of build/allure-results:"
-          ls -R build/allure-results || echo "build/allure-results directory not found or is empty"
-          echo "Current working directory: $(pwd)"
-          echo "Listing top-level directories:"
-          ls
 
       - name: Get Allure history
         uses: actions/checkout@v4.2.2
@@ -93,12 +72,6 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-
-      - name: List gh-pages checkout content (after Get Allure history)
-        if: always()
-        run: |
-          echo "Listing contents of ./gh-pages:"
-          ls -R gh-pages || echo "gh-pages directory not found after checkout"
 
       - name: Generate allure report
         uses: simple-elf/allure-report-action@v1.12
@@ -111,12 +84,6 @@ jobs:
           #ref: gh-pages
           #path: gh-pages
           keep_reports: 30
-
-      - name: List generated report content before publish
-        if: always()
-        run: |
-          echo "Listing contents of ./gh-pages/allure-history (should be the new report):"
-          ls -R gh-pages/allure-history || echo "gh-pages/allure-history not found before publish"
 
       - name: Commit allure_report to Github Pages
         if: always()
