@@ -1,5 +1,6 @@
 import time
 from typing import List
+import allure
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -41,6 +42,7 @@ class NewItemPage(BasePage):
         super().__init__(driver, timeout=timeout)
         self.url = self.base_url + "/view/all/newJob"
 
+    @allure.step("Create new folder with name")
     def create_new_folder(self, name):
         from pages.folder_config_page import FolderConfigPage
         self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)
