@@ -2,6 +2,7 @@ import allure
 from pages.new_item_page import NewItemPage
 from tests.new_item.data import Copy
 
+
 @allure.epic("New Item")
 @allure.story("Copy from")
 @allure.title("Display dynamic dropdown in the \"Copy from\"")
@@ -58,3 +59,16 @@ def test_error_page_displays_header_and_message(new_item_page: NewItemPage, prep
         f"Expected header '{Copy.HEADER_ERROR}' NOT FOUND"
     assert error_page.get_message_error() == Copy.MESSAGE_ERROR, \
         f"Expected message '{Copy.MESSAGE_ERROR}' NOT FOUND"
+
+
+@allure.epic("New Item")
+@allure.story("Copy from")
+@allure.title("Select an item from the dynamic drop-down")
+@allure.testcase("TC_01.003.09")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/661", name="Github issue")
+def test_display_dropdown_text(prepare_page_for_copy):
+    prepare_page_for_copy.enter_first_character_in_copy_from(Copy.FOLDER_NAME_TO_COPY).select_item_from_dropdown()
+    value = prepare_page_for_copy.get_value_copy_from()
+
+    assert value == Copy.FOLDER_NAME_TO_COPY, \
+        f"Expected value '{Copy.FOLDER_NAME_TO_COPY}' NOT FOUND"

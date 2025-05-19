@@ -149,3 +149,9 @@ class NewItemPage(BasePage):
         from pages.error_page_copy_from import ErrorPageCopyFrom
         self.enter_item_name(name).enter_copy_from(copy_name).click_ok_button()
         return ErrorPageCopyFrom(self.driver).wait_for_url()
+
+    def select_item_from_dropdown(self):
+        return self.click_on(self.Locators.DROPDOWN_COPY)
+
+    def get_value_copy_from(self):
+        return self.get_value(self.Locators.COPY_FROM).strip()
