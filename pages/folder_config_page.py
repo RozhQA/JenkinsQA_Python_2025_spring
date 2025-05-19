@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 
-from multi_config.data import project_name
 from pages.base_page import BasePage
 from pages.folder_page import FolderPage
 
