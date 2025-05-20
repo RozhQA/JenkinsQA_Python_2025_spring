@@ -82,7 +82,7 @@ def test_select_item_from_dropdown(prepare_page_for_copy):
 def test_display_dropdown_multiple_items(prepare_multiple_items):
     with allure.step("Getting data"):
         item_name, expected_result = Copy.FOLDER_NAME_TO_COPY, [Copy.FOLDER_NAME_TO_COPY, Copy.FOLDER_NAME_TO_COPY_2]
-    dropdown_text = prepare_multiple_items.enter_first_character_in_copy_from(item_name).get_dropdown_text()
+    actual_dropdown_items = prepare_multiple_items.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
-    assert dropdown_text, "Dropdown list is empty"
-    assert dropdown_text == expected_result, f"Expected list '{expected_result}' NOT FOUND"
+    assert actual_dropdown_items, "Dropdown list is empty"
+    assert actual_dropdown_items == expected_result, f"Expected list '{expected_result}' NOT FOUND"
