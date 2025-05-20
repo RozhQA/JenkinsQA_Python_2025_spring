@@ -85,4 +85,4 @@ def test_display_dropdown_multiple_items(prepare_multiple_items):
     dropdown_text = prepare_multiple_items.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
     assert dropdown_text, "Dropdown list is empty"
-    assert dropdown_text == expected_result, f"Expected text '{expected_result}' NOT FOUND"
+    assert dropdown_text == expected_result, f"Expected list '{expected_result}' NOT FOUND"
