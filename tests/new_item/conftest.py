@@ -1,5 +1,6 @@
 import allure
 import pytest
+import time
 
 from pages.new_item_page import NewItemPage
 from tests.new_item.data import Copy
@@ -16,3 +17,9 @@ def prepare_page_for_copy(new_item_page: NewItemPage) -> NewItemPage:
 @pytest.fixture(scope="function")
 def prepare_folder_env(new_item_page: NewItemPage):
     return new_item_page.create_new_folder(new_folder_name).header.go_to_the_main_page()
+
+
+@pytest.fixture(scope="function")
+@allure.title("Create unique folder name")
+def unique_folder_name():
+    return f"TestFolder_{int(time.time() * 1000)}"
