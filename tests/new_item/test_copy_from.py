@@ -72,3 +72,17 @@ def test_select_item_from_dropdown(prepare_page_for_copy):
 
     assert value == Copy.FOLDER_NAME_TO_COPY, \
         f"Expected value '{Copy.FOLDER_NAME_TO_COPY}' NOT FOUND"
+
+
+@allure.epic("New Item")
+@allure.story("Copy from")
+@allure.title("Display multiple items in dynamic dropdown")
+@allure.testcase("TC_01.003.10")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/662", name="Github issue")
+def test_display_dropdown_multiple_items(prepare_multiple_items):
+    with allure.step("Getting data"):
+        item_name, expected_result = Copy.FOLDER_NAME_TO_COPY, [Copy.FOLDER_NAME_TO_COPY, Copy.FOLDER_NAME_TO_COPY_2]
+    actual_dropdown_items = prepare_multiple_items.enter_first_character_in_copy_from(item_name).get_dropdown_text()
+
+    assert actual_dropdown_items, "Dropdown list is empty"
+    assert actual_dropdown_items == expected_result, f"Expected list '{expected_result}' NOT FOUND"
