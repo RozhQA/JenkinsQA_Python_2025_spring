@@ -8,7 +8,7 @@ from tests.manage_jenkins.data import SystemInformationData as SI
 
 
 class SystemInformationPage(ManageJenkinsPage):
-    class Locator:
+    class Locator(ManageJenkinsPage.Locator):
         TABS_BAR = (By.CSS_SELECTOR, ".tabBar .tab a")
         ACTIVE_TAB = (By.XPATH, "//div[@class='jenkins-tab-pane'][@style='display: block;']/h2")
         TABLE_ROWS = (By.TAG_NAME, "tr")
