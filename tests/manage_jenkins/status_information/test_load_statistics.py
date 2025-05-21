@@ -11,8 +11,7 @@ def test_open_load_statistics_page(manage_jenkins_page):
 @allure.story("Load Statistics")
 @allure.title("Display graph according to the selected Timespan")
 @allure.description("Verify that the load statistics graph is displayed according to the selected timespan.")
-@allure.testcase("TC_10.022.02")
-@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/722", name="Github issue")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/722", name="TC_10.022.02")
 def test_load_statistics_page_select_timespan(load_statistics_page):
     for option in MJ.TIMESPAN_OPTIONS:
         assert load_statistics_page.get_graph_for_selected_timespan_option(option), \
