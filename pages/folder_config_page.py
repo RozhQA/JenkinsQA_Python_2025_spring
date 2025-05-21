@@ -47,3 +47,7 @@ class FolderConfigPage(BasePage):
     def click_save_button(self):
         self.click_on(self.Locators.SAVE_BUTTON)
         return FolderPage(self.driver, folder_name = self.name).wait_for_url()
+
+    def get_folder_name_after_click_save(self):
+        name = self.find_element(*self.Locators.FOLDER_NAME).text
+        return name
