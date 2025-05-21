@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.folder_page import FolderPage
 
@@ -50,8 +49,5 @@ class FolderConfigPage(BasePage):
         return FolderPage(self.driver, folder_name = self.name).wait_for_url()
 
     def get_folder_name_after_click_save(self):
-        wait = WebDriverWait(self.driver, 10)
-        element = wait.until(
-            EC.visibility_of_element_located(self.Locators.FOLDER_NAME))
-        name = element.text
+        name = self.wait_to_be_visible(self.Locators.FOLDER_NAME).text
         return name
