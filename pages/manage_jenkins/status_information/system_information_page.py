@@ -1,8 +1,5 @@
 from typing import Self
 from selenium.webdriver.common.by import By
-from selenium.common import TimeoutException
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.remote.webelement import WebElement
 from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
 from tests.manage_jenkins.data import SystemInformationData as SI
 
