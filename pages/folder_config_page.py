@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from pages.base_page import BasePage
 from pages.folder_page import FolderPage
 
