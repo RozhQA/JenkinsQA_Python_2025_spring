@@ -14,6 +14,7 @@ class FolderConfigPage(BasePage):
         TEXT_PREVIEW = (By.CLASS_NAME, "textarea-preview")
         HIDE_PREVIEW = (By.CLASS_NAME, "textarea-hide-preview")
         HEALTH_METRICS = (By.ID, "health-metrics")
+        FOLDER_NAME = (By.CSS_SELECTOR, "#main-panel> h1")
 
     def __init__(self, driver, folder_name,  timeout=5):
         super().__init__(driver, timeout=timeout)
