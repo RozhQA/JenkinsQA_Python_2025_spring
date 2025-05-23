@@ -9,9 +9,7 @@ class MultiConfigProjectConfigPage(BasePage):
         DESCRIPTION = (By.NAME, "description")
         SUBMIT = (By.NAME, "Submit")
         SWITCH_BUTTON = (By.ID, "toggle-switch-enable-disable-project")
-        ENABLE_LABEL = (By.CLASS_NAME, "jenkins-toggle-switch__label__checked-title")
-        DISABLE_LABEL = (By.CLASS_NAME, "jenkins-toggle-switch__label__unchecked-title")
-        TOGGLE_INPUT = (By.ID, "enable-disable-project")
+        SWITCH_INPUT = (By.ID, "enable-disable-project")
 
     def __init__(self, driver, name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -39,7 +37,7 @@ class MultiConfigProjectConfigPage(BasePage):
         return self.click_on(self.Locators.SUBMIT)
 
     def is_project_enabled(self) -> bool:
-        return self.is_element_selected(self.Locators.TOGGLE_INPUT)
+        return self.is_element_selected(self.Locators.SWITCH_INPUT)
 
     def is_project_disabled(self) -> bool:
         return not self.is_project_enabled()

@@ -9,11 +9,13 @@ from tests.multi_config.data import ProjectToggle
 @allure.testcase("TC_04.001.02")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/657", name="Github issue")
 def test_enable_project_by_toggle_switch(multi_config_project_enabled):
-    config_page = multi_config_project_enabled.click_switch_button()
+    with allure.step("Disable the switch button 'Enabled/Disabled'"):
+        config_page = multi_config_project_enabled.click_switch_button()
 
     assert config_page.is_project_disabled(), "The project is not disabled"
 
-    config_page.click_switch_button()
+    with allure.step("Enable the switch button 'Enabled/Disabled'"):
+        config_page.click_switch_button()
 
     assert config_page.is_project_enabled(), "The project is not enabled"
 
