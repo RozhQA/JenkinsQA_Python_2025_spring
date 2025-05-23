@@ -37,7 +37,7 @@ class MainPage(BasePage, UIElementMixin):
     def get_item_list(self):
         return [item.text for item in self.find_elements(*self.Locators.TABLE_ITEM)]
 
-    @allure.step("Get \"Dashboard\" table column headers")
+    @allure.step("Get actual headers from \"Dashboard\"")
     def get_table_headers_list(self):
         elements = self.find_elements(*self.Locators.TABLE_HEADERS)
         return [el.text.replace("↑", "").replace("↓", "").replace("\n", "").strip()

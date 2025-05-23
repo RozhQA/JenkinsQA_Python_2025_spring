@@ -28,6 +28,9 @@ def test_all_jobs_and_folders_visible_in_dashboard(create_job_and_folders_env, m
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/742", name="Github issue")
 def test_verify_table_column_headers(create_job_pipeline_env, main_page):
     actual_headers = main_page.get_table_headers_list()
-    expected_headers = list(DashboardTable.HEADERS_MAP.values())
-    assert actual_headers, "Headers list is empty or not returned"
-    assert actual_headers == expected_headers, f"Headers mismatch. Expected:{expected_headers}, actual:{actual_headers}"
+    with allure.step("Load expected headers configuration"):
+        expected_headers = list(DashboardTable.HEADERS_MAP.values())
+    with allure.step("Verify headers presence"):
+        assert actual_headers, "No headers found in the table (empty list)"
+    with allure.step("Validate headers format and order"):
+        assert actual_headers == expected_headers, f"Headers mismatch. Expected:{expected_headers}, actual:{actual_headers}"
