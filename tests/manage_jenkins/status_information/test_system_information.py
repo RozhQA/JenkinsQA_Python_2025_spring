@@ -122,7 +122,7 @@ def test_plugins_tab_display_plugins_info(plugins_tab):
         version = row[1]
         enabled_status = row[2]
 
-        with allure.step(f"Check that the plugin information is displayed in row #{row}"):
+        with allure.step(f"Check that the plugin information is displayed in row #{table.index(row) + 1}"):
 
             with allure.step(f"Check that the plugin name is displayed: {name}"):
                 assert name, f"Plugin name is empty - {row}"
