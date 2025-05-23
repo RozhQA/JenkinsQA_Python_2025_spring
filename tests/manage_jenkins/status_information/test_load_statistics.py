@@ -5,7 +5,7 @@ from tests.manage_jenkins.data import ManageJenkinsData as MJ
 @allure.epic("Manage Jenkins")
 @allure.story("Load Statistics")
 @allure.title("Open Load Statistics page")
-@allure.description('Verify that the "Load statistics" page is accessible from the "Manage Jenkins" page.')
+@allure.description("Verify that the Load statistics page is accessible from the Manage Jenkins page.")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/721", name="TC_10.022.01")
 def test_open_load_statistics_page(manage_jenkins_page):
     load_stat_page = manage_jenkins_page.go_to_load_statistics_page()
