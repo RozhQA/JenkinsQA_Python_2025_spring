@@ -51,7 +51,7 @@ def test_disappear_warning_message(page_disabled_multi_config_project):
 @allure.title("Switch button state reflects actual project state after saving and navigation")
 @allure.testcase("TC_04.001.05")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/741", name="Github issue")
-def test_config_switch_state_after_save(page_disabled_multi_config_project):
+def test_switch_state_persists_after_save_and_navigation(page_disabled_multi_config_project):
     config_page = page_disabled_multi_config_project.go_to_configure_page()
 
     assert config_page.is_project_disabled(), "The project is not disabled"
