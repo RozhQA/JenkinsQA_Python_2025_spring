@@ -30,7 +30,6 @@ class MultiConfigProjectConfigPage(BasePage):
         self.wait_to_be_clickable(self.Locators.SUBMIT).click()
         return MultiConfigProjectPage(self.driver, name).wait_for_url()
 
-    @allure.step("Click the switch button to change project state")
     def click_switch_button(self):
         self.click_on(self.Locators.SWITCH_BUTTON)
         return self
@@ -55,5 +54,6 @@ class MultiConfigProjectConfigPage(BasePage):
         self.hover_over_element(self.Locators.SWITCH_BUTTON)
         return self.get_visible_text(self.Locators.SWITCH_TOOLTIP)
 
-    def hover_over_description_field(self):
+    def hover_over_description(self):
         return self.hover_over_element(self.Locators.DESCRIPTION)
+
