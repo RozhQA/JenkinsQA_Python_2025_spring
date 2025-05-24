@@ -56,4 +56,3 @@ class MultiConfigProjectConfigPage(BasePage):
 
     def hover_over_description(self):
         return self.hover_over_element(self.Locators.DESCRIPTION)
-
