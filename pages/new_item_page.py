@@ -149,10 +149,12 @@ class NewItemPage(BasePage):
         self.enter_text(self.Locators.COPY_FROM, name)
         return self
 
+    @allure.step("Enter the first character of the item name into the 'Copy from' field")
     def enter_first_character_in_copy_from(self, name):
         self.enter_copy_from(name[0])
         return self
 
+    @allure.step("Try to copy from non-existent item: \"{copy_name}\", redirect to error page")
     def go_to_error_page_copy(self, name, copy_name):
         from pages.error_page_copy_from import ErrorPageCopyFrom
         self.enter_item_name(name).enter_copy_from(copy_name).click_ok_button()
@@ -162,4 +164,4 @@ class NewItemPage(BasePage):
         return self.click_on(self.Locators.DROPDOWN_COPY)
 
     def get_copy_from_field_value(self):
-        return self.get_attribute(self.Locators.COPY_FROM, "value")
+        return self.wait_and_get_attribute(self.Locators.COPY_FROM, "value")
