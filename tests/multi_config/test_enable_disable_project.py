@@ -5,6 +5,24 @@ from tests.multi_config.data import ProjectToggle
 
 @allure.epic("Multi-configuration project Configuration")
 @allure.story("Enable or Disable the Project")
+@allure.title("Display the 'Enable or disable the current project' tooltip")
+@allure.testcase("TC_04.001.01")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/542", name="Github issue")
+def test_display_tooltip_enable_disable(multi_config_project_enabled):
+    tooltip_enable_project = multi_config_project_enabled.get_switch_tooltip_text()
+
+    assert tooltip_enable_project == ProjectToggle.TOOLTIP, \
+        f"Expected tooltip {ProjectToggle.TOOLTIP} NOT FOUND"
+
+    multi_config_project_enabled.click_switch_button().hover_over_description()
+    tooltip_disable_project = multi_config_project_enabled.get_switch_tooltip_text()
+
+    assert tooltip_disable_project == ProjectToggle.TOOLTIP, \
+        f"Expected tooltip {ProjectToggle.TOOLTIP} NOT FOUND"
+
+
+@allure.epic("Multi-configuration project Configuration")
+@allure.story("Enable or Disable the Project")
 @allure.title("Enable and Disable the project by clicking on the switch button")
 @allure.testcase("TC_04.001.02")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/657", name="Github issue")
