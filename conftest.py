@@ -81,10 +81,15 @@ def driver(request, config):
 
             test_name = "".join(ch for ch in request.node.name if ch not in r'\/:*?<>|"')
             now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            screenshot_file = os.path.join(screenshots_dir, f"{test_name}_failure_{now}.png")
+            #screenshot_file = os.path.join(screenshots_dir, f"{test_name}_failure_{now}.png")
 
-            driver.save_screenshot(screenshot_file)
-            logger.info(f"Screenshot saved to: {screenshot_file}")
+            #driver.save_screenshot(screenshot_file)
+            allure.attach(
+                driver.get_screenshot_as_png(),
+                name=test_name,
+                attachment_type=allure.attachment_type.PNG,
+            )
+            #logger.info(f"Screenshot saved to: {screenshot_file}")
 
         except Exception as e:
             logger.error(f"Failed to take screenshot: {e}")

@@ -36,6 +36,8 @@ def test_verify_table_column_headers(create_job_pipeline_env, main_page):
         assert actual_headers == expected_headers, \
             f"Headers mismatch. Expected:{expected_headers}, actual:{actual_headers}"
 
+    assert False
+
 
 @allure.epic("Dashboard with the items")
 @allure.story("View All Jobs")

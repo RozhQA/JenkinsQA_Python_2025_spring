@@ -93,9 +93,9 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
 
-      - name: Attach screenshots
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/screenshots
+      #- name: Attach screenshots
+      #  if: failure()
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: screenshots
+      #    path: ${{ github.workspace }}/screenshots
