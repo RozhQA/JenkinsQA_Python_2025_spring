@@ -44,3 +44,14 @@ def test_disappear_warning_message(page_disabled_multi_config_project):
         f"Warning message {ProjectToggle.WARNING_MESSAGE} did not disappear"
     assert page.get_project_status_title() == ProjectToggle.STATUS_NOT_BUILT, \
         f"Expected project status '{ProjectToggle.STATUS_NOT_BUILT}' NOT FOUND"
+
+
+@allure.epic("Multi-configuration project Configuration")
+@allure.story("Enable or Disable the Project")
+@allure.title("Switch button state reflects actual project state after saving and navigation")
+@allure.testcase("TC_04.001.05")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/741", name="Github issue")
+def test_switch_state_persists_after_save_and_navigation(page_disabled_multi_config_project):
+    config_page = page_disabled_multi_config_project.go_to_configure_page()
+
+    assert config_page.is_project_disabled(), "The project is not disabled"
