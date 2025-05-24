@@ -80,7 +80,7 @@ def test_select_item_from_dropdown(prepare_page_for_copy):
 @allure.testcase("TC_01.003.10")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/662", name="Github issue")
 def test_display_dropdown_multiple_items(prepare_multiple_items):
-    with allure.step("Getting data"):
+    with allure.step("Prepare test data with multiple items for dropdown"):
         item_name, expected_result = Copy.FOLDER_NAME_TO_COPY, [Copy.FOLDER_NAME_TO_COPY, Copy.FOLDER_NAME_TO_COPY_2]
     actual_dropdown_items = prepare_multiple_items.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
