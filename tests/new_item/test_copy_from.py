@@ -56,7 +56,7 @@ def test_select_item_from_dropdown(prepare_page_for_copy):
     field_value = prepare_page_for_copy.get_copy_from_field_value()
 
     assert field_value == Copy.FOLDER_NAME_TO_COPY, \
-        f"Expected value '{Copy.FOLDER_NAME_TO_COPY}' NOT FOUND"
+        f"Expected field value '{Copy.FOLDER_NAME_TO_COPY}' NOT FOUND"
 
 
 @allure.epic("New Item")

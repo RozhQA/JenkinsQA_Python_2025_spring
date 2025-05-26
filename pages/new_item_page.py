@@ -163,4 +163,4 @@ class NewItemPage(BasePage):
         return self.click_on(self.Locators.DROPDOWN_COPY)
 
     def get_copy_from_field_value(self):
-        return self.get_attribute(self.Locators.COPY_FROM, "value")
+        return self.wait_and_get_attribute(self.Locators.COPY_FROM, "value")
