@@ -159,6 +159,7 @@ class NewItemPage(BasePage):
         self.enter_item_name(name).enter_copy_from(copy_name).click_ok_button()
         return ErrorPageCopyFrom(self.driver).wait_for_url()
 
+    @allure.step("Click item from dropdown")
     def select_item_from_dropdown(self):
         return self.click_on(self.Locators.DROPDOWN_COPY)
 
