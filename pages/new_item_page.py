@@ -149,6 +149,7 @@ class NewItemPage(BasePage):
         self.enter_text(self.Locators.COPY_FROM, name)
         return self
 
+    @allure.step("Enter the first character of the item name into the 'Copy from' input field")
     def enter_first_character_in_copy_from(self, name):
         self.enter_copy_from(name[0])
         return self

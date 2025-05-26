@@ -14,7 +14,7 @@ def test_display_dropdown_text(prepare_page_for_copy):
     dropdown_text = prepare_page_for_copy.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
     assert dropdown_text, "Dropdown list is empty"
-    assert dropdown_text == expected_result, f"Expected text '{expected_result}' NOT FOUND"
+    assert dropdown_text == expected_result, f"Expected the dropdown text '{expected_result}' NOT FOUND"
 
 
 @allure.epic("New Item")
