@@ -79,7 +79,8 @@ def test_display_dropdown_multiple_items(prepare_multiple_items):
 @allure.testcase("TC_01.003.11")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/670", name="Github issue")
 def test_display_dropdown_text_lowercase(prepare_page_for_copy):
-    item_name, expected_result = Copy.FOLDER_NAME_TO_COPY_LOWERCASE, [Copy.FOLDER_NAME_TO_COPY]
+    with allure.step("Prepare test data for dropdown"):
+        item_name, expected_result = Copy.FOLDER_NAME_TO_COPY_LOWERCASE, [Copy.FOLDER_NAME_TO_COPY]
 
     dropdown_text = prepare_page_for_copy.enter_first_character_in_copy_from(item_name).get_dropdown_text()
 
