@@ -96,3 +96,13 @@ def test_project_status_changes_after_disabling_in_configure(multi_config_projec
 
     assert page.get_project_status_title() == ProjectToggle.STATUS_DISABLE_PROJECT, \
         f"Expected project status '{ProjectToggle.STATUS_DISABLE_PROJECT}' NOT FOUND"
+
+
+@allure.epic("Multi-configuration project Configuration")
+@allure.story("Enable or Disable the Project")
+@allure.title("Display of \"Enable\" button on Project main page when project is disabled")
+@allure.testcase("TC_04.001.08")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/820", name="Github issue")
+def test_display_enable_button_on_project_page(page_disabled_multi_config_project):
+    assert page_disabled_multi_config_project.is_enable_button_displayed(), \
+        "Enable button is not displayed on the disabled project's main page"
