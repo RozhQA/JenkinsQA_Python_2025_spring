@@ -24,13 +24,7 @@ def multi_config_project_enabled(new_item_page) -> MultiConfigProjectConfigPage:
 
 
 @pytest.fixture(scope="function")
-@allure.title("Prepare configuration page of disabled Multi-configuration project")
-def multi_config_project_disabled(multi_config_project_enabled: MultiConfigProjectConfigPage):
-    multi_config_project_enabled.click_switch_button()
-    return multi_config_project_enabled
-
-
-@pytest.fixture(scope="function")
 @allure.title("Prepare project page of disabled Multi-configuration project")
-def page_disabled_multi_config_project(multi_config_project_disabled: MultiConfigProjectConfigPage):
-    return multi_config_project_disabled.submit_and_open_project_page()
+def page_disabled_multi_config_project(multi_config_project_enabled: MultiConfigProjectConfigPage):
+    multi_config_project_enabled.click_switch_button()
+    return multi_config_project_enabled.submit_and_open_project_page()
