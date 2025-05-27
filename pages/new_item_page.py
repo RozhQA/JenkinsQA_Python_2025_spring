@@ -168,11 +168,12 @@ class NewItemPage(BasePage):
         self.enter_item_name(name).enter_copy_from(copy_name).click_ok_button()
         return ErrorPageCopyFrom(self.driver).wait_for_url()
 
+    @allure.step("Click an item from dropdown")
     def select_item_from_dropdown(self):
         return self.click_on(self.Locators.DROPDOWN_COPY)
 
     def get_copy_from_field_value(self):
-        return self.get_attribute(self.Locators.COPY_FROM, "value")
+        return self.wait_and_get_attribute(self.Locators.COPY_FROM, "value")
 
     def select_item_and_get_element(self, project_type: str):
         locator = self.PROJECT_TYPE_MAP[project_type][0]
