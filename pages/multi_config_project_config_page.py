@@ -31,6 +31,7 @@ class MultiConfigProjectConfigPage(BasePage):
         self.wait_to_be_clickable(self.Locators.SUBMIT).click()
         return MultiConfigProjectPage(self.driver, name).wait_for_url()
 
+    @allure.step("Click the switch button 'Enabled/Disabled' to change project state")
     def click_switch_button(self):
         self.click_on(self.Locators.SWITCH_BUTTON)
         return self

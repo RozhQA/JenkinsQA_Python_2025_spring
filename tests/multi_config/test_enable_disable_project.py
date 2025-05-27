@@ -26,14 +26,12 @@ def test_display_tooltip_enable_disable(multi_config_project_enabled):
 @allure.title("Enable and Disable the project by clicking on the switch button")
 @allure.testcase("TC_04.001.02")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/657", name="Github issue")
-def test_enable_project_by_toggle_switch(multi_config_project_enabled):
-    with allure.step("Disable the switch button 'Enabled/Disabled'"):
-        config_page = multi_config_project_enabled.click_switch_button()
+def test_enable_disable_project_by_toggle_switch(multi_config_project_enabled):
+    config_page = multi_config_project_enabled.click_switch_button()
 
     assert config_page.is_project_disabled(), "The project is not disabled"
 
-    with allure.step("Enable the switch button 'Enabled/Disabled'"):
-        config_page.click_switch_button()
+    config_page.click_switch_button()
 
     assert config_page.is_project_enabled(), "The project is not enabled"
 
