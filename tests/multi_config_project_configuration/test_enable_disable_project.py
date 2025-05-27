@@ -1,6 +1,6 @@
 import allure
 
-from tests.multi_config.data import ProjectToggle
+from tests.multi_config_project_configuration.data import ProjectToggle
 
 
 @allure.epic("Multi-configuration project Configuration")
@@ -92,8 +92,7 @@ def test_project_status_changes_after_enabling_in_configure(page_disabled_multi_
 @allure.testcase("TC_04.001.07")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/773", name="Github issue")
 def test_project_status_changes_after_disabling_in_configure(multi_config_project_enabled):
-    page_config = multi_config_project_enabled.click_switch_button()
-    page_project = page_config.submit_and_open_project_page()
+    page = multi_config_project_enabled.click_switch_button().submit_and_open_project_page()
 
-    assert page_project.get_project_status_title() == ProjectToggle.STATUS_DISABLE_PROJECT, \
+    assert page.get_project_status_title() == ProjectToggle.STATUS_DISABLE_PROJECT, \
         f"Expected project status '{ProjectToggle.STATUS_DISABLE_PROJECT}' NOT FOUND"
