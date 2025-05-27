@@ -181,3 +181,13 @@ class NewItemPage(BasePage):
         self.scroll_into_view(self.wait_for_element(locator))
         self.click_on(locator)
         return self.wait_for_element(locator)
+
+    @allure.step('Create new {project_type}: {project_name}')
+    def create_project(self, project_type, project_name):
+        locator, page_class = self.PROJECT_TYPE_MAP[project_type]
+        self.enter_item_name(project_name)
+        self.scroll_into_view(self.wait_for_element(locator))
+        self.click_on(locator)
+        self.click_on(self.Locators.OK_BUTTON)
+        return page_class(self.driver, project_name).wait_for_url()
+
