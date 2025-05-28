@@ -1,6 +1,6 @@
 import allure
 
-from tests.multi_config.data import ProjectToggle
+from tests.multi_config_project_configuration.data import ProjectToggle
 
 
 @allure.epic("Multi-configuration project Configuration")
@@ -58,8 +58,8 @@ def test_disappear_warning_message(page_disabled_multi_config_project):
 
     assert page.wait_warning_message_to_disappear(), \
         f"Warning message {ProjectToggle.WARNING_MESSAGE} did not disappear"
-    assert page.get_project_status_title() == ProjectToggle.STATUS_NOT_BUILT, \
-        f"Expected project status '{ProjectToggle.STATUS_NOT_BUILT}' NOT FOUND"
+    assert page.get_project_status_title() == ProjectToggle.STATUS_ENABLE_PROJECT, \
+        f"Expected project status '{ProjectToggle.STATUS_ENABLE_PROJECT}' NOT FOUND"
 
 
 @allure.epic("Multi-configuration project Configuration")
@@ -82,5 +82,17 @@ def test_project_status_changes_after_enabling_in_configure(page_disabled_multi_
     config_page = page_disabled_multi_config_project.go_to_configure_page()
     enable_project_page = config_page.click_switch_button().submit_and_open_project_page()
 
-    assert enable_project_page.get_project_status_title() == ProjectToggle.STATUS_NOT_BUILT, \
-        f"Expected project status '{ProjectToggle.STATUS_NOT_BUILT}' NOT FOUND"
+    assert enable_project_page.get_project_status_title() == ProjectToggle.STATUS_ENABLE_PROJECT, \
+        f"Expected project status '{ProjectToggle.STATUS_ENABLE_PROJECT}' NOT FOUND"
+
+
+@allure.epic("Multi-configuration project Configuration")
+@allure.story("Enable or Disable the Project")
+@allure.title("Project status changes on the Project page after disabling the project via Configure page")
+@allure.testcase("TC_04.001.07")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/773", name="Github issue")
+def test_project_status_changes_after_disabling_in_configure(multi_config_project_enabled):
+    page = multi_config_project_enabled.click_switch_button().submit_and_open_project_page()
+
+    assert page.get_project_status_title() == ProjectToggle.STATUS_DISABLE_PROJECT, \
+        f"Expected project status '{ProjectToggle.STATUS_DISABLE_PROJECT}' NOT FOUND"
