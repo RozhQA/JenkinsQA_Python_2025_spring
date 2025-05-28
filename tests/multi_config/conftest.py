@@ -33,4 +33,4 @@ def multi_config_project_disabled(multi_config_project_enabled: MultiConfigProje
 @pytest.fixture(scope="function")
 @allure.title("Prepare project page of disabled Multi-configuration project")
 def page_disabled_multi_config_project(multi_config_project_disabled: MultiConfigProjectConfigPage):
-    return multi_config_project_disabled.submit_and_open_project_page(ProjectToggle.PROJECT_NAME)
+    return multi_config_project_disabled.submit_and_open_project_page()
