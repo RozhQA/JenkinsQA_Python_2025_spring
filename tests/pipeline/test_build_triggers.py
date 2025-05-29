@@ -18,6 +18,6 @@ def test_display_triggers_section_header_description_menu(pipline_project_config
 @allure.title("Displaying the \"Triggers\" section description")
 @allure.testcase("TC_03.003.02")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/831", name="Github issue")
-def test_display_triggers_section_header_description_menu(pipline_project_config_page):
-    assert pipline_project_config_page.get_title_triggers() == BuildTriggers.DESCRIPTION, \
-        f"Expected title '{BuildTriggers.DESCRIPTION}' NOT FOUND"
+def test_display_triggers_section_description(pipline_project_config_page):
+    assert pipline_project_config_page.get_description_triggers() == BuildTriggers.DESCRIPTION, \
+        f"Expected description '{BuildTriggers.DESCRIPTION}' NOT FOUND"

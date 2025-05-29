@@ -6,4 +6,4 @@ class BuildTriggers:
     PROJECT_NAME = "Pipeline project"
     TITLE = "Triggers"
     DESCRIPTION = ("Set up automated actions that start your build based on specific events, "
-                   "like code changes or scheduled times")
+                   "like code changes or scheduled times.")
