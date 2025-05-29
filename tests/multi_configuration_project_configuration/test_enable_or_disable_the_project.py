@@ -1,6 +1,6 @@
 import allure
 
-from tests.multi_config_project_configuration.data import ProjectToggle
+from tests.multi_configuration_project_configuration.data import ProjectToggle
 
 
 @allure.epic("Multi-configuration project Configuration")
