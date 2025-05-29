@@ -3,4 +3,5 @@ pipeline_project_name = "First Pipeline Project"
 
 
 class BuildTriggers:
-    TITLE = "Multi-configuration project"
+    PROJECT_NAME = "Pipeline project"
+    TITLE = "Triggers"
