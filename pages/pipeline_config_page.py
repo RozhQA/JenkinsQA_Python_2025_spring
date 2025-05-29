@@ -11,6 +11,7 @@ class PipelineConfigPage(BasePage):
         SAVE_BUTTON = (By.NAME, "Submit")
         TITLE_TRIGGERS = (By.ID, "triggers")
         DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
+        SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -34,3 +35,6 @@ class PipelineConfigPage(BasePage):
 
     def get_description_triggers(self):
         return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
+
+    def get_sidebar_triggers(self):
+        return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)

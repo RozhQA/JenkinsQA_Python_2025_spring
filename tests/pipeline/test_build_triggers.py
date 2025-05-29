@@ -28,6 +28,6 @@ def test_display_triggers_section_description(pipline_project_config_page):
 @allure.title("Displaying the \"Triggers\" section in the sidebar")
 @allure.testcase("TC_03.003.03")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/832", name="Github issue")
-def test_triggers_section_visibility_in_sidebar(pipline_project_config_page):
-    assert pipline_project_config_page.get_description_triggers() == BuildTriggers.DESCRIPTION, \
-        f"Expected description '{BuildTriggers.DESCRIPTION}' NOT FOUND"
+def test_display_triggers_section_in_sidebar(pipline_project_config_page):
+    assert pipline_project_config_page.get_sidebar_triggers() == BuildTriggers.TITLE, \
+        f"Expected description '{BuildTriggers.TITLE}' NOT FOUND"
