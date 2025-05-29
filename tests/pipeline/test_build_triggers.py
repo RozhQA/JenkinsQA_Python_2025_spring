@@ -30,4 +30,4 @@ def test_display_triggers_section_description(pipline_project_config_page):
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/832", name="Github issue")
 def test_display_triggers_section_in_sidebar(pipline_project_config_page):
     assert pipline_project_config_page.get_sidebar_triggers() == BuildTriggers.TITLE, \
-        f"Expected description '{BuildTriggers.TITLE}' NOT FOUND"
+        f"Expected title in the sidebar '{BuildTriggers.TITLE}' NOT FOUND"
