@@ -1,5 +1,4 @@
 import pytest
-import allure
 
 from tests.pipeline.pipeline_data import pipeline_project_name, BuildTriggers
 from pages.pipeline_config_page import PipelineConfigPage
@@ -13,6 +12,5 @@ def pipeline_config_page(main_page):
 
 
 @pytest.fixture(scope="function")
-@allure.title("Create Pipline project")
 def pipline_project_config_page(new_item_page) -> PipelineConfigPage:
     return new_item_page.create_new_pipeline_project(BuildTriggers.PROJECT_NAME)
