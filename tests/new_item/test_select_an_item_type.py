@@ -2,6 +2,22 @@ import allure
 import pytest
 
 from pages.new_item_page import NewItemPage
+from tests.new_item.data import expected_item_descriptions
+
+
+@allure.epic("New Item")
+@allure.story("Select an Item type")
+@allure.title("Display of description each type")
+@allure.description("Verify that the 'New Item' screen displays a description of each type of project.")
+@allure.testcase("TC_01.002.02")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/332", name="Github issue")
+def test_display_description_of_item_type(new_item_page: NewItemPage):
+    actual_names = new_item_page.get_item_type_names()
+    actual_descriptions = new_item_page.get_item_type_descriptions()
+    with allure.step("Check descriptions match expected"):
+        assert actual_descriptions == expected_item_descriptions, "Incorrect item descriptions"
+    with allure.step("Check count match"):
+        assert len(actual_descriptions) == len(actual_names), "Descriptions count mismatch"
 from tests.new_item.data import expected_item_types
 
 
