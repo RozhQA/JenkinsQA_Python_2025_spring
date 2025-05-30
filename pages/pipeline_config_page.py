@@ -10,6 +10,7 @@ class PipelineConfigPage(BasePage):
         DESCRIPTION_FIELD = (By.NAME, 'description')
         SAVE_BUTTON = (By.NAME, "Submit")
         TITLE_TRIGGERS = (By.ID, "triggers")
+        DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -30,3 +31,6 @@ class PipelineConfigPage(BasePage):
 
     def get_title_triggers(self):
         return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
+
+    def get_description_triggers(self):
+        return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
