@@ -12,6 +12,7 @@ class PipelineConfigPage(BasePage):
         TITLE_TRIGGERS = (By.ID, "triggers")
         DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
         SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
+        TRIGGER_LABELS = (By.XPATH, "//span[input[contains(@name, 'Trigger')]]")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -38,3 +39,9 @@ class PipelineConfigPage(BasePage):
 
     def get_sidebar_triggers(self):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
+
+    def get_trigger_labels(self) -> list:
+        return self.find_elements(*self.Locators.TRIGGER_LABELS)
+
+    def get_text_trigger_labels(self) -> list[str]:
+        return [label.text.strip() for label in self.get_trigger_labels()]
