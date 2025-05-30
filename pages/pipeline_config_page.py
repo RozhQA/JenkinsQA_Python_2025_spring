@@ -32,6 +32,11 @@ class PipelineConfigPage(BasePage):
         self.wait_to_be_clickable(self.Locators.SAVE_BUTTON).click()
         return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
 
+    @allure.step("Scroll to the \"Build Triggers\" section title")
+    def scroll_to_triggers_section(self):
+        element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
+        self.scroll_into_view(element)
+
     def get_title_triggers(self):
         return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
 
@@ -40,11 +45,6 @@ class PipelineConfigPage(BasePage):
 
     def get_sidebar_triggers(self):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
-
-    @allure.step("Scroll to the \"Build Triggers\" section title")
-    def scroll_to_triggers_section(self):
-        element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
-        self.scroll_into_view(element)
 
     @allure.step("Get all trigger checkbox labels")
     def get_trigger_labels(self) -> list:
