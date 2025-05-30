@@ -31,12 +31,14 @@ class PipelineConfigPage(BasePage):
         self.wait_to_be_clickable(self.Locators.SAVE_BUTTON).click()
         return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
 
+    @allure.step("Get the title of the \"Build Triggers\" section")
     def get_title_triggers(self):
         return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
 
+    @allure.step("Get the description of the \"Build Triggers\" section")
     def get_description_triggers(self):
         return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
 
-    @allure.step("Get the sidebar label for the 'Build Triggers' section")
+    @allure.step("Get the sidebar label for the \"Build Triggers\" section")
     def get_sidebar_triggers(self):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
