@@ -9,6 +9,7 @@ class PipelineConfigPage(BasePage):
         GENERAL_BUTTON = (By.ID, "general")
         DESCRIPTION_FIELD = (By.NAME, 'description')
         SAVE_BUTTON = (By.NAME, "Submit")
+        TITLE_TRIGGERS = (By.ID, "triggers")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -26,3 +27,6 @@ class PipelineConfigPage(BasePage):
         from pages.pipeline_page import PipelinePage
         self.wait_to_be_clickable(self.Locators.SAVE_BUTTON).click()
         return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
+
+    def get_title_triggers(self):
+        return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
