@@ -41,9 +41,14 @@ class PipelineConfigPage(BasePage):
     def get_sidebar_triggers(self):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
 
-    @allure.step("Scroll to the \"Build Triggers\" section and get all trigger checkbox labels")
+    @allure.step("Scroll to the \"Build Triggers\" section title")
+    def scroll_to_triggers_section(self):
+        element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
+        self.scroll_into_view(element)
+
+    @allure.step("Get all trigger checkbox labels")
     def get_trigger_labels(self) -> list:
-        self.scroll_into_view(self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS))
+        self.scroll_to_triggers_section()
         return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
 
     @allure.step("Extract text from all trigger checkbox labels")
