@@ -79,9 +79,7 @@ class NewItemPage(BasePage):
     @allure.step("Create new Pipeline project: \"{name}\"")
     def create_new_pipeline_project(self, name):
         from pages.pipeline_config_page import PipelineConfigPage
-        self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)
-        self.wait_to_be_clickable(self.Locators.ITEM_PIPELINE_PROJECT).click()
-        self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
+        self.enter_item_name(name).click_pipeline_project().click_ok_button()
         return PipelineConfigPage(self.driver, name).wait_for_url()
 
     def create_new_multibranch_pipeline_project(self, name):
@@ -94,6 +92,11 @@ class NewItemPage(BasePage):
     @allure.step("Click \"OK\" button")
     def click_ok_button(self):
         return self.click_on(self.Locators.OK_BUTTON)
+
+    @allure.step("Click \"Pipeline\" project")
+    def click_pipeline_project(self):
+        self.click_on(self.Locators.ITEM_PIPELINE_PROJECT)
+        return self
 
     def click_element(self, element):
         self.wait_to_be_clickable(element).click()
