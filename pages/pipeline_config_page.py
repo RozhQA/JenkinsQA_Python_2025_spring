@@ -1,6 +1,7 @@
+import allure
 from urllib.parse import quote
-
 from selenium.webdriver.common.by import By
+
 from pages.base_page import BasePage
 
 
@@ -40,9 +41,12 @@ class PipelineConfigPage(BasePage):
     def get_sidebar_triggers(self):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
 
+    @allure.step("Scroll to the \"Build Triggers\" section and get all trigger checkbox labels")
     def get_trigger_labels(self) -> list:
+        self.scroll_into_view(self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS))
         return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
 
+    @allure.step("Extract text from all trigger checkbox labels")
     def get_text_trigger_labels(self) -> list[str]:
         labels = self.get_trigger_labels()
         return [label.text.strip() for label in labels]
