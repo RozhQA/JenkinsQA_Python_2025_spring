@@ -41,5 +41,6 @@ def test_display_triggers_section_in_sidebar(pipeline_project_config_page):
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/833", name="Github issue")
 def test_display_trigger_checkbox_labels(pipeline_project_config_page):
     actual_labels = pipeline_project_config_page.get_text_trigger_labels()
-    for expected_label in BuildTriggers.TRIGGER_LABELS:
-        check.is_in(expected_label, actual_labels, f"Expected label '{expected_label}' NOT FOUND {actual_labels}")
+    expected_labels = BuildTriggers.TRIGGER_LABELS
+    for i in range(min(len(actual_labels), len(expected_labels))):
+        check.equal(actual_labels[i], expected_labels[i])
