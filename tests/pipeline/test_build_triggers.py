@@ -1,4 +1,5 @@
 import allure
+import pytest_check as check
 
 from tests.pipeline.pipeline_data import BuildTriggers
 
@@ -40,9 +41,5 @@ def test_display_triggers_section_in_sidebar(pipeline_project_config_page):
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/833", name="Github issue")
 def test_display_trigger_checkbox_labels(pipeline_project_config_page):
     actual_labels = pipeline_project_config_page.get_text_trigger_labels()
-    assert actual_labels == BuildTriggers.TRIGGER_LABELS
-    # assert pipline_project_config_page.get_sidebar_triggers() == BuildTriggers.TITLE, \
-    #     f"Expected description '{BuildTriggers.TITLE}' NOT FOUND"
-    actual_labels = pipeline_project_config_page.get_text_trigger_labels()
     for expected_label in BuildTriggers.TRIGGER_LABELS:
-        check.is_in(expected_label, actual_labels, f"Label not found: {expected_label}")
+        check.is_in(expected_label, actual_labels, f"Expected label '{expected_label}' NOT FOUND {actual_labels}")

@@ -41,7 +41,8 @@ class PipelineConfigPage(BasePage):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
 
     def get_trigger_labels(self) -> list:
-        return self.find_elements(*self.Locators.TRIGGER_LABELS)
+        return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
 
     def get_text_trigger_labels(self) -> list[str]:
-        return [label.text.strip() for label in self.get_trigger_labels()]
+        labels = self.get_trigger_labels()
+        return [label.text.strip() for label in labels]
