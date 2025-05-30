@@ -36,5 +36,6 @@ class PipelineConfigPage(BasePage):
     def get_description_triggers(self):
         return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
 
+    @allure.step("Get the sidebar label for the 'Build Triggers' section")
     def get_sidebar_triggers(self):
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
