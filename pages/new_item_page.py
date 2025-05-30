@@ -142,9 +142,9 @@ class NewItemPage(BasePage):
     @allure.step("Create new Pipeline project: \"{name}\"")
     def create_new_pipeline(self, name):
         from pages.pipeline_config_page import PipelineConfigPage
-        self.enter_item_name(name)
+        self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)
         self.wait_to_be_clickable(self.Locators.ITEM_PIPELINE_PROJECT).click()
-        self.click_ok_button()
+        self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
         return PipelineConfigPage(self.driver, name).wait_for_url()
 
     def get_dropdown_text(self):
