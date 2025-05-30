@@ -44,3 +44,6 @@ def test_display_trigger_checkbox_labels(pipeline_project_config_page):
     expected_labels = BuildTriggers.TRIGGER_LABELS
     for i in range(min(len(actual_labels), len(expected_labels))):
         check.equal(actual_labels[i], expected_labels[i])
+
+    for expected_label in BuildTriggers.TRIGGER_LABELS:
+        check.is_in(expected_label, actual_labels)
