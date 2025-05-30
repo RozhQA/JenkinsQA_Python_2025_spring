@@ -56,6 +56,7 @@ class UIElementMixin:
         self.logger.debug(f"Click on locator {locator}")
         self._wait_for(timeout, EC.element_to_be_clickable, locator).click()
 
+    @allure.step("Enter \"{text}\" in \"{locator}\"")
     def enter_text(self, locator, text):
         return self.wait_for_element(locator).send_keys(text)
 
