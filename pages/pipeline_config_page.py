@@ -1,6 +1,7 @@
+import allure
 from urllib.parse import quote
-
 from selenium.webdriver.common.by import By
+
 from pages.base_page import BasePage
 
 
@@ -11,6 +12,7 @@ class PipelineConfigPage(BasePage):
         SAVE_BUTTON = (By.NAME, "Submit")
         TITLE_TRIGGERS = (By.ID, "triggers")
         DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
+        SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -29,8 +31,21 @@ class PipelineConfigPage(BasePage):
         self.wait_to_be_clickable(self.Locators.SAVE_BUTTON).click()
         return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
 
-    def get_title_triggers(self):
+    @allure.step("Scroll to the \"Build Triggers\" section title")
+    def scroll_to_triggers_section(self):
+        element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
+        self.scroll_into_view(element)
+
+    @allure.step("Get the title text for the \"Build Triggers\" section")
+    def get_text_title_triggers(self):
+        self.scroll_to_triggers_section()
         return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
 
-    def get_description_triggers(self):
+    @allure.step("Get the description text for the \"Build Triggers\" section")
+    def get_text_description_triggers(self):
+        self.scroll_to_triggers_section()
         return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
+
+    @allure.step("Get the sidebar label text for the \"Build Triggers\" section")
+    def get_text_sidebar_triggers(self):
+        return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
