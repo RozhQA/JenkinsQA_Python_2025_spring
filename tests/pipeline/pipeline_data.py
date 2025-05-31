@@ -12,3 +12,4 @@ class BuildTriggers:
                       'GitHub hook trigger for GITScm polling',
                       'Poll SCM',
                       'Trigger builds remotely (e.g., from scripts)']
+    TRIGGER_CHECKBOXES_IDS = ["cb8", "cb9", "cb10", "c11", "cb12"]

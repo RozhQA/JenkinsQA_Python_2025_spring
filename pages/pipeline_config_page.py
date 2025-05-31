@@ -14,6 +14,7 @@ class PipelineConfigPage(BasePage):
         DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
         SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
         TRIGGER_LABELS = (By.XPATH, "//span[input[contains(@name, 'Trigger')]]")
+        TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -60,3 +61,9 @@ class PipelineConfigPage(BasePage):
     def get_text_trigger_labels(self) -> list[str]:
         labels = self.get_trigger_labels()
         return [label.text.strip() for label in labels]
+
+    @allure.step("Get visible of all trigger checkboxes ids")
+    def get_visible_trigger_checkboxes_ids(self):
+        self.scroll_to_triggers_section()
+        checkboxes = self.wait_to_be_visible_all(self.Locators.TRIGGER_CHECKBOXES)
+        return [cb.get_attribute("id") for cb in checkboxes]
