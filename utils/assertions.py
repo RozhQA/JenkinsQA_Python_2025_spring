@@ -7,4 +7,4 @@ def soft_assert_list_length_equal(actual: list, expected: list):
 
 def soft_assert_lists_equal_by_index(actual: list, expected: list):
     for i in range(min(len(actual), len(expected))):
-        (check.equal(actual[i], expected[i]), f"Mismatch at index {i}: expected '{expected[i]}', got '{actual[i]}'")
+        check.equal(actual[i], expected[i])
