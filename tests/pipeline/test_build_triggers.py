@@ -1,5 +1,6 @@
 import allure
 
+import utils.assertions as assertions
 from tests.pipeline.pipeline_data import BuildTriggers
 
 
@@ -28,3 +29,15 @@ def test_display_triggers_section_description(pipeline_project_config_page):
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/832", name="Github issue")
 def test_display_triggers_section_in_sidebar(pipeline_project_config_page):
     assert pipeline_project_config_page.get_text_sidebar_triggers() == BuildTriggers.TITLE
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Displaying trigger checkbox labels")
+@allure.testcase("TC_03.003.04")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/833", name="Github issue")
+def test_display_trigger_checkbox_labels(pipeline_project_config_page):
+    actual_labels = pipeline_project_config_page.get_text_trigger_labels()
+
+    assertions.soft_assert_list_length_equal(actual_labels, BuildTriggers.TRIGGER_LABELS)
+    assertions.soft_assert_lists_equal_by_index(actual_labels, BuildTriggers.TRIGGER_LABELS)
