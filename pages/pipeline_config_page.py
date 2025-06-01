@@ -61,7 +61,7 @@ class PipelineConfigPage(BasePage):
     @allure.step("Get all trigger checkboxes")
     def get_trigger_checkboxes(self) -> list[WebElement]:
         self.scroll_to_triggers_section()
-        return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
+        return self.wait_to_be_visible_all(self.Locators.TRIGGER_CHECKBOXES)
 
     @allure.step("Get text from all trigger checkbox labels")
     def get_text_trigger_labels(self) -> list[str]:
