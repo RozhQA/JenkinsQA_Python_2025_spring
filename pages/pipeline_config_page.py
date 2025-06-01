@@ -58,7 +58,12 @@ class PipelineConfigPage(BasePage):
         self.scroll_to_triggers_section()
         return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
 
-    @allure.step("Extract text from all trigger checkbox labels")
+    @allure.step("Get all trigger checkboxes")
+    def get_trigger_checkboxes(self) -> list[WebElement]:
+        self.scroll_to_triggers_section()
+        return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
+
+    @allure.step("Get text from all trigger checkbox labels")
     def get_text_trigger_labels(self) -> list[str]:
         labels = self.get_trigger_labels()
         return [label.text.strip() for label in labels]
@@ -66,5 +71,5 @@ class PipelineConfigPage(BasePage):
     @allure.step("Get visible of all trigger checkboxes ids")
     def get_visible_trigger_checkboxes_ids(self) -> list[str]:
         self.scroll_to_triggers_section()
-        checkboxes = self.wait_to_be_visible_all(self.Locators.TRIGGER_CHECKBOXES)
+        checkboxes = self.get_trigger_checkboxes()
         return [cb.get_attribute("id") for cb in checkboxes]
