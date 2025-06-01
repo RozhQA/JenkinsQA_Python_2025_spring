@@ -34,7 +34,7 @@ class PipelineConfigPage(BasePage):
         return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
 
     @allure.step("Scroll to the \"Build Triggers\" section title")
-    def scroll_to_triggers_section(self):
+    def scroll_to_triggers_section(self) -> None:
         element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
         self.scroll_into_view(element)
 

@@ -60,7 +60,7 @@ def test_all_trigger_checkboxes_are_visible(pipeline_project_config_page):
 @allure.title("Default state of trigger checkboxes")
 @allure.testcase("TC_03.003.06")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/835", name="Github issue")
-def test_all_trigger_checkboxes_are_unchecked(pipeline_project_config_page):
+def test_default_state_trigger_checkboxes_are_unchecked(pipeline_project_config_page):
     checkboxes_unchecked = pipeline_project_config_page.is_trigger_checkboxes_unchecked()
 
     assertions.soft_assert_list_length_equal(checkboxes_unchecked, BuildTriggers.TRIGGER_CHECKBOXES_IDS)

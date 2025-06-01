@@ -59,7 +59,7 @@ class UIElementMixin:
         self.logger.debug(f"Click on locator {locator}")
         self._wait_for(timeout, EC.element_to_be_clickable, locator).click()
 
-    def enter_text(self, locator, text):
+    def enter_text(self, locator, text) -> None:
         return self.wait_for_element(locator).send_keys(text)
 
     def get_value(self, locator) -> str | None:
