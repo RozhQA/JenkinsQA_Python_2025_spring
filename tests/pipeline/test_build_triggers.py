@@ -41,3 +41,15 @@ def test_display_trigger_checkbox_labels(pipeline_project_config_page):
 
     assertions.soft_assert_list_length_equal(actual_labels, BuildTriggers.TRIGGER_LABELS)
     assertions.soft_assert_lists_equal_by_index(actual_labels, BuildTriggers.TRIGGER_LABELS)
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Display of trigger checkboxes")
+@allure.testcase("TC_03.003.05")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/834", name="Github issue")
+def test_all_trigger_checkboxes_are_visible(pipeline_project_config_page):
+    actual_ids = pipeline_project_config_page.get_visible_trigger_checkboxes_ids()
+
+    assertions.soft_assert_list_length_equal(actual_ids, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
+    assertions.soft_assert_lists_equal_by_index(actual_ids, BuildTriggers.TRIGGER_CHECKBOXES_IDS)

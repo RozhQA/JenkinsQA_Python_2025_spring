@@ -1,6 +1,7 @@
 import allure
 from urllib.parse import quote
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 
@@ -14,6 +15,7 @@ class PipelineConfigPage(BasePage):
         DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
         SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
         TRIGGER_LABELS = (By.XPATH, "//span[input[contains(@name, 'Trigger')]]")
+        TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -38,25 +40,36 @@ class PipelineConfigPage(BasePage):
         self.scroll_into_view(element)
 
     @allure.step("Get the title text for the \"Build Triggers\" section")
-    def get_text_title_triggers(self):
+    def get_text_title_triggers(self) -> str:
         self.scroll_to_triggers_section()
         return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
 
     @allure.step("Get the description text for the \"Build Triggers\" section")
-    def get_text_description_triggers(self):
+    def get_text_description_triggers(self) -> str:
         self.scroll_to_triggers_section()
         return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
 
     @allure.step("Get the sidebar label text for the \"Build Triggers\" section")
-    def get_text_sidebar_triggers(self):
+    def get_text_sidebar_triggers(self) -> str:
         return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
 
     @allure.step("Get all trigger checkbox labels")
-    def get_trigger_labels(self) -> list:
+    def get_trigger_labels(self) -> list[WebElement]:
         self.scroll_to_triggers_section()
         return self.wait_to_be_visible_all(self.Locators.TRIGGER_LABELS)
 
-    @allure.step("Extract text from all trigger checkbox labels")
+    @allure.step("Get all trigger checkboxes")
+    def get_trigger_checkboxes(self) -> list[WebElement]:
+        self.scroll_to_triggers_section()
+        return self.wait_to_be_visible_all(self.Locators.TRIGGER_CHECKBOXES)
+
+    @allure.step("Get text from all trigger checkbox labels")
     def get_text_trigger_labels(self) -> list[str]:
         labels = self.get_trigger_labels()
         return [label.text.strip() for label in labels]
+
+    @allure.step("Get visible of all trigger checkboxes ids")
+    def get_visible_trigger_checkboxes_ids(self) -> list[str]:
+        self.scroll_to_triggers_section()
+        checkboxes = self.get_trigger_checkboxes()
+        return [cb.get_attribute("id") for cb in checkboxes]
