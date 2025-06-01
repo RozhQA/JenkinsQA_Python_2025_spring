@@ -67,3 +67,8 @@ class PipelineConfigPage(BasePage):
         self.scroll_to_triggers_section()
         checkboxes = self.wait_to_be_visible_all(self.Locators.TRIGGER_CHECKBOXES)
         return [cb.get_attribute("id") for cb in checkboxes]
+
+    @allure.step("Get trigger checkboxes unchecked states")
+    def is_trigger_checkboxes_unchecked(self) -> list[bool]:
+        self.scroll_to_triggers_section()
+        return self.is_elements_unselected(self.Locators.TRIGGER_CHECKBOXES)
