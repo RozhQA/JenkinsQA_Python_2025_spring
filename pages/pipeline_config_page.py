@@ -78,3 +78,8 @@ class PipelineConfigPage(BasePage):
     def is_trigger_checkboxes_unchecked(self) -> list[bool]:
         self.scroll_to_triggers_section()
         return self.is_elements_unselected(self.Locators.TRIGGER_CHECKBOXES)
+
+    @allure.step("Clik all trigger checkbox labels")
+    def click_trigger_labels(self) -> list[WebElement]:
+        self.scroll_to_triggers_section()
+        return self.click_on(self.Locators.TRIGGER_LABELS)
