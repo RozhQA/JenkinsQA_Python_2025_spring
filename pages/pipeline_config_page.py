@@ -84,6 +84,5 @@ class PipelineConfigPage(BasePage):
 
     @allure.step("Clik all trigger checkbox labels")
     def click_trigger_labels(self):
-        self.scroll_to_triggers_section()
         self.click_elements(self.Locators.TRIGGER_LABELS)
         return self
