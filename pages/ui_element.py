@@ -40,6 +40,10 @@ class UIElementMixin:
     def wait_to_be_clickable(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.element_to_be_clickable, locator)
 
+    def wait_elements_clickable(self, locator: tuple, timeout=5) -> list[WebElement]:
+        elements = self.wait_for_elements(locator)
+        return [self._wait_for(timeout, EC.element_to_be_clickable, el) for el in elements]
+
     def wait_to_be_visible(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.visibility_of_element_located, locator)
 
@@ -58,6 +62,11 @@ class UIElementMixin:
     def click_on(self, locator, timeout=5) -> None:
         self.logger.debug(f"Click on locator {locator}")
         self._wait_for(timeout, EC.element_to_be_clickable, locator).click()
+
+    def click_elements(self, locator: tuple) -> "UIElementMixin":
+        clickable_elements = self.wait_elements_clickable(locator)
+        [el.click() for el in clickable_elements]
+        return self
 
     def enter_text(self, locator, text) -> None:
         return self.wait_for_element(locator).send_keys(text)
