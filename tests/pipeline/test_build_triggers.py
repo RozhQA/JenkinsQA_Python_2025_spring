@@ -94,7 +94,7 @@ def test_disable_trigger_checkboxes_by_labels(pipeline_config_page_enable_trigge
 
 @allure.epic("Pipeline Configuration")
 @allure.story("Build Triggers")
-@allure.title("Display of helper icons (tooltips)")
+@allure.title("Display of helper icons (tooltips) near trigger checkbox labels")
 @allure.testcase("TC_03.003.09")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/845", name="Github issue")
 def test_enable_trigger_checkboxes_by_labels(pipeline_project_config_page):
