@@ -15,7 +15,6 @@ class PipelineConfigPage(BasePage):
         SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
         TRIGGER_LABELS = (By.XPATH, "//span[input[contains(@name, 'Trigger')]]")
         TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
-        TRIGGER_CHECKBOX = (By.ID, "cb8")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)

@@ -19,6 +19,6 @@ def pipeline_project_config_page(new_item_page) -> PipelineConfigPage:
 
 
 @pytest.fixture(scope="function")
-@allure.title("Prepare configuration page with enable trigger checkboxes")
+@allure.title("Prepare a configuration page with trigger checkboxes enabled")
 def pipeline_config_page_enable_trigger_checkboxes(pipeline_project_config_page) -> PipelineConfigPage:
     return pipeline_project_config_page.click_trigger_labels()
