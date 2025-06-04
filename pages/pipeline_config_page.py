@@ -16,7 +16,7 @@ class PipelineConfigPage(BasePage):
         SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
         TRIGGER_LABELS = (By.XPATH, "//span[input[contains(@name, 'Trigger')]]")
         TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
-        TRIGGER_CHECKBOX = (By.ID, "cb8")
+        TRIGGER_HELPER_ICONS = (By.XPATH, "//a[contains(@span, '?')]")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -87,3 +87,7 @@ class PipelineConfigPage(BasePage):
     def click_trigger_labels(self):
         self.click_elements(self.Locators.TRIGGER_LABELS)
         return self
+
+    @allure.step("Аll helper icons trigger checkboxes displayed")
+    def is_helper_icons_displayed(self):
+        return self.is_elements_displayed(self.Locators.TRIGGER_LABELS)

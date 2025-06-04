@@ -135,3 +135,7 @@ class UIElementMixin:
 
     def is_element_displayed(self, locator) -> bool:
         return self.wait_to_be_visible(locator).is_displayed()
+
+    def is_elements_displayed(self, locator) -> list[bool]:
+        elements = self.wait_for_elements(locator)
+        return [el.is_displayed() for el in elements]
