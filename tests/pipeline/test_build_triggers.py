@@ -77,3 +77,16 @@ def test_enable_trigger_checkboxes_by_labels(pipeline_project_config_page):
 
     assertions.soft_assert_list_length_equal(checkboxes_checked, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
     assertions.soft_assert_all_elements_true(checkboxes_checked)
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Disable trigger checkboxes by clicking label")
+@allure.testcase("TC_03.003.08")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/845", name="Github issue")
+def test_disable_trigger_checkboxes_by_labels(pipeline_config_page_enable_trigger_checkboxes):
+    pipeline_config_page_enable_trigger_checkboxes.click_trigger_labels()
+    checkboxes_unchecked = pipeline_config_page_enable_trigger_checkboxes.is_trigger_checkboxes_unchecked()
+
+    assertions.soft_assert_list_length_equal(checkboxes_unchecked, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
+    assertions.soft_assert_all_elements_true(checkboxes_unchecked)
