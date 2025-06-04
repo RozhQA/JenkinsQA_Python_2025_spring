@@ -35,7 +35,7 @@ class PipelineConfigPage(BasePage):
         return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
 
     @allure.step("Scroll to the \"Build Triggers\" section title")
-    def scroll_to_triggers_section(self):
+    def scroll_to_triggers_section(self) -> None:
         element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
         self.scroll_into_view(element)
 
@@ -73,3 +73,16 @@ class PipelineConfigPage(BasePage):
         self.scroll_to_triggers_section()
         checkboxes = self.get_trigger_checkboxes()
         return [cb.get_attribute("id") for cb in checkboxes]
+
+    @allure.step("Get trigger checkboxes checked states")
+    def is_trigger_checkboxes_checked(self) -> list[bool]:
+        return self.is_elements_selected(self.Locators.TRIGGER_CHECKBOXES)
+
+    @allure.step("Get trigger checkboxes unchecked states")
+    def is_trigger_checkboxes_unchecked(self) -> list[bool]:
+        return self.is_elements_unselected(self.Locators.TRIGGER_CHECKBOXES)
+
+    @allure.step("Clik all trigger checkbox labels")
+    def click_trigger_labels(self):
+        self.click_elements(self.Locators.TRIGGER_LABELS)
+        return self

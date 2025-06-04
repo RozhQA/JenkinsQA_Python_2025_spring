@@ -34,6 +34,9 @@ class UIElementMixin:
     def wait_for_element(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.presence_of_element_located, locator)
 
+    def wait_for_elements(self, locator, timeout=5) -> list[WebElement]:
+        return self._wait_for(timeout, EC.presence_of_all_elements_located, locator)
+
     def wait_to_be_clickable(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.element_to_be_clickable, locator)
 
@@ -56,7 +59,12 @@ class UIElementMixin:
         self.logger.debug(f"Click on locator {locator}")
         self._wait_for(timeout, EC.element_to_be_clickable, locator).click()
 
-    def enter_text(self, locator, text):
+    def click_elements(self, locator: tuple) -> "UIElementMixin":
+        clickable_elements = self.wait_for_elements(locator)
+        [self.scroll_into_view(el).wait_to_be_clickable(el).click() for el in clickable_elements]
+        return self
+
+    def enter_text(self, locator, text) -> None:
         return self.wait_for_element(locator).send_keys(text)
 
     def get_value(self, locator) -> str | None:
@@ -112,6 +120,13 @@ class UIElementMixin:
 
     def is_element_selected(self, locator) -> bool:
         return self.wait_for_element(locator).is_selected()
+
+    def is_elements_selected(self, locator) -> list[bool]:
+        elements = self.wait_for_elements(locator)
+        return [el.is_selected() for el in elements]
+
+    def is_elements_unselected(self, locator) -> list[bool]:
+        return [not state for state in self.is_elements_selected(locator)]
 
     def hover_over_element(self, locator):
         element = self.wait_to_be_visible(locator)
