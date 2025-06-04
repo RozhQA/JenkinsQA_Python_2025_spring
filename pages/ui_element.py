@@ -79,6 +79,13 @@ class UIElementMixin:
             element)
         return self
 
+    def scroll_and_get_element(self, element: WebElement) -> WebElement:
+        self.driver.execute_script(
+            'arguments[0].scrollIntoView({block: "center", inline: "center"})',
+            element
+        )
+        return element
+
     def scroll_to_element(self, By, Selector):
         actions = ActionChains(self.driver)
         actions.move_to_element(self.find_element(By, Selector)).perform()
@@ -138,4 +145,4 @@ class UIElementMixin:
 
     def is_elements_displayed(self, locator) -> list[bool]:
         elements = self.wait_for_elements(locator)
-        return [el.is_displayed() for el in elements]
+        return [self.scroll_and_get_element(el).is_displayed() for el in elements]
