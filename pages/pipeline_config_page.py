@@ -10,9 +10,9 @@ class PipelineConfigPage(BasePage):
         GENERAL_BUTTON = (By.ID, "general")
         DESCRIPTION_FIELD = (By.NAME, 'description')
         SAVE_BUTTON = (By.NAME, "Submit")
-        TITLE_TRIGGERS = (By.ID, "triggers")
-        DESCRIPTION_TRIGGERS = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
-        SIDEBAR_TRIGGERS = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
+        TRIGGERS_TITLE = (By.ID, "triggers")
+        TRIGGERS_DESCRIPTION = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
+        TRIGGERS_SIDEBAR = (By.CSS_SELECTOR, "button[data-section-id='triggers']")
         TRIGGER_LABELS = (By.XPATH, "//span[input[contains(@name, 'Trigger')]]")
         TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
         TRIGGER_HELPER_ICONS = (By.CSS_SELECTOR, "div[class*='checkbox'] a[helpurl*='rigger'] > span")
@@ -36,22 +36,22 @@ class PipelineConfigPage(BasePage):
 
     @allure.step("Scroll to the \"Build Triggers\" section title")
     def scroll_to_triggers_section(self) -> None:
-        element = self.wait_to_be_visible(self.Locators.TITLE_TRIGGERS)
+        element = self.wait_to_be_visible(self.Locators.TRIGGERS_TITLE)
         self.scroll_into_view(element)
 
     @allure.step("Get the title text for the \"Build Triggers\" section")
     def get_text_title_triggers(self) -> str:
         self.scroll_to_triggers_section()
-        return self.get_visible_text(self.Locators.TITLE_TRIGGERS)
+        return self.get_visible_text(self.Locators.TRIGGERS_TITLE)
 
     @allure.step("Get the description text for the \"Build Triggers\" section")
     def get_text_description_triggers(self) -> str:
         self.scroll_to_triggers_section()
-        return self.get_visible_text(self.Locators.DESCRIPTION_TRIGGERS)
+        return self.get_visible_text(self.Locators.TRIGGERS_DESCRIPTION)
 
     @allure.step("Get the sidebar label text for the \"Build Triggers\" section")
     def get_text_sidebar_triggers(self) -> str:
-        return self.get_visible_text(self.Locators.SIDEBAR_TRIGGERS)
+        return self.get_visible_text(self.Locators.TRIGGERS_SIDEBAR)
 
     @allure.step("Get text from all trigger checkbox labels")
     def get_text_trigger_labels(self) -> list[str]:
