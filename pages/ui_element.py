@@ -142,7 +142,7 @@ class UIElementMixin:
 
     def is_elements_displayed(self, locator) -> list[bool]:
         elements = self.wait_for_elements(locator)
-        return [el.is_displayed() for el in elements]
+        return [self._wait_for(5, EC.visibility_of, el) and el.is_displayed() for el in elements]
 
     def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:
         elements = self.wait_for_elements(el_locator)
