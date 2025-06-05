@@ -79,13 +79,6 @@ class UIElementMixin:
             element)
         return self
 
-    def scroll_and_get_element(self, element: WebElement) -> WebElement:
-        self.driver.execute_script(
-            'arguments[0].scrollIntoView({block: "center", inline: "center"})',
-            element
-        )
-        return element
-
     def scroll_to_element(self, By, Selector):
         actions = ActionChains(self.driver)
         actions.move_to_element(self.find_element(By, Selector)).perform()
@@ -135,8 +128,12 @@ class UIElementMixin:
     def is_elements_unselected(self, locator) -> list[bool]:
         return [not state for state in self.is_elements_selected(locator)]
 
-    def hover_over_element(self, locator):
+    def hover_over_element(self, locator) -> WebElement:
         element = self.wait_to_be_visible(locator)
+        ActionChains(self.driver).move_to_element(element).perform()
+        return element
+
+    def hover_over_web_element(self, element: WebElement) -> WebElement:
         ActionChains(self.driver).move_to_element(element).perform()
         return element
 
@@ -145,4 +142,9 @@ class UIElementMixin:
 
     def is_elements_displayed(self, locator) -> list[bool]:
         elements = self.wait_for_elements(locator)
-        return [self.scroll_and_get_element(el).is_displayed() for el in elements]
+        return [el.is_displayed() for el in elements]
+
+    def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:
+        elements = self.wait_for_elements(el_locator)
+        return [(self.scroll_into_view(el) and self.hover_over_web_element(el)
+                 and self.wait_to_be_visible(tooltip_locator).text.strip()) for el in elements]
