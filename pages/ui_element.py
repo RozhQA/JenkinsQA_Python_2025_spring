@@ -52,7 +52,7 @@ class UIElementMixin:
     def wait_for_new_window(self, num_windows = 2):
         return self.wait.until(EC.number_of_windows_to_be(num_windows))
 
-    def wait_element_to_disappear(self, locator, timeout=5) -> bool:
+    def wait_element_to_disappear(self, locator, timeout=10) -> bool:
         return self._wait_for(timeout, EC.invisibility_of_element_located, locator)
 
     def click_on(self, locator, timeout=5) -> None:
