@@ -156,8 +156,6 @@ class UIElementMixin:
             self.logger.error("Tooltip did not appear for locator: %s", tooltip_locator)
             return ""
 
-    def get_tooltip_texts(self, icon_element, tooltip_locator) -> list[str]:
-        elements = self.wait_for_elements(icon_element)
     def wait_until_tooltip_disappears(self, icon_element: WebElement, tooltip_locator, hover_out_locator) -> bool:
         try:
             self.scroll_into_view(icon_element)
