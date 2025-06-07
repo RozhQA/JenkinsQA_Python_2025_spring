@@ -114,3 +114,15 @@ def test_appear_helper_tooltip_texts(pipeline_project_config_page):
 
     assertions.soft_assert_list_length_equal(actual_helper_tooltip, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
     assertions.soft_assert_lists_equal_by_index(actual_helper_tooltip, BuildTriggers.TRIGGER_HELPER_TOOLTIPS)
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Helper tooltip help icon disappears on mouse leave")
+@allure.testcase("TC_03.003.11")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/848", name="Github issue")
+def test_trigger_tooltips_disappear_on_mouse_leave(pipeline_project_config_page):
+    tooltip_disappearance_statuses = pipeline_project_config_page.trigger_tooltips_disappeared()
+
+    assertions.soft_assert_list_length_equal(tooltip_disappearance_statuses, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
+    assertions.soft_assert_all_elements_true(tooltip_disappearance_statuses)
