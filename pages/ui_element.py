@@ -164,7 +164,7 @@ class UIElementMixin:
             self.hover_over_element(hover_out_locator)
             return self.wait_element_to_disappear(tooltip_locator)
         except TimeoutException:
-            self.logger.error("Tooltip did not disappear for element: %s", icon_element)
+            self.logger.error("Tooltip did not disappear for locator: %s", tooltip_locator)
             return False
 
     def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:
