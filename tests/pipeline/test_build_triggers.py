@@ -110,10 +110,10 @@ def test_display_helper_icons_near_trigger_labels(pipeline_project_config_page):
 @allure.testcase("TC_03.003.10")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/847", name="Github issue")
 def test_appear_helper_tooltip_texts(pipeline_project_config_page):
-    actual_helper_tooltip = pipeline_project_config_page.get_trigger_helper_tooltips()
+    actual_helper_tooltips = pipeline_project_config_page.get_trigger_helper_tooltips()
 
-    assertions.soft_assert_list_length_equal(actual_helper_tooltip, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
-    assertions.soft_assert_lists_equal_by_index(actual_helper_tooltip, BuildTriggers.TRIGGER_HELPER_TOOLTIPS)
+    assertions.soft_assert_list_length_equal(actual_helper_tooltips, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
+    assertions.soft_assert_lists_equal_by_index(actual_helper_tooltips, BuildTriggers.TRIGGER_HELPER_TOOLTIPS)
 
 
 @allure.epic("Pipeline Configuration")
