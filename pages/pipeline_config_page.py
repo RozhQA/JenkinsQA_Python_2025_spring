@@ -83,6 +83,6 @@ class PipelineConfigPage(BasePage):
     def is_helper_icons_displayed(self) -> list[bool]:
         return self.is_elements_displayed(self.Locators.TRIGGER_HELPER_ICONS)
 
-    @allure.step("Get visible text of helper icon tooltips for trigger checkboxes")
-    def get_text_helper_tooltips(self) -> list[str]:
+    @allure.step("Get visible tooltip text for helper icons for trigger checkboxes")
+    def get_trigger_helper_tooltips(self) -> list[str]:
         return self.get_tooltip_texts(self.Locators.TRIGGER_HELPER_ICONS, self.Locators.TRIGGER_HELPER_TOOLTIPS)
