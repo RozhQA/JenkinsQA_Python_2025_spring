@@ -133,10 +133,6 @@ class UIElementMixin:
         ActionChains(self.driver).move_to_element(element).perform()
         return element
 
-    def hover_over_web_element(self, element: WebElement) -> WebElement:
-        ActionChains(self.driver).move_to_element(element).perform()
-        return element
-
     def is_element_displayed(self, locator) -> bool:
         return self.wait_to_be_visible(locator).is_displayed()
 
