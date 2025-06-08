@@ -147,7 +147,7 @@ class UIElementMixin:
         elements = self.wait_for_elements(locator)
         return [self.scroll_and_get_element(el).is_displayed() for el in elements]
 
-    def _get_tooltip_text(self, icon_element: WebElement, tooltip_locator) -> str:
+    def get_tooltip_text(self, icon_element: WebElement, tooltip_locator) -> str:
         try:
             self.scroll_into_view(icon_element)
             self.hover_over_element(icon_element)
@@ -169,7 +169,7 @@ class UIElementMixin:
 
     def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:
         elements = self.wait_for_elements(el_locator)
-        return [self._get_tooltip_text(el, tooltip_locator) for el in elements]
+        return [self.get_tooltip_text(el, tooltip_locator) for el in elements]
 
     def wait_all_tooltips_to_disappear(self, icon_locator, tooltip_locator, hover_out_locator) -> list[bool]:
         elements = self.wait_for_elements(icon_locator)
