@@ -54,11 +54,5 @@ class PipelinePage(BasePage):
         self.click_submit_btn()
         return MainPage(self.driver)
 
-    def get_current_url(self) -> str:
-        return self.get_current_url()
-
-    def get_page_title(self) -> str:
-        return self.get_title()
-
-    def get_header(self) -> str:
+    def get_header_pipeline_page(self) -> str:
         return self.get_visible_text(self.Locator.HEADER)
