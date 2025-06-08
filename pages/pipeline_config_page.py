@@ -86,3 +86,8 @@ class PipelineConfigPage(BasePage):
     @allure.step("Get visible tooltip text for helper icons for trigger checkboxes")
     def get_trigger_helper_tooltips(self) -> list[str]:
         return self.get_tooltip_texts(self.Locators.TRIGGER_HELPER_ICONS, self.Locators.TRIGGER_HELPER_TOOLTIPS)
+
+    @allure.step("Wait for all tooltips to disappear after hover out")
+    def trigger_tooltips_disappeared(self) -> list[bool]:
+        return self.wait_all_tooltips_to_disappear(self.Locators.TRIGGER_HELPER_ICONS,
+                                                   self.Locators.TRIGGER_HELPER_TOOLTIPS, self.Locators.TRIGGER_LABELS)

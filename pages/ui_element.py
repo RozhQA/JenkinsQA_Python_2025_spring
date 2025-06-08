@@ -147,7 +147,7 @@ class UIElementMixin:
         elements = self.wait_for_elements(locator)
         return [self.scroll_and_get_element(el).is_displayed() for el in elements]
 
-    def _get_tooltip_text(self, icon_element: WebElement, tooltip_locator) -> str:
+    def get_tooltip_text(self, icon_element: WebElement, tooltip_locator) -> str:
         try:
             self.scroll_into_view(icon_element)
             self.hover_over_element(icon_element)
@@ -156,6 +156,21 @@ class UIElementMixin:
             self.logger.error("Tooltip did not appear for locator: %s", tooltip_locator)
             return ""
 
-    def get_tooltip_texts(self, icon_element, tooltip_locator) -> list[str]:
-        elements = self.wait_for_elements(icon_element)
-        return [self._get_tooltip_text(el, tooltip_locator) for el in elements]
+    def wait_until_tooltip_disappears(self, icon_element: WebElement, tooltip_locator, hover_out_locator) -> bool:
+        try:
+            self.scroll_into_view(icon_element)
+            self.hover_over_element(icon_element)
+            self.wait_to_be_visible(tooltip_locator)
+            self.hover_over_element(hover_out_locator)
+            return self.wait_element_to_disappear(tooltip_locator)
+        except TimeoutException:
+            self.logger.error("Tooltip did not disappear for locator: %s", tooltip_locator)
+            return False
+
+    def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:
+        elements = self.wait_for_elements(el_locator)
+        return [self.get_tooltip_text(el, tooltip_locator) for el in elements]
+
+    def wait_all_tooltips_to_disappear(self, icon_locator, tooltip_locator, hover_out_locator) -> list[bool]:
+        elements = self.wait_for_elements(icon_locator)
+        return [self.wait_until_tooltip_disappears(el, tooltip_locator, hover_out_locator) for el in elements]
