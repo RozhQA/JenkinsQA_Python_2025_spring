@@ -18,6 +18,5 @@ class BuildTriggers:
                                "Help for feature: GitHub hook trigger for GITScm polling",
                                "Help for feature: Poll SCM",
                                "Help for feature: Trigger builds remotely (e.g., from scripts)"]
-    TITLE_PAGE = f"{PROJECT_NAME} [Jenkins]"
-    HEADER_PAGE = f"{PROJECT_NAME}"
-
+    PIPELINE_PAGE_TITLE = f"{PROJECT_NAME} [Jenkins]"
+    PIPELINE_PAGE_HEADER = f"{PROJECT_NAME}"

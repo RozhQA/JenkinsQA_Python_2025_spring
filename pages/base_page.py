@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
@@ -32,11 +33,9 @@ class BasePage(UIElementMixin):
             self.logger.error(f"Timeout when waiting for url {self.url}, current url: {self.driver.current_url}")
         return self
 
+    @allure.step("Get the current page title")
     def get_title(self) -> str:
         return self.driver.title
-
-    def get_current_url(self) -> str:
-        return self.driver.current_url
 
     def get_current_window_handle(self):
         return self.driver.current_window_handle

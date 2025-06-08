@@ -1,3 +1,4 @@
+import allure
 import logging
 from urllib.parse import quote
 
@@ -54,5 +55,6 @@ class PipelinePage(BasePage):
         self.click_submit_btn()
         return MainPage(self.driver)
 
+    @allure.step("Get the page header text")
     def get_header_pipeline_page(self) -> str:
         return self.get_visible_text(self.Locator.HEADER)
