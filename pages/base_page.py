@@ -35,6 +35,9 @@ class BasePage(UIElementMixin):
     def get_title(self) -> str:
         return self.driver.title
 
+    def get_current_url(self) -> str:
+        return self.driver.current_url
+
     def get_current_window_handle(self):
         return self.driver.current_window_handle
 

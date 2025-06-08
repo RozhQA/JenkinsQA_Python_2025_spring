@@ -16,6 +16,7 @@ class PipelinePage(BasePage):
         MOVE_LINK = (By.XPATH, '//a[contains(@href, "/move")]')
         MOVE_BTN = (By.XPATH, "//button[@name='Submit']")
         SETTING_INPUT = (By.XPATH, "//select[@name='destination']")
+        HEADER = (By.TAG_NAME, "h1")
 
     def __init__(self, driver, pipeline_project_name, timeout=10):
         super().__init__(driver, timeout=timeout)
@@ -52,3 +53,12 @@ class PipelinePage(BasePage):
         self.choose_move_location()
         self.click_submit_btn()
         return MainPage(self.driver)
+
+    def get_current_url(self) -> str:
+        return self.get_current_url()
+
+    def get_page_title(self) -> str:
+        return self.get_title()
+
+    def get_header(self) -> str:
+        return self.get_visible_text(self.Locator.HEADER)
