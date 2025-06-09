@@ -23,6 +23,12 @@ class PipelineConfigPage(BasePage):
         self.pipeline_name = pipeline_name
         self.url = self.base_url + f"/job/{quote(pipeline_name)}/configure"
 
+    def click_save_button_and_open_project_page(self):
+        with allure.step(f"Click the button 'Save' to save \"{self.pipeline_name}\" project and go to project page"):
+            from pages.pipeline_page import PipelinePage
+            self.click_on(self.Locators.SAVE_BUTTON)
+            return PipelinePage(self.driver, self.pipeline_name).wait_for_url()
+
     def wait_for_page(self):
         return self.wait_for_element(self.Locators.GENERAL_BUTTON)
 

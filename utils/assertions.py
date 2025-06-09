@@ -13,3 +13,7 @@ def soft_assert_lists_equal_by_index(actual: list, expected: list):
 def soft_assert_all_elements_true(actual: list):
     for value in actual:
         check.is_true(value)
+
+
+def soft_assert_text_equal(actual: str, expected: str):
+    check.equal(actual, expected)

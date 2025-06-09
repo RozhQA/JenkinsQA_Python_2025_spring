@@ -126,3 +126,15 @@ def test_trigger_tooltips_disappear_on_mouse_leave(pipeline_project_config_page)
 
     assertions.soft_assert_list_length_equal(tooltip_disappearance_statuses, BuildTriggers.TRIGGER_CHECKBOXES_IDS)
     assertions.soft_assert_all_elements_true(tooltip_disappearance_statuses)
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Project creation with no triggers selected")
+@allure.testcase("TC_03.003.12")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/849", name="Github issue")
+def test_create_pipeline_project_without_triggers(pipeline_project_config_page):
+    pipeline_page = pipeline_project_config_page.click_save_button_and_open_project_page()
+
+    assertions.soft_assert_text_equal(pipeline_page.get_title(), BuildTriggers.PIPELINE_PAGE_TITLE)
+    assertions.soft_assert_text_equal(pipeline_page.get_header_pipeline_page(), BuildTriggers.PIPELINE_PAGE_HEADER)
