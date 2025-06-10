@@ -20,6 +20,7 @@ class PipelineConfigPage(BasePage):
         TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL = (By.XPATH, "//input[@id='cb8']/following-sibling::label")
         TRIGGER_PROJECTS_INPUT = (By.NAME, "_.upstreamProjects")
         TRIGGER_PROJECTS_INPUT_LABEL = (By.CSS_SELECTOR, "div[nameref='cb8'] .help-sibling")
+        error_locator = (By.CSS_SELECTOR, 'div[nameref="cb8"] .validation-error-area .error')
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
