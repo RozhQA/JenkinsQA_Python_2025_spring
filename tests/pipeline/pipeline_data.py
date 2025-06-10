@@ -20,3 +20,4 @@ class BuildTriggers:
                                "Help for feature: Trigger builds remotely (e.g., from scripts)"]
     PIPELINE_PAGE_TITLE = f"{PROJECT_NAME} [Jenkins]"
     PIPELINE_PAGE_HEADER = f"{PROJECT_NAME}"
+    PROJECTS_INPUT_LABEL = "Projects to watch"

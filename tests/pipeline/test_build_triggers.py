@@ -138,3 +138,16 @@ def test_create_pipeline_project_without_triggers(pipeline_project_config_page):
 
     assertions.soft_assert_text_equal(pipeline_page.get_title(), BuildTriggers.PIPELINE_PAGE_TITLE)
     assertions.soft_assert_text_equal(pipeline_page.get_header_pipeline_page(), BuildTriggers.PIPELINE_PAGE_HEADER)
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Display of “Projects to watch” the input field and its label")
+@allure.testcase("TC_03.003.13")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/850", name="Github issue")
+def test_display_input_field_and_label(pipeline_config_page_enable_build_after_checkbox):
+    display_status_input_field = pipeline_config_page_enable_build_after_checkbox.is_projects_input_displayed()
+    visible_text_projects_input_label = pipeline_config_page_enable_build_after_checkbox.get_projects_input_label()
+
+    assertions.soft_assert_element_true(display_status_input_field)
+    assertions.soft_assert_text_equal(visible_text_projects_input_label, BuildTriggers.PROJECTS_INPUT_LABEL)

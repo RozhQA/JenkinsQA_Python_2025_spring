@@ -40,11 +40,17 @@ class UIElementMixin:
     def wait_to_be_clickable(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.element_to_be_clickable, locator)
 
+    def wait_element_to_be_clickable(self, element: WebElement, timeout=5) -> WebElement:
+        return self._wait_for(timeout, EC.element_to_be_clickable, element)
+
     def wait_to_be_visible(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.visibility_of_element_located, locator)
 
     def wait_to_be_visible_all(self, locator, timeout=5) -> list[WebElement]:
         return self._wait_for(timeout, EC.visibility_of_all_elements_located, locator)
+
+    def wait_to_be_visible_element(self, element: WebElement, timeout=5) -> WebElement:
+        return self._wait_for(timeout, EC.visibility_of, element)
 
     def wait_text_to_be_present(self, locator, text, timeout=5) -> bool:
         return self._wait_for(timeout, EC.text_to_be_present_in_element, locator, text)
@@ -58,6 +64,10 @@ class UIElementMixin:
     def click_on(self, locator, timeout=5) -> None:
         self.logger.debug(f"Click on locator {locator}")
         self._wait_for(timeout, EC.element_to_be_clickable, locator).click()
+
+    def scroll_and_click(self, locator) -> None:
+        element = self.wait_for_element(locator)
+        self.scroll_wait_click(element)
 
     def click_elements(self, locator: tuple) -> "UIElementMixin":
         clickable_elements = self.wait_for_elements(locator)
@@ -122,6 +132,10 @@ class UIElementMixin:
     def get_visible_text(self, locator) -> str:
         return self.wait_to_be_visible(locator).text.strip()
 
+    def get_visible_text_with_scroll(self, locator) -> str:
+        element = self.wait_for_element(locator)
+        return self.get_clean_text_from_element_with_scroll(element)
+
     def get_visible_text_lines(self, locator) -> list[str]:
         return self.get_visible_text(locator).splitlines()
 
@@ -147,6 +161,14 @@ class UIElementMixin:
         elements = self.wait_for_elements(locator)
         return [self.scroll_and_get_element(el).is_displayed() for el in elements]
 
+    def is_displayed_with_scroll(self, locator) -> bool:
+        element = self.wait_for_element(locator)
+        return self.scroll_wait_displayed(element)
+
+    def scroll_wait_click(self, element: WebElement) -> None:
+        self.scroll_into_view(element).wait_element_to_be_clickable(element)
+        element.click()
+
     def get_tooltip_text(self, icon_element: WebElement, tooltip_locator) -> str:
         try:
             self.scroll_into_view(icon_element)
@@ -165,6 +187,23 @@ class UIElementMixin:
             return self.wait_element_to_disappear(tooltip_locator)
         except TimeoutException:
             self.logger.error("Tooltip did not disappear for locator: %s", tooltip_locator)
+            return False
+
+    def get_clean_text_from_element_with_scroll(self, element: WebElement) -> str:
+        try:
+            self.scroll_into_view(element)
+            self.wait_to_be_visible_element(element)
+            return element.text.strip()
+        except TimeoutException:
+            self.logger.error("Timeout: WebElement not visible to get text")
+            return ""
+
+    def scroll_wait_displayed(self, element: WebElement) -> bool:
+        try:
+            self.scroll_into_view(element)
+            return self.wait_to_be_visible_element(element).is_displayed()
+        except TimeoutException:
+            self.logger.error("Timeout: WebElement not visible")
             return False
 
     def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:

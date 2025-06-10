@@ -17,6 +17,9 @@ class PipelineConfigPage(BasePage):
         TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
         TRIGGER_HELPER_ICONS = (By.CSS_SELECTOR, "div[class*='checkbox'] a[helpurl*='rigger'] > span")
         TRIGGER_HELPER_TOOLTIPS = (By.CLASS_NAME, "tippy-box")
+        TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL = (By.XPATH, "//input[@id='cb8']/following-sibling::label")
+        TRIGGER_PROJECTS_INPUT = (By.NAME, "_.upstreamProjects")
+        TRIGGER_PROJECTS_INPUT_LABEL = (By.CSS_SELECTOR, "div[nameref='cb8'] .help-sibling")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -28,6 +31,11 @@ class PipelineConfigPage(BasePage):
             from pages.pipeline_page import PipelinePage
             self.click_on(self.Locators.SAVE_BUTTON)
             return PipelinePage(self.driver, self.pipeline_name).wait_for_url()
+
+    @allure.step("Click on the 'Build after other projects are built' trigger checkbox")
+    def click_trigger_build_after_other_projects(self) -> "PipelineConfigPage":
+        self.scroll_and_click(self.Locators.TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL)
+        return self
 
     def wait_for_page(self):
         return self.wait_for_element(self.Locators.GENERAL_BUTTON)
@@ -97,3 +105,11 @@ class PipelineConfigPage(BasePage):
     def trigger_tooltips_disappeared(self) -> list[bool]:
         return self.wait_all_tooltips_to_disappear(self.Locators.TRIGGER_HELPER_ICONS,
                                                    self.Locators.TRIGGER_HELPER_TOOLTIPS, self.Locators.TRIGGER_LABELS)
+
+    @allure.step("Get visible text of the 'Projects to watch' input label")
+    def get_projects_input_label(self) -> str:
+        return self.get_visible_text_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT_LABEL)
+
+    @allure.step("Get display status of the 'Projects to watch' input fields")
+    def is_projects_input_displayed(self) -> bool:
+        return self.is_displayed_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT)
