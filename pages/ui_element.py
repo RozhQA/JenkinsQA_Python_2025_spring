@@ -61,6 +61,10 @@ class UIElementMixin:
     def wait_element_to_disappear(self, locator, timeout=10) -> bool:
         return self._wait_for(timeout, EC.invisibility_of_element_located, locator)
 
+    def _scroll_wait(self, element: WebElement) -> WebElement:
+        self.scroll_into_view(element)
+        return self.wait_to_be_visible_element(element)
+
     def click_on(self, locator, timeout=5) -> None:
         self.logger.debug(f"Click on locator {locator}")
         self._wait_for(timeout, EC.element_to_be_clickable, locator).click()
@@ -83,11 +87,9 @@ class UIElementMixin:
     def wait_and_get_attribute(self, locator, attribute_name) -> str:
         return self.wait_to_be_visible(locator).get_attribute(attribute_name)
 
-    def wait_and_get_attribute_with_scroll(self, locator, attribute_name) -> str:
+    def wait_and_get_attribute_with_scroll(self, locator: tuple, attribute_name: str) -> str:
         element = self.wait_for_element(locator)
-        self.scroll_into_view(element)
-        self.wait_to_be_visible_element(element)
-        return element.get_attribute(attribute_name)
+        return self.scroll_wait_get_attribute(element, attribute_name)
 
     def scroll_into_view(self, element):
         self.driver.execute_script(
@@ -197,9 +199,7 @@ class UIElementMixin:
 
     def get_clean_text_from_element_with_scroll(self, element: WebElement) -> str:
         try:
-            self.scroll_into_view(element)
-            self.wait_to_be_visible_element(element)
-            return element.text.strip()
+            return self._scroll_wait(element).text.strip()
         except TimeoutException:
             self.logger.error("Timeout: WebElement not visible to get text")
             return ""
@@ -211,6 +211,13 @@ class UIElementMixin:
         except TimeoutException:
             self.logger.error("Timeout: WebElement not visible")
             return False
+
+    def scroll_wait_get_attribute(self, element: WebElement, attribute_name: str) -> str:
+        try:
+            return self._scroll_wait(element).get_attribute(attribute_name)
+        except TimeoutException:
+            self.logger.error("Element not visible for reading attribute '%s'", attribute_name)
+            return ""
 
     def get_tooltip_texts(self, el_locator, tooltip_locator) -> list[str]:
         elements = self.wait_for_elements(el_locator)
