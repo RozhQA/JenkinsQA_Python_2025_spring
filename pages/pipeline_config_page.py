@@ -20,7 +20,7 @@ class PipelineConfigPage(BasePage):
         TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL = (By.XPATH, "//input[@id='cb8']/following-sibling::label")
         TRIGGER_PROJECTS_INPUT = (By.NAME, "_.upstreamProjects")
         TRIGGER_PROJECTS_INPUT_LABEL = (By.CSS_SELECTOR, "div[nameref='cb8'] .help-sibling")
-        error_locator = (By.CSS_SELECTOR, 'div[nameref="cb8"] .validation-error-area .error')
+        TRIGGER_BUILD_AFTER_OTHER_ERROR = (By.CSS_SELECTOR, 'div[nameref="cb8"] .error')
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -114,3 +114,7 @@ class PipelineConfigPage(BasePage):
     @allure.step("Get display status of the 'Projects to watch' input fields")
     def is_projects_input_displayed(self) -> bool:
         return self.is_displayed_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT)
+
+    @allure.step("Get visible text of the 'Projects to watch' input error")
+    def get_projects_input_empty_error(self) -> str:
+        return self.get_visible_text_with_scroll(self.Locators.TRIGGER_BUILD_AFTER_OTHER_ERROR)

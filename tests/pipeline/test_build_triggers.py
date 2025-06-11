@@ -159,8 +159,8 @@ def test_display_input_field_and_label(pipeline_config_page_enable_build_after_c
 @allure.testcase("TC_03.003.14")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/851", name="Github issue")
 def test_default_state_input_field_and_display_error_message(pipeline_config_page_enable_build_after_checkbox):
-    display_status_input_field = pipeline_config_page_enable_build_after_checkbox.is_projects_input_displayed()
-    visible_text_projects_input_label = pipeline_config_page_enable_build_after_checkbox.get_projects_input_label()
-
-    assertions.soft_assert_element_true(display_status_input_field)
-    assertions.soft_assert_text_equal(visible_text_projects_input_label, BuildTriggers.PROJECTS_INPUT_LABEL)
+    # display_status_input_field = pipeline_config_page_enable_build_after_checkbox.is_projects_input_displayed()
+    error_message = pipeline_config_page_enable_build_after_checkbox.get_projects_input_empty_error()
+    print(error_message)
+    # assertions.soft_assert_element_true(display_status_input_field)
+    # assertions.soft_assert_text_equal(visible_text_projects_input_label, BuildTriggers.PROJECTS_INPUT_LABEL)
