@@ -30,7 +30,7 @@ class PipelineConfigPage(BasePage):
     def click_save_button_and_open_project_page(self):
         with allure.step(f"Click the button 'Save' to save \"{self.pipeline_name}\" project and go to project page"):
             from pages.pipeline_page import PipelinePage
-            self.click_on(self.Locators.SAVE_BUTTON)
+            self.scroll_and_click(self.Locators.SAVE_BUTTON)
             return PipelinePage(self.driver, self.pipeline_name).wait_for_url()
 
     @allure.step("Click on the 'Build after other projects are built' trigger checkbox")
@@ -115,6 +115,10 @@ class PipelineConfigPage(BasePage):
     def is_projects_input_displayed(self) -> bool:
         return self.is_displayed_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT)
 
-    @allure.step("Get visible text of the 'Projects to watch' input error")
-    def get_projects_input_empty_error(self) -> str:
+    @allure.step("Get current value of 'Projects to watch'")
+    def get_projects_input_value(self) -> str:
+        return self.wait_and_get_attribute_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT, "value")
+
+    @allure.step("Get error message under 'Projects to watch'")
+    def get_projects_input_error_text(self) -> str:
         return self.get_visible_text_with_scroll(self.Locators.TRIGGER_BUILD_AFTER_OTHER_ERROR)

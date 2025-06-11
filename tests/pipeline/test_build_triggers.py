@@ -158,9 +158,9 @@ def test_display_input_field_and_label(pipeline_config_page_enable_build_after_c
 @allure.title("The 'Projects to Watch' field is empty by default and results in an error message being displayed")
 @allure.testcase("TC_03.003.14")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/851", name="Github issue")
-def test_default_state_input_field_and_display_error_message(pipeline_config_page_enable_build_after_checkbox):
-    # display_status_input_field = pipeline_config_page_enable_build_after_checkbox.is_projects_input_displayed()
-    error_message = pipeline_config_page_enable_build_after_checkbox.get_projects_input_empty_error()
-    print(error_message)
-    # assertions.soft_assert_element_true(display_status_input_field)
-    # assertions.soft_assert_text_equal(visible_text_projects_input_label, BuildTriggers.PROJECTS_INPUT_LABEL)
+def test_projects_to_watch_default_empty_and_error(pipeline_config_page_enable_build_after_checkbox):
+    value = pipeline_config_page_enable_build_after_checkbox.get_projects_input_value()
+    error = pipeline_config_page_enable_build_after_checkbox.get_projects_input_error_text()
+
+    assertions.soft_assert_text_equal(value, BuildTriggers.EMPTY_PROJECTS_VALUE)
+    assertions.soft_assert_text_equal(error, BuildTriggers.EMPTY_PROJECTS_ERROR)

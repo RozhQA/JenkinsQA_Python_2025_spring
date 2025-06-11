@@ -83,6 +83,12 @@ class UIElementMixin:
     def wait_and_get_attribute(self, locator, attribute_name) -> str:
         return self.wait_to_be_visible(locator).get_attribute(attribute_name)
 
+    def wait_and_get_attribute_with_scroll(self, locator, attribute_name) -> str:
+        element = self.wait_for_element(locator)
+        self.scroll_into_view(element)
+        self.wait_to_be_visible_element(element)
+        return element.get_attribute(attribute_name)
+
     def scroll_into_view(self, element):
         self.driver.execute_script(
             'arguments[0].scrollIntoView({block: "center", inline: "center"})',

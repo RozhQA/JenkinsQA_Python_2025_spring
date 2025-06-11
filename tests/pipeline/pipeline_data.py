@@ -21,4 +21,5 @@ class BuildTriggers:
     PIPELINE_PAGE_TITLE = f"{PROJECT_NAME} [Jenkins]"
     PIPELINE_PAGE_HEADER = f"{PROJECT_NAME}"
     PROJECTS_INPUT_LABEL = "Projects to watch"
-    BUILD_AFTER_FIELD_EMPTY_ERROR_MESSAGE = "No project specified"
+    EMPTY_PROJECTS_VALUE = ""
+    EMPTY_PROJECTS_ERROR = "No project specified"
