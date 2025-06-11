@@ -17,7 +17,7 @@ class PipelineConfigPage(BasePage):
         TRIGGER_CHECKBOXES = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='checkbox']")
         TRIGGER_HELPER_ICONS = (By.CSS_SELECTOR, "div[class*='checkbox'] a[helpurl*='rigger'] > span")
         TRIGGER_HELPER_TOOLTIPS = (By.CLASS_NAME, "tippy-box")
-        TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL = (By.XPATH, "//input[@id='cb8']/following-sibling::label")
+        TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL = (By.CSS_SELECTOR, ".jenkins-checkbox > input#cb8 + label")
         TRIGGER_PROJECTS_INPUT = (By.NAME, "_.upstreamProjects")
         TRIGGER_PROJECTS_INPUT_LABEL = (By.CSS_SELECTOR, "div[nameref='cb8'] .help-sibling")
         TRIGGER_PROJECTS_INPUT_ERROR = (By.CSS_SELECTOR, "div[nameref='cb8'] .error")
