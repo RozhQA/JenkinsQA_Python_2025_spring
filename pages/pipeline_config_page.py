@@ -21,6 +21,7 @@ class PipelineConfigPage(BasePage):
         TRIGGER_PROJECTS_INPUT = (By.NAME, "_.upstreamProjects")
         TRIGGER_PROJECTS_INPUT_LABEL = (By.CSS_SELECTOR, "div[nameref='cb8'] .help-sibling")
         TRIGGER_PROJECTS_INPUT_ERROR = (By.CSS_SELECTOR, "div[nameref='cb8'] .error")
+        TRIGGER_RADIO_BUTTON_LABELS = (By.CSS_SELECTOR, "div[nameref='cb8'] .jenkins-radio__label")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -122,3 +123,7 @@ class PipelineConfigPage(BasePage):
     @allure.step("Get error message under 'Projects to watch'")
     def get_projects_input_error_text(self) -> str:
         return self.get_visible_text_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT_ERROR)
+
+    @allure.step("Get all radio button labels for 'Build after other projects are built'")
+    def get_radio_button_labels(self) -> list[str]:
+        return self.get_clean_texts_from_elements(self.Locators.TRIGGER_RADIO_BUTTON_LABELS)

@@ -164,3 +164,15 @@ def test_projects_to_watch_default_empty_and_error(pipeline_config_page_enable_b
 
     assertions.soft_assert_text_equal(value, BuildTriggers.EMPTY_PROJECTS_VALUE)
     assertions.soft_assert_text_equal(error, BuildTriggers.EMPTY_PROJECTS_ERROR)
+
+
+@allure.epic("Pipeline Configuration")
+@allure.story("Build Triggers")
+@allure.title("Labels of trigger radio buttons are correct")
+@allure.testcase("TC_03.003.15")
+@allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/862", name="Github issue")
+def test_display_radio_buttons_and_labels(pipeline_config_page_enable_build_after_checkbox):
+    actual_labels = pipeline_config_page_enable_build_after_checkbox.get_radio_button_labels()
+
+    assertions.soft_assert_list_length_equal(actual_labels, BuildTriggers.RADIO_BUTTON_LABELS)
+    assertions.soft_assert_lists_equal_by_index(actual_labels, BuildTriggers.RADIO_BUTTON_LABELS)
