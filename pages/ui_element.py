@@ -158,6 +158,10 @@ class UIElementMixin:
         elements = self.wait_for_elements(locator)
         return [self.wait_scroll_get_text(el) for el in elements]
 
+    def get_clean_texts_from_elements(self, locator) -> list[str]:
+        elements = self.wait_for_elements(locator)
+        return [self.get_clean_text_from_element_with_scroll(el) for el in elements]
+
     def get_visible_text_lines(self, locator) -> list[str]:
         return self.get_visible_text(locator).splitlines()
 
