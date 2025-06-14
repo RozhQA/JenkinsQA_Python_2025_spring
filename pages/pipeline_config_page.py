@@ -21,6 +21,8 @@ class PipelineConfigPage(BasePage):
         TRIGGER_PROJECTS_INPUT = (By.NAME, "_.upstreamProjects")
         TRIGGER_PROJECTS_INPUT_LABEL = (By.CSS_SELECTOR, "div[nameref='cb8'] .help-sibling")
         TRIGGER_PROJECTS_INPUT_ERROR = (By.CSS_SELECTOR, "div[nameref='cb8'] .error")
+        TRIGGER_RADIO_BUTTON_LABELS = (By.CSS_SELECTOR, "div[nameref='cb8'] .jenkins-radio__label")
+        TRIGGER_RADIO_BUTTON = (By.XPATH, "//*[contains(@name, 'Trigger') and @type='radio']")
 
     def __init__(self, driver, pipeline_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -109,7 +111,7 @@ class PipelineConfigPage(BasePage):
 
     @allure.step("Get visible text of the 'Projects to watch' input label")
     def get_projects_input_label(self) -> str:
-        return self.get_visible_text_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT_LABEL)
+        return self.get_text_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT_LABEL)
 
     @allure.step("Get display status of the 'Projects to watch' input fields")
     def is_projects_input_displayed(self) -> bool:
@@ -117,8 +119,17 @@ class PipelineConfigPage(BasePage):
 
     @allure.step("Get current value of 'Projects to watch'")
     def get_projects_input_value(self) -> str:
-        return self.wait_and_get_attribute_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT, "value")
+        return self.get_value_attribute_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT)
 
     @allure.step("Get error message under 'Projects to watch'")
     def get_projects_input_error_text(self) -> str:
-        return self.get_visible_text_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT_ERROR)
+        return self.get_text_with_scroll(self.Locators.TRIGGER_PROJECTS_INPUT_ERROR)
+
+    @allure.step("Get all radio button labels for 'Build after other projects are built'")
+    def get_radio_button_labels(self) -> list[str]:
+        return self.get_texts_with_scroll(self.Locators.TRIGGER_RADIO_BUTTON_LABELS)
+
+    @allure.step("Check if all radio buttons are displayed")
+    def get_trigger_radio_buttons_value(self) -> list[str]:
+        return self.get_value_attributes_with_scroll(self.Locators.TRIGGER_RADIO_BUTTON)
+

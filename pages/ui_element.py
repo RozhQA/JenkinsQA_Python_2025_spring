@@ -87,9 +87,19 @@ class UIElementMixin:
     def wait_and_get_attribute(self, locator, attribute_name) -> str:
         return self.wait_to_be_visible(locator).get_attribute(attribute_name)
 
-    def wait_and_get_attribute_with_scroll(self, locator: tuple, attribute_name: str) -> str:
+    def get_attribute_with_scroll(self, locator: tuple, attribute_name: str) -> str:
         element = self.wait_for_element(locator)
         return self.scroll_wait_get_attribute(element, attribute_name)
+
+    def get_attributes_with_scroll(self, locator: tuple, attribute_name: str) -> list[str]:
+        elements = self.wait_for_elements(locator)
+        return [self.scroll_and_get_attribute(el, attribute_name) for el in elements]
+
+    def get_value_attribute_with_scroll(self, locator: tuple) -> str:
+        return self.get_attribute_with_scroll(locator, "value")
+
+    def get_value_attributes_with_scroll(self, locator: tuple) -> list[str]:
+        return self.get_attributes_with_scroll(locator, "value")
 
     def scroll_into_view(self, element):
         self.driver.execute_script(
@@ -140,9 +150,13 @@ class UIElementMixin:
     def get_visible_text(self, locator) -> str:
         return self.wait_to_be_visible(locator).text.strip()
 
-    def get_visible_text_with_scroll(self, locator) -> str:
+    def get_text_with_scroll(self, locator) -> str:
         element = self.wait_for_element(locator)
-        return self.get_clean_text_from_element_with_scroll(element)
+        return self.wait_scroll_get_text(element)
+
+    def get_texts_with_scroll(self, locator) -> list[str]:
+        elements = self.wait_for_elements(locator)
+        return [self.wait_scroll_get_text(el) for el in elements]
 
     def get_visible_text_lines(self, locator) -> list[str]:
         return self.get_visible_text(locator).splitlines()
@@ -197,7 +211,7 @@ class UIElementMixin:
             self.logger.error("Tooltip did not disappear for locator: %s", tooltip_locator)
             return False
 
-    def get_clean_text_from_element_with_scroll(self, element: WebElement) -> str:
+    def wait_scroll_get_text(self, element: WebElement) -> str:
         try:
             return self._scroll_wait(element).text.strip()
         except TimeoutException:
@@ -215,6 +229,14 @@ class UIElementMixin:
     def scroll_wait_get_attribute(self, element: WebElement, attribute_name: str) -> str:
         try:
             return self._scroll_wait(element).get_attribute(attribute_name)
+        except TimeoutException:
+            self.logger.error("Element not visible for reading attribute '%s'", attribute_name)
+            return ""
+
+    def scroll_and_get_attribute(self, element: WebElement, attribute_name: str) -> str:
+        try:
+            self.scroll_into_view(element)
+            return element.get_attribute(attribute_name)
         except TimeoutException:
             self.logger.error("Element not visible for reading attribute '%s'", attribute_name)
             return ""

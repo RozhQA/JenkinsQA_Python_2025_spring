@@ -23,3 +23,8 @@ class BuildTriggers:
     PROJECTS_INPUT_LABEL = "Projects to watch"
     EMPTY_PROJECTS_VALUE = ""
     EMPTY_PROJECTS_ERROR = "No project specified"
+    RADIO_BUTTON_LABELS = ["Trigger only if build is stable",
+                           "Trigger even if the build is unstable",
+                           "Trigger even if the build fails",
+                           "Always trigger, even if the build is aborted"]
+    RADIO_BUTTON_VALUE = ["SUCCESS", "UNSTABLE", "FAILURE", "ABORTED"]
