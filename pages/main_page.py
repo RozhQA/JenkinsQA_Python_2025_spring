@@ -141,3 +141,9 @@ class MainPage(BasePage, UIElementMixin):
         from pages.pipeline_page import PipelinePage
         self.wait_to_be_clickable(self.Locators.TABLE_ITEM).click()
         return PipelinePage(self.driver, name).wait_for_url()
+
+    @allure.step('Go to the organization folder page: \"{project_name}\"')
+    def go_to_the_organization_folder_page(self, project_name):
+        from pages.organization_folder_page import OrganizationFolderPage
+        self.wait_to_be_clickable(self.Locators.PROJECT_BUTTON).click()
+        return OrganizationFolderPage(self.driver, project_name).wait_for_url()
