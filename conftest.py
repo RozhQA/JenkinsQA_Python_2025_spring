@@ -15,6 +15,8 @@ from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
 from pages.manage_jenkins.status_information.load_statistics_page import LoadStatisticsPage
 from pages.manage_jenkins.status_information.system_information_page import SystemInformationPage
 from pages.new_item_page import NewItemPage
+from tests.api.steps.jenkins_steps import JenkinsSteps
+from tests.api.support.jenkins_client import JenkinsClient
 
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
@@ -158,3 +160,9 @@ def thread_dumps_tab(system_information_page) -> SystemInformationPage:
 @pytest.fixture(scope="function")
 def load_statistics_page(manage_jenkins_page) -> LoadStatisticsPage:
     return manage_jenkins_page.go_to_load_statistics_page()
+
+
+@pytest.fixture(scope="function")
+def jenkins_steps():
+    client = JenkinsClient()
+    return JenkinsSteps(client)

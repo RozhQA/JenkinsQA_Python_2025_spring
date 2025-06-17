@@ -39,7 +39,7 @@ def test_verify_table_column_headers(create_job_pipeline_env, main_page):
 
 @allure.epic("Dashboard with the items")
 @allure.story("View All Jobs")
-@allure.title("Verification of default state for job without configuration")
+@allure.title("UI:Verification of default state for job without configuration")
 @allure.description("Verify that a newly created job without any build history or configuration displays the correct"
                     " default state in the dashboard jobs table.")
 @allure.testcase("TC_12.001.03")

@@ -51,7 +51,7 @@ class MainPage(BasePage, UIElementMixin):
         return [el.text.replace("↑", "").replace("↓", "").replace("\n", "").strip()
                 for el in elements]
 
-    @allure.step("Get status information for project '{name}' from Dashboard")
+    @allure.step("Get status table data for item '{name}' from Dashboard")
     def get_project_row_data(self, name):
         cells = self.find_elements(*self.Locators.cells_in_job_row(name))
         data = [
