@@ -1,7 +1,7 @@
 import time
-from typing import List
 import allure
 
+from typing import List
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -82,6 +82,7 @@ class NewItemPage(BasePage):
         self.enter_item_name(name).click_pipeline_project().click_ok_button()
         return PipelineConfigPage(self.driver, name).wait_for_url()
 
+    @allure.step("Create new Multibranch Pipeline project: \"{name}\"")
     def create_new_multibranch_pipeline_project(self, name):
         from pages.multibranch_pipeline_config_page import MultibranchPipelineConfigPage
         self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)

@@ -47,9 +47,9 @@ class BaseAPI:
         url = f"{cls.BASE_URL}/user/{cls.USERNAME}/descriptorByName/jenkins.security.ApiTokenProperty/generateNewToken"
         headers = {"Content-Type": "application/json", **crumb_headers}
         auth = cls.AUTH
-        data = f"newTokenName={token_name}-{datetime.now().isoformat().replace(":", ".")[:18]}"
+        data = f"newTokenName={token_name}-{datetime.now().isoformat().replace(':', '.')[:18]}"
 
-        logger.info(f"Generating Jenkins API token at: \"/{url.split("/")[-1]}\"")
+        logger.info(f"Generating Jenkins API token at: \"/{url.split('/')[-1]}\"")
         with allure.step(f"POST to generate new token: {token_name}"):
             response = session.post(url=url, headers=headers, auth=auth, data=data)
 
