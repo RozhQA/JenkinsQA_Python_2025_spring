@@ -9,7 +9,7 @@ from tests.freestyle_project.freestyle_data import Freestyle
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/671", name="Github issue")
 def test_post_build_actions_is_available(freestyle):
     freestyle.scroll_to_bottom_screen()
-    assert freestyle.get_port_build_actions_element().is_displayed()
+    assert freestyle.get_post_build_actions_element().is_displayed()
 
     with allure.step("Scrool to the Post-Build section"):
         freestyle.scroll_to_bottom_screen()
