@@ -51,7 +51,7 @@ class MainPage(BasePage, UIElementMixin):
         return [el.text.replace("↑", "").replace("↓", "").replace("\n", "").strip()
                 for el in elements]
 
-    @allure.step("Get status information for project '{name}' from Dashboard")
+    @allure.step("Get status table data for item '{name}' from Dashboard")
     def get_project_row_data(self, name):
         cells = self.find_elements(*self.Locators.cells_in_job_row(name))
         data = [
@@ -93,6 +93,12 @@ class MainPage(BasePage, UIElementMixin):
         from pages.folder_page import FolderPage
         return self.navigate_to(FolderPage, self.Locators.table_item_link(name), name)
 
+    @allure.step("Go to the Freestyle project page by clicking project link.")
+    def go_to_freestyle_project_page(self, project_name):
+        from pages.freestyle_project_page import FreestyleProjectPage
+        self.wait_to_be_clickable(self.Locators.PROJECT_BUTTON).click()
+        return FreestyleProjectPage(self.driver, project_name).wait_for_url()
+
     @allure.step("Expand build queue info block if it is collapsed.")
     def show_build_queue_info_block(self):
         if self.wait_to_be_visible(self.Locators.BUILD_QUEUE_BLOCK).get_attribute("class").__contains__("collapsed"):
@@ -129,3 +135,15 @@ class MainPage(BasePage, UIElementMixin):
     def go_to_the_pipeline_page(self, name):
         from pages.pipeline_page import PipelinePage
         return self.navigate_to(PipelinePage, self.Locators.table_item_link(name), name)
+
+    @allure.step("Go to the Pipeline page by clicking the pipeline \"{name}\" link.")
+    def go_to_pipeline_page(self, name):
+        from pages.pipeline_page import PipelinePage
+        self.wait_to_be_clickable(self.Locators.TABLE_ITEM).click()
+        return PipelinePage(self.driver, name).wait_for_url()
+
+    @allure.step('Go to the organization folder page: \"{project_name}\"')
+    def go_to_the_organization_folder_page(self, project_name):
+        from pages.organization_folder_page import OrganizationFolderPage
+        self.wait_to_be_clickable(self.Locators.PROJECT_BUTTON).click()
+        return OrganizationFolderPage(self.driver, project_name).wait_for_url()

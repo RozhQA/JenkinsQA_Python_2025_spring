@@ -20,7 +20,7 @@ class NewItemPage(BasePage):
         PAGE_NAME = (By.XPATH, "//h1[text()='New Item']")
         ITEM_NAME = (By.CSS_SELECTOR, '#name')
         ITEM_FOLDER = (By.CSS_SELECTOR, '[class*="cloudbees_hudson_plugins_folder"]')
-        OK_BUTTON = (By.CSS_SELECTOR, '#ok-button')
+        OK_BUTTON: tuple[str, str] = (By.CSS_SELECTOR, '#ok-button')
         ITEM_ORGANIZATION_FOLDER = (By.CLASS_NAME, "jenkins_branch_OrganizationFolder")
         ITEM_PIPELINE_PROJECT = (By.CLASS_NAME, "org_jenkinsci_plugins_workflow_job_WorkflowJob")
         ITEM_FREESTYLE_PROJECT = (By.CLASS_NAME, "hudson_model_FreeStyleProject")
@@ -76,11 +76,10 @@ class NewItemPage(BasePage):
         with allure.step("Go to the Freestyle Project Configuration page."):
             return FreestyleProjectConfigPage(self.driver, name).wait_for_url()
 
+    @allure.step("Create new Pipeline project: \"{name}\"")
     def create_new_pipeline_project(self, name):
         from pages.pipeline_config_page import PipelineConfigPage
-        self.wait_for_element(self.Locators.ITEM_NAME).send_keys(name)
-        self.wait_to_be_clickable(self.Locators.ITEM_PIPELINE_PROJECT).click()
-        self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
+        self.enter_item_name(name).click_pipeline_project().click_ok_button()
         return PipelineConfigPage(self.driver, name).wait_for_url()
 
     def create_new_multibranch_pipeline_project(self, name):
@@ -90,8 +89,14 @@ class NewItemPage(BasePage):
         self.wait_to_be_clickable(self.Locators.OK_BUTTON).click()
         return MultibranchPipelineConfigPage(self.driver, name)
 
+    @allure.step("Click \"OK\" button")
     def click_ok_button(self):
         return self.click_on(self.Locators.OK_BUTTON)
+
+    @allure.step("Click \"Pipeline\" project")
+    def click_pipeline_project(self):
+        self.click_on(self.Locators.ITEM_PIPELINE_PROJECT)
+        return self
 
     def click_element(self, element):
         self.wait_to_be_clickable(element).click()
@@ -152,6 +157,7 @@ class NewItemPage(BasePage):
             self.logger.error("Dropdown did not appear: element is not visible on the page.")
             return []
 
+    @allure.step("Enter \"{name}\" in the \"Item Name\" field")
     def enter_item_name(self, name):
         self.enter_text(self.Locators.ITEM_NAME, name)
         return self

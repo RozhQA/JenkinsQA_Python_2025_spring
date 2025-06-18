@@ -15,6 +15,8 @@ from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
 from pages.manage_jenkins.status_information.load_statistics_page import LoadStatisticsPage
 from pages.manage_jenkins.status_information.system_information_page import SystemInformationPage
 from pages.new_item_page import NewItemPage
+from tests.api.steps.jenkins_steps import JenkinsSteps
+from tests.api.support.jenkins_client import JenkinsClient
 
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
@@ -22,13 +24,6 @@ sys.path.insert(0, project_root)
 logging.getLogger('selenium.webdriver.remote.remote_connection').setLevel(logging.INFO)
 logging.getLogger('faker.factory').setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
-
-
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
-    outcome = yield
-    report = outcome.get_result()
-    setattr(item, "rep_" + report.when, report)
 
 
 @pytest.fixture(scope="session")
@@ -42,6 +37,41 @@ def config():
     return Config.load()
 
 
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+@allure.title("Get result and screenshot.")
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    setattr(item, "rep_" + report.when, report)
+
+    is_failed = report.when == "call" and report.failed
+    is_expected_xfail = (
+        report.when == "call"
+        and report.outcome == "skipped"
+        and hasattr(report, "wasxfail")
+        and report.wasxfail
+    )
+
+    if is_failed or is_expected_xfail:
+        driver = item.funcargs.get("driver")
+        if driver:
+            try:
+                test_name = "".join(c for c in item.name if c not in r'\/:*?<>|"')
+                os.makedirs("screenshots", exist_ok=True)
+                screenshot_path = os.path.join("screenshots", f"{test_name}.png")
+
+                driver.save_screenshot(screenshot_path)
+
+                allure.attach(
+                    driver.get_screenshot_as_png(),
+                    name=f"screenshot_{test_name}",
+                    attachment_type=allure.attachment_type.PNG,
+                )
+            except Exception as e:
+                print(f"Failed to attach screenshot: {e}")
+
+
 @pytest.fixture(scope="function", autouse=True)
 @allure.title("Clear Jenkins data before each test run.")
 def jenkins_reset(config):
@@ -49,7 +79,7 @@ def jenkins_reset(config):
 
 
 @pytest.fixture(scope="function")
-@allure.title("Configure WebDriver with options and save failure screenshot.")
+@allure.title("Configure WebDriver with options.")
 def driver(request, config):
     match config.browser.NAME:
         case "chrome":
@@ -65,24 +95,11 @@ def driver(request, config):
             for argument in config.browser.OPTIONS_EDGE.split(';'):
                 options.add_argument(argument)
                 logger.debug(f"Argument {argument} added to the edge")
-
             driver = webdriver.Edge(options=options)
         case _:
             raise RuntimeError(f"Browser {config.browser.NAME} is not supported.")
 
     yield driver
-
-    if hasattr(request.node, "rep_call") and request.node.rep_call.failed:
-        logger.info(f"Test {request.node.name} failed, taking screenshot...")
-        try:
-            test_name = "".join(ch for ch in request.node.name if ch not in r'\/:*?<>|"')
-            allure.attach(
-                driver.get_screenshot_as_png(),
-                name=test_name,
-                attachment_type=allure.attachment_type.PNG,
-            )
-        except Exception as e:
-            logger.error(f"Failed to take screenshot: {e}")
 
     driver.quit()
 
@@ -143,3 +160,9 @@ def thread_dumps_tab(system_information_page) -> SystemInformationPage:
 @pytest.fixture(scope="function")
 def load_statistics_page(manage_jenkins_page) -> LoadStatisticsPage:
     return manage_jenkins_page.go_to_load_statistics_page()
+
+
+@pytest.fixture(scope="function")
+def jenkins_steps():
+    client = JenkinsClient()
+    return JenkinsSteps(client)
