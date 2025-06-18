@@ -48,7 +48,6 @@ class Freestyle:
         "Delete workspace when build is done"
     ]
 
-
 class Configuration:
     NOT_ADVANCED_CHECKBOXES_TEXTS = [
         'Discard old builds',
@@ -67,7 +66,6 @@ class Configuration:
         'Inspect build log for published build scans',
         "Terminate a build if it's stuck", 'With Ant'
     ]
-
 
 class FreestyleConfigOptTriggers:
     TRIGGER_OPT_NAMES = [

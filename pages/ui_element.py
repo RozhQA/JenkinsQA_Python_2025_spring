@@ -1,6 +1,6 @@
 import logging
-
 import allure
+
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
@@ -43,6 +43,7 @@ class UIElementMixin:
     def wait_element_to_be_clickable(self, element: WebElement, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.element_to_be_clickable, element)
 
+    @allure.step("Wait for the element to be visible")
     def wait_to_be_visible(self, locator, timeout=5) -> WebElement:
         return self._wait_for(timeout, EC.visibility_of_element_located, locator)
 
@@ -101,6 +102,7 @@ class UIElementMixin:
     def get_value_attributes_with_scroll(self, locator: tuple) -> list[str]:
         return self.get_attributes_with_scroll(locator, "value")
 
+    @allure.step("Scroll to element")
     def scroll_into_view(self, element):
         self.driver.execute_script(
             'arguments[0].scrollIntoView({block: "center", inline: "center"})',

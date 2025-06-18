@@ -67,7 +67,7 @@ def get_build_info(driver, job_name, config):
             return
         response_json = response.json()
         for build in response_json["builds"]:
-            url = f"{config.jenkins.base_url}/job/{job_name}/{build["number"]}/api/json?tree=actions[causes[*]]"
+            url = f"{config.jenkins.base_url}/job/{job_name}/{build['number']}/api/json?tree=actions[causes[*]]"
             response = session.get(url)
             if not response.ok:
                 logger.error("Getting build's info failed")
@@ -75,7 +75,7 @@ def get_build_info(driver, job_name, config):
             descriptions = [cause.get("shortDescription", "failed to get description")
                            for act in response.json().get("actions", [])
                            for cause in act.get("causes", [])]
-            logger.info(f"Builds {job_name}/#{build["number"]} cause: {descriptions}")
+            logger.info(f"Builds {job_name}/#{build['number']} cause: {descriptions}")
     except Exception as e:
         logger.error(f"get_build_info: {str(e)}")
 
