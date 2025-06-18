@@ -5,7 +5,7 @@ from pages.base_page import BasePage
 
 class ErrorPageCopyFrom(BasePage):
     class Locators:
-        HEADER_ERROR= (By.CSS_SELECTOR, "#main-panel > h1")
+        HEADER_ERROR = (By.CSS_SELECTOR, "#main-panel > h1")
         MESSAGE_ERROR = (By.CSS_SELECTOR, "#main-panel > p")
 
     def __init__(self, driver, timeout=5):
@@ -13,7 +13,7 @@ class ErrorPageCopyFrom(BasePage):
         self.url = self.base_url + "/view/all/createItem"
 
     def get_header_error(self):
-        return self.wait_for_element(self.Locators.HEADER_ERROR).text.strip()
+        return self.get_visible_text(self.Locators.HEADER_ERROR)
 
     def get_message_error(self):
-        return self.wait_for_element(self.Locators.MESSAGE_ERROR).text.strip()
+        return self.get_visible_text(self.Locators.MESSAGE_ERROR)
