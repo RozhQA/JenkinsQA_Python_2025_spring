@@ -161,7 +161,7 @@ def thread_dumps_tab(system_information_page) -> SystemInformationPage:
 def load_statistics_page(manage_jenkins_page) -> LoadStatisticsPage:
     return manage_jenkins_page.go_to_load_statistics_page()
 
-
+@allure.title("Setup Jenkins API Client and Steps")
 @pytest.fixture(scope="function")
 def jenkins_steps():
     client = JenkinsClient()

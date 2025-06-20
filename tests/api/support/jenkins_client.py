@@ -1,7 +1,11 @@
+import logging
+
 import requests
 from requests.auth import HTTPBasicAuth
 
-from tests.api.support.base_api import BaseAPI, logger
+from tests.api.support.base_api import BaseAPI
+
+logger = logging.getLogger(__name__)
 
 
 class JenkinsClient(BaseAPI):
@@ -16,8 +20,10 @@ class JenkinsClient(BaseAPI):
         headers.update(self.crumb_headers)
         url = f"{self.BASE_URL}/{endpoint}"
         response = self.session.post(url, data=xml_data, headers=headers)
+        logger.info(f"[POST /{endpoint}] Status: {response.status_code} - {response.reason}")
 
         if not response.ok:
-            logger.error(response)
-            return None
+            logger.error(f"[POST {url}] Status: {response.status_code} - {response.reason}")
+            return response
+
         return response
