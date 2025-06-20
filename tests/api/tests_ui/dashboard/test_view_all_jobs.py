@@ -28,7 +28,6 @@ def test_all_jobs_and_folders_visible_in_dashboard(create_job_and_folders_api, m
 @allure.testcase("TC_12.001.03")
 @allure.link("https://github.com/RedRoverSchool/JenkinsQA_Python_2025_spring/issues/757", name="Github issue")
 def test_verify_default_state_for_all_project(create_projects_via_api, main_page):
-    # main_page.driver.refresh()
     allure.attach(
         main_page.driver.get_screenshot_as_png(),
         name="Dashboard view with all created projects",
