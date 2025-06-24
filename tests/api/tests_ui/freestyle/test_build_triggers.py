@@ -18,6 +18,9 @@ def test_user_can_trigger_build_periodically(create_freestyle_project_scheduled_
         .go_to_build_history_page()\
         .get_builds_list()
 
+    with allure.step("Attach screenshot before asserting number of builds."):
+        screenshot = main_page.driver.get_screenshot_as_png()
+        allure.attach(screenshot, name="builds_list_screenshot", attachment_type=allure.attachment_type.PNG)
     with allure.step("Assert that only one build is displayed in the list."):
         assert len(builds) == 1, f"Expected 1 build, found {len(builds)}"
     with allure.step(f"Assert that the project name of the displayed build is \"{project_name}\"."):
