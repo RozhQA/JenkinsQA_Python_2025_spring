@@ -1,5 +1,4 @@
 import allure
-import pytest
 
 
 @allure.epic("Freestyle Project Configuration")
