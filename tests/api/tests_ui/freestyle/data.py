@@ -35,9 +35,13 @@ class Config:
                   <spec>{timer}</spec>
                   </hudson.triggers.TimerTrigger>
                 </triggers>
-                <quietPeriod>10</quietPeriod>
                 <concurrentBuild>false</concurrentBuild>
-                <builders/>
+                <builders>
+                  <hudson.tasks.Shell>
+                    <command>sleep 35
+                    </command>
+                  </hudson.tasks.Shell>
+                </builders>
                 <publishers/>
                 <buildWrappers/>
             </project>
