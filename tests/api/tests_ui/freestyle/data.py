@@ -31,10 +31,11 @@ class Config:
                 <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
                 <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
                 <triggers>
-                    <hudson.triggers.TimerTrigger>
-                    <spec>{timer}</spec>
-                    </hudson.triggers.TimerTrigger>
+                  <hudson.triggers.TimerTrigger>
+                  <spec>{timer}</spec>
+                  </hudson.triggers.TimerTrigger>
                 </triggers>
+                <quietPeriod>10</quietPeriod>
                 <concurrentBuild>false</concurrentBuild>
                 <builders/>
                 <publishers/>
