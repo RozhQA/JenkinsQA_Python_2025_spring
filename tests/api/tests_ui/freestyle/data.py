@@ -38,8 +38,8 @@ class Config:
                 <concurrentBuild>false</concurrentBuild>
                 <builders>
                   <hudson.tasks.Shell>
-                    <command>echo ID=$(date +%s | cut -c1-2)
-                    sleep 35
+                    <command>
+                    sleep 31
                     </command>
                   </hudson.tasks.Shell>
                 </builders>
