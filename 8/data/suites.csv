@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"A User can enable the ""Build periodically trigger"" in a Freestyle project and that the build runs according to the specified schedule.","45717","User is able to configure and trigger periodic builds as scheduled.","tests.api.tests_ui.freestyle","Thu Jun 26 13:40:17 GMT 2025","broken","Thu Jun 26 13:41:03 GMT 2025","","test_build_triggers","",""
+"","688","test_freestyle_project_ui_fields_match_api_json","tests.api.tests_ui.freestyle","Thu Jun 26 13:42:01 GMT 2025","passed","Thu Jun 26 13:42:02 GMT 2025","","test_build_triggers","",""
