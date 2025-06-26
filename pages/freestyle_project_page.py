@@ -67,11 +67,11 @@ class FreestyleProjectPage(BasePage):
         return [item.text for item in self.wait_to_be_visible_all(self.Locators.MENU_ITEMS)]
 
     @allure.step("Wait up to {timeout} seconds for the build to appear in the build history.")
-    def wait_for_build_execution(self):
+    def wait_for_build_execution(self, timeout=60):
         logger.info("Waiting 60 seconds before counting builds...")
         time.sleep(60)
 
         builds = self.find_elements(*self.Locators.BUILDS_LINK)
         count = len(builds)
-        logger.info(f"{count} build(s) appeared after 60 seconds.")
+        logger.info(f"{count} build(s) appeared after {timeout} seconds.")
         return self
