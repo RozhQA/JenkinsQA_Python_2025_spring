@@ -36,7 +36,13 @@ class Config:
                     </hudson.triggers.TimerTrigger>
                 </triggers>
                 <concurrentBuild>false</concurrentBuild>
-                <builders/>
+                <builders>
+                  <hudson.tasks.Shell>
+                    <command>echo ID=$(date +%s | cut -c1-2)
+                    sleep 35
+                    </command>
+                  </hudson.tasks.Shell>
+                </builders>
                 <publishers/>
                 <buildWrappers/>
             </project>
