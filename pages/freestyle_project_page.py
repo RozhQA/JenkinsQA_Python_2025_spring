@@ -67,15 +67,24 @@ class FreestyleProjectPage(BasePage):
         return [item.text for item in self.wait_to_be_visible_all(self.Locators.MENU_ITEMS)]
 
     @allure.step("Wait up to {timeout} seconds for the build to appear in the build history.")
-    def wait_for_build_execution(self, timeout):
-        with allure.step("Wait for 'Builds' link to be visible"):
+    def wait_for_build_execution(self, timeout=60):
+        with allure.step(f"Wait up to {timeout} seconds for builds to appear"):
             start = time.time()
-            build_link = self.wait_for_element(self.Locators.BUILDS_LINK, timeout)
+            build_count = 0
+
+            while time.time() - start < timeout:
+                builds = self.find_elements(*self.Locators.BUILDS_LINK)  # предполагаю, что это локатор всех билдов
+                current_count = len(builds) if builds else 0
+
+                if current_count > 0:
+                    build_count = current_count
+                    break
+                time.sleep(1)  # подождать секунду и проверить снова
+
             elapsed = round(time.time() - start, 2)
-
-            if not build_link:
-                logger.error(f"'Builds' link was not found within {timeout} seconds. Waited: {elapsed} seconds.")
+            if build_count == 0:
+                logger.error(f"No builds appeared within {timeout} seconds. Waited: {elapsed} seconds.")
             else:
-                logger.info(f"'Builds' link appeared in {elapsed} seconds.")
+                logger.info(f"{build_count} build(s) appeared in {elapsed} seconds.")
 
-        return self
+        return build_count, elapsed

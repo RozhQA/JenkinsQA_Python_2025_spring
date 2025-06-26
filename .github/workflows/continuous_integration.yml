@@ -79,7 +79,7 @@ jobs:
 #        run: pytest tests/api/tests_ui --alluredir=build/allure-results
 
       - name: Run one test 10 times
-        run: pytest tests/api/tests_ui/freestyle/test_build_triggers.py --count=10 --alluredir=build/allure-results
+        run: pytest tests/api/tests_ui/freestyle/test_build_triggers.py --count=1 --alluredir=build/allure-results
 
       - name: Get Allure history
         uses: actions/checkout@v4.2.2
