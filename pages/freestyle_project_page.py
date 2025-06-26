@@ -74,4 +74,4 @@ class FreestyleProjectPage(BasePage):
         builds = self.find_elements(*self.Locators.BUILDS_LINK)
         count = len(builds)
         logger.info(f"{count} build(s) appeared after 60 seconds.")
-        return count
+        return self
