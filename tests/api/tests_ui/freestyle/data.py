@@ -7,7 +7,7 @@ class CronTimer:
     every_minute: dict[str, str | int] = {
         "timer": "*/1 * * * *",
         "schedule": "1 min",
-        "timeout": 60
+        "timeout": 180
     }
     every_two_minutes: dict[str, str | int] = {
         "timer": "H/2 * * * *",

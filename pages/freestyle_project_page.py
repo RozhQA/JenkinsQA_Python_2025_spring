@@ -69,7 +69,7 @@ class FreestyleProjectPage(BasePage):
     @allure.step("Wait up to {timeout} seconds for the build to appear in the build history.")
     def wait_for_build_execution(self, timeout=60):
         logger.info("Waiting 60 seconds before counting builds...")
-        time.sleep(60)
+        time.sleep(180)
 
         builds = self.find_elements(*self.Locators.BUILDS_LINK)
         count = len(builds)

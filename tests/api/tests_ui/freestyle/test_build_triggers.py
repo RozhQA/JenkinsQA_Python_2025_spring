@@ -42,5 +42,7 @@ def test_freestyle_project_ui_fields_match_api_json(create_freestyle_scheduled_p
 
     first_build_ui_number = builds_ui[0].split("\n")[1]
     first_build_json_number = f"#{json_data['builds'][0]['number']}"
-
+    with allure.step("Attach screenshot before asserting number of builds."):
+        screenshot = main_page.driver.get_screenshot_as_png()
+        allure.attach(screenshot, name="builds_list_screenshot", attachment_type=allure.attachment_type.PNG)
     assert first_build_ui_number == first_build_json_number == "#1"
