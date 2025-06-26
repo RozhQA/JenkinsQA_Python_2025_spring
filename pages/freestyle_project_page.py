@@ -87,4 +87,4 @@ class FreestyleProjectPage(BasePage):
             else:
                 logger.info(f"{build_count} build(s) appeared in {elapsed} seconds.")
 
-        return build_count, elapsed
+        return self
