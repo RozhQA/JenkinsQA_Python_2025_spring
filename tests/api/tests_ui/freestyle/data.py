@@ -39,7 +39,7 @@ class Config:
                 <builders>
                   <hudson.tasks.Shell>
                     <command>
-                    sleep 31
+                    sleep 10
                     </command>
                   </hudson.tasks.Shell>
                 </builders>
