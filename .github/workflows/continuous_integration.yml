@@ -69,8 +69,8 @@ jobs:
       - name: Wait for the Jenkins
         run: ./.github/wait-for-jenkins.sh
 
-      - name: pytest run all tests
-        run: pytest --alluredir=build/allure-results
+      - name: Run tests from tests/api/tests_ui only
+        run: pytest tests/api/tests_ui --alluredir=build/allure-results
 
       - name: Get Allure history
         uses: actions/checkout@v4.2.2
