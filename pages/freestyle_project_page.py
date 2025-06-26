@@ -20,7 +20,7 @@ class FreestyleProjectPage(BasePage):
         CONFIGURE_MENU_ITEM = (By.LINK_TEXT, 'Configure')
         DESCRIPTION = (By.ID, 'description')
         MENU_ITEMS = (By.XPATH, '//div[@class="task "]')
-        BUILDS_LINK = (By.CSS_SELECTOR, "#jenkins-build-history>div>span~div a")
+        BUILDS_LINK = (By.CSS_SELECTOR, ".app-builds-container__item")
 
     def __init__(self, driver, project_name, timeout=5):
         super().__init__(driver, timeout=timeout)
@@ -68,23 +68,18 @@ class FreestyleProjectPage(BasePage):
 
     @allure.step("Wait up to {timeout} seconds for the build to appear in the build history.")
     def wait_for_build_execution(self, timeout=60):
-        with allure.step(f"Wait up to {timeout} seconds for builds to appear"):
+        with allure.step("Wait for build(s) to appear in history"):
             start = time.time()
-            build_count = 0
+            count = 0
 
-            while time.time() - start < timeout:
-                builds = self.find_elements(*self.Locators.BUILDS_LINK)  # предполагаю, что это локатор всех билдов
-                current_count = len(builds) if builds else 0
-
-                if current_count > 0:
-                    build_count = current_count
+            for _ in range(timeout):
+                builds = self.find_elements(By.CSS_SELECTOR, ".app-builds-container__item")
+                visible = [b for b in builds if b.is_displayed()]
+                count = len(visible)
+                if count > 0:
                     break
-                time.sleep(1)  # подождать секунду и проверить снова
+                time.sleep(1)
 
             elapsed = round(time.time() - start, 2)
-            if build_count == 0:
-                logger.error(f"No builds appeared within {timeout} seconds. Waited: {elapsed} seconds.")
-            else:
-                logger.info(f"{build_count} build(s) appeared in {elapsed} seconds.")
-
-        return self
+            logger.info(f"{count} build(s) appeared in {elapsed} seconds.")
+            return self
