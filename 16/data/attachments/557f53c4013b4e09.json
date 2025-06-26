@@ -1,0 +1,98 @@
+{
+  "_class" : "hudson.model.FreeStyleProject",
+  "actions" : [
+    {
+      
+    },
+    {
+      
+    },
+    {
+      "_class" : "org.jenkinsci.plugins.displayurlapi.actions.JobDisplayAction"
+    },
+    {
+      "_class" : "com.cloudbees.plugins.credentials.ViewCredentialsAction"
+    }
+  ],
+  "description" : "Created via Jenkins API. Builds every 1 min (*/1 * * * *).",
+  "displayName" : "freestyle-api-7b22c673",
+  "displayNameOrNull" : null,
+  "fullDisplayName" : "freestyle-api-7b22c673",
+  "fullName" : "freestyle-api-7b22c673",
+  "name" : "freestyle-api-7b22c673",
+  "url" : "http://localhost:8080/job/freestyle-api-7b22c673/",
+  "buildable" : true,
+  "builds" : [
+    {
+      "_class" : "hudson.model.FreeStyleBuild",
+      "number" : 3,
+      "url" : "http://localhost:8080/job/freestyle-api-7b22c673/3/"
+    },
+    {
+      "_class" : "hudson.model.FreeStyleBuild",
+      "number" : 2,
+      "url" : "http://localhost:8080/job/freestyle-api-7b22c673/2/"
+    },
+    {
+      "_class" : "hudson.model.FreeStyleBuild",
+      "number" : 1,
+      "url" : "http://localhost:8080/job/freestyle-api-7b22c673/1/"
+    }
+  ],
+  "color" : "blue_anime",
+  "firstBuild" : {
+    "_class" : "hudson.model.FreeStyleBuild",
+    "number" : 1,
+    "url" : "http://localhost:8080/job/freestyle-api-7b22c673/1/"
+  },
+  "healthReport" : [
+    {
+      "description" : "Build stability: No recent builds failed.",
+      "iconClassName" : "icon-health-80plus",
+      "iconUrl" : "health-80plus.png",
+      "score" : 100
+    }
+  ],
+  "inQueue" : false,
+  "keepDependencies" : false,
+  "lastBuild" : {
+    "_class" : "hudson.model.FreeStyleBuild",
+    "number" : 3,
+    "url" : "http://localhost:8080/job/freestyle-api-7b22c673/3/"
+  },
+  "lastCompletedBuild" : {
+    "_class" : "hudson.model.FreeStyleBuild",
+    "number" : 2,
+    "url" : "http://localhost:8080/job/freestyle-api-7b22c673/2/"
+  },
+  "lastFailedBuild" : null,
+  "lastStableBuild" : {
+    "_class" : "hudson.model.FreeStyleBuild",
+    "number" : 2,
+    "url" : "http://localhost:8080/job/freestyle-api-7b22c673/2/"
+  },
+  "lastSuccessfulBuild" : {
+    "_class" : "hudson.model.FreeStyleBuild",
+    "number" : 2,
+    "url" : "http://localhost:8080/job/freestyle-api-7b22c673/2/"
+  },
+  "lastUnstableBuild" : null,
+  "lastUnsuccessfulBuild" : null,
+  "nextBuildNumber" : 4,
+  "property" : [
+    
+  ],
+  "queueItem" : null,
+  "concurrentBuild" : false,
+  "disabled" : false,
+  "downstreamProjects" : [
+    
+  ],
+  "labelExpression" : null,
+  "scm" : {
+    "_class" : "hudson.scm.NullSCM"
+  },
+  "upstreamProjects" : [
+    
+  ]
+}
