@@ -46,8 +46,8 @@ class MultibranchPipelineConfigPage(BasePage):
     
     @allure.step("Redirect to the project\n's main page")
     def main_page_availability(self):
-        return self.find_element(By.XPATH, f"//h1[contains(text(), '{self.Projects_name.MBP_TITLE}')]")
-    
+        return self.find_element(By.XPATH, f"//h1[contains(normalize-space(.), '{self.Projects_name.MBP_TITLE}')]")
+        
     @allure.step("Re-enter the Configure page")
     def click_on_configure(self):
         return self.wait_to_be_clickable(self.Locators.CONFIGURE_OPTION).click()
