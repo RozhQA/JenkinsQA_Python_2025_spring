@@ -40,10 +40,3 @@ def test_add_property(multibranch_pipeline_config_page):
 
     with allure.step("Assert added/edited property value is correctly saved and displayed"):
         assert value == library_value, f"Value : {library_value} wasn't found"
-    
-
-def test_edit_property():
-    pass
-
-def test_remove_property():
-    pass
