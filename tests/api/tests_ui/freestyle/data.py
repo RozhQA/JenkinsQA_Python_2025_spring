@@ -31,15 +31,14 @@ class Config:
                 <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
                 <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
                 <triggers>
-                    <hudson.triggers.TimerTrigger>
-                    <spec>{timer}</spec>
-                    </hudson.triggers.TimerTrigger>
+                  <hudson.triggers.TimerTrigger>
+                  <spec>{timer}</spec>
+                  </hudson.triggers.TimerTrigger>
                 </triggers>
                 <concurrentBuild>false</concurrentBuild>
                 <builders>
                   <hudson.tasks.Shell>
-                    <command>echo ID=$(date +%s | cut -c1-2)
-                    sleep 35
+                    <command>sleep 35
                     </command>
                   </hudson.tasks.Shell>
                 </builders>
