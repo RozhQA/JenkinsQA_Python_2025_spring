@@ -1,9 +1,6 @@
 name: Run the tests on pull requests
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
